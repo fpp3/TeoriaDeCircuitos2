@@ -1,0 +1,46 @@
+\documentclass[]{informeutn}
+
+\usepackage{siunitx}
+\DeclareSIUnit\decade{dec}
+\usetikzlibrary{fpu}
+\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
+\addbibresource{fuentes.bib}
+
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{pdfpages}
+
+\lstdefinestyle{octave}{
+  backgroundcolor=\color{gray!10},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  frame=single,
+  breaklines=true,
+  captionpos=b,
+  language=Matlab
+}
+
+\materia{Teoría de Circuitos II}
+\titulo{Trabajo Práctico 1}
+\subtitulo{Análisis, Simulación e Implementación de SLIT}
+\comision{4R2}
+\autores{Gaston Grasso - 401892 \\
+         Franco Palombo - 401910 \\
+         Angelo Prieto - 401012}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+  
+  \input{chapters/1-introduccion.tex}
+  \input{chapters/2-desarrollo.tex}
+  \input{chapters/3-implementacion.tex}
+  \input{chapters/4-conclusiones.tex}
+  \input{chapters/5-anexos.tex}
+  
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+\end{document}

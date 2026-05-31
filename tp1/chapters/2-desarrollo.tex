@@ -1,0 +1,170 @@
+\chapter{Desarrollo Analitico}
+
+\section{Ejercicio 1}
+
+El circuito a analizar consiste en una red de dos etapas RC en cascada. El análisis se realiza considerando el circuito
+como una cadena de divisores resistivos en el dominio de Laplace (sin condiciones iniciales), tal como se muestra en la
+Figura \ref{crkt.ej1:esquematico}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \input{figures/crkt_ej1_esquematico.tex}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \begin{gather*}
+            R_1 = 100 \si{\kilo\ohm} \quad C_1 = 91 \si{\pico\farad} \\
+            R_2 = 182 \si{\kilo\ohm} \quad C_2 = 33 \si{\pico\farad}
+        \end{gather*}
+    \end{subfigure}
+    \caption{red RC de dos etapas.}
+    \label{crkt.ej1:esquematico}
+\end{figure}
+
+
+\subsection{Obtención de la Función de Transferencia}
+
+Se plantea el análisis etapa por etapa, asumiendo independencia entre las mismas (despreciando el efecto de carga de la
+segunda etapa sobre la primera):
+
+\begin{equation}
+    V_1 = \frac{V_i}{R_1 + \frac{1}{C_1 s}} \frac{1}{C_1 s}
+\end{equation}
+
+\begin{equation}
+    V_o = \frac{V_1}{R_2 + \frac{1}{C_2 s}} \frac{1}{C_2 s}
+\end{equation}
+Sustituyendo $V_1$ en la expresión de $V_o$, obtenemos la función de transferencia $H(s)$:
+{
+\allowdisplaybreaks
+\begin{align}
+    V_o &= \frac{1}{R_2 + \frac{1}{C_2 s}} \frac{1}{C_2 s} \frac{V_i}{R_1 + \frac{1}{C_1 s}} \frac{1}{C_1 s} \nonumber \\[6pt] 
+    H_{(s)} &= \frac{V_o}{V_i} = \frac{1}{R_2 + \frac{1}{C_2 s}} \frac{1}{C_2 s} \frac{1}{R_1 + \frac{1}{C_1 s}} \frac{1}{C_1 s} \nonumber \\[6pt]
+    H_{(s)} &= \frac{1}{R_2 C_2 s + 1} \frac{1}{R_1 C_1 s + 1} \nonumber \\[6pt]
+    H_{(s)} &= \frac{1}{R_1 R_2 C_1 C_2} \frac{1}{s + \frac{1}{R_2 C_2}} \frac{1}{s + \frac{1}{R_1 C_1}} \nonumber \\[6pt]
+    H_{(s)} &=  \frac{\frac{1}{R_1 R_2 C_1 C_2}}{\left(s + \frac{1}{R_2 C_2}\right) \left(s + \frac{1}{R_1 C_1}\right)}
+    \label{eq.ej1:fdt_simbolica}
+\end{align}
+}
+Substituyendo numericamente obtenemos:
+\begin{equation}
+    H_{(s)} =  \frac{18,\!2967 \times 10^9}{\left(s + 166500,\!1665\right) \left(s + 109890,\!1099\right)}
+    \label{eq.ej1:fdt_numerica}
+\end{equation}
+
+\subsection{Valor de continua, ceros y polos}
+
+La componente de continua del sistema se puede obtener normalizando la funcion de transferencia \ref{eq.ej1:fdt_numerica} de
+forma que queden los polos y ceros de la forma $ks \pm 1$. Haciendo $20\log_{10}\left(K_{te}\right)$ podemos obtener la
+componente de continua del sistema:
+
+\begin{align*}
+    K_{te} &= 20 log_{10}\left(18,\!2967 \times 10^9 \cdot \frac{1}{166500,\!1665} \cdot \frac{1}{109890,\!1099}\right) \\[6pt]
+    K_{te} &= -10,\!25 \times 10^{-6} \si{\decibel} \approx 0 \si{\decibel}
+\end{align*}
+
+El sistema carece de ceros. Los polos del sistema se encuentran en:
+\begin{align*}
+    \omega &= 166500,\!1665 \approx 1,\!6 \times 10^5 \si{\radian\per\second} \\[6pt]
+    \omega &= 109890,\!1099 \approx 10^5 \si{\radian\per\second}
+\end{align*}
+
+
+\subsection{Analisis fasorial}
+
+Para obtener la respuesta en frecuencia de forma polar, pasamos a la forma fasorial haciendo $s \to j\omega$. Partiendo
+de \ref{eq.ej1:fdt_simbolica}, multiplicando los polos y la constante del numerador, obtenemos:
+
+\begin{equation}
+    H(j\omega) = \frac{1}{(1 - \omega^2 R_1 R_2 C_1 C_2) + j\omega(R_1 C_1 + R_2 C_2)}
+\end{equation}
+Para separar las partes real e imaginaria, multiplicamos y dividimos por el conjugado del denominador:
+\begin{equation*}
+    H(j\omega) = \frac{(1 - \omega^2 R_1 R_2 C_1 C_2) - j\omega(R_1 C_1 + R_2 C_2)}{(1 - \omega^2 R_1 R_2 C_1 C_2)^2 + \omega^2(R_1 C_1 + R_2 C_2)^2}
+\end{equation*}
+De donde se obtienen las expresiones para el análisis del diagrama polar:
+\begin{align}
+    \Re\left\{H_{(j\omega)}\right\} &= \frac{1 - \omega^2 R_1 R_2 C_1 C_2}{(1 - \omega^2 R_1 R_2 C_1 C_2)^2 + \omega^2(R_1 C_1 + R_2 C_2)^2} \nonumber \\[6pt]
+    \Re\left\{H_{(j\omega)}\right\} &= \frac{1 - \omega^2 54,\!65 \times 10^{-12}}{(1 - \omega^2 54,\!65 \times 10^{-12})^2 + \omega^2 (9,\!1 \times 10^{-6} + 6 \times 10^{-6})^2}
+    \label{eq.ej1:re_h}
+\end{align}
+
+\begin{align}
+    \Im\left\{H_{(j\omega)}\right\} &= \frac{-\omega(R_1 C_1 + R_2 C_2)}{(1 - \omega^2 R_1 R_2 C_1 C_2)^2 + \omega^2(R_1 C_1 + R_2 C_2)^2} \nonumber \\[6pt]
+    \Im\left\{H_{(j\omega)}\right\} &= \frac{- \omega (9,\!1 \times 10^{-6} + 6 \times 10^{-6})}{(1 - \omega^2 54,\!65 \times 10^{-12})^2 + \omega^2 (9,\!1 \times 10^{-6} + 6 \times 10^{-6})^2}
+    \label{eq.ej1:im_h}
+\end{align}
+
+\subsection{Diagrama Polar}
+
+Para trazar el diagrama polar, se evalúan las ecuaciones \ref{eq.ej1:re_h} e \ref{eq.ej1:im_h} para diferentes valores de
+frecuencia angular $\omega$. Los resultados se resumen en la Tabla \ref{tab.ej1:puntos_polar} y la figura
+\ref{fig.ej1:polar_hand}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{figures/plot_ej1_polar.tex}
+        }
+        \caption{diagrama polar.}
+        \label{fig.ej1:polar_hand}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\omega$ [\SI{}{\radian\per\second}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ \\ \hline
+            0 & 1 & 0 \\ \hline
+            1 & 0,99 & $\approx 0$ \\ \hline
+            $10^4$ & 0,98 & -0,14 \\ \hline
+            $2 \cdot 10^4$ & 0,93 & -0,28 \\ \hline
+            $3 \cdot 10^4$ & 0,85 & -0,4 \\ \hline
+            $5 \cdot 10^4$ & 0,65 & -0,57 \\ \hline
+            $7 \cdot 10^4$ & 0,44 & -0,63 \\ \hline
+            $9 \cdot 10^4$ & 0,25 & -0,62 \\ \hline
+            $10^5$ & 0,18 & -0,6 \\ \hline
+        \end{tabular}
+        \caption{puntos calculados para el diagrama.}
+        \label{tab.ej1:puntos_polar}
+    \end{subfigure}
+    \caption{analisis polar.}
+\end{figure}
+
+\subsection{Diagrama de Bode}
+
+En la Figura \ref{fig.ej1:bode_octave} se presentan los diagramas de magnitud y fase generados mediante la herramienta
+\texttt{Octave}, utilizando la biblioteca \texttt{bodas} \cite{bodas}. Estos gráficos corroboran los resultados
+del desarrollo analítico realizado manualmente (cuyo registro se encuentra en el Anexo \ref{sec.ej1:anexo_papel}).
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \input{figures/plot_ej1_bode_octave_ganancia.tex}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \vspace{-1cm}
+        \input{figures/plot_ej1_bode_octave_fase.tex}
+    \end{subfigure}
+    \caption{Diagramas de Bode (Magnitud y Fase) generados con Octave.}
+    \label{fig.ej1:bode_octave}
+\end{figure}
+
+\subsection{Simulación y Comparación}
+
+Para validar los resultados teóricos y de cálculo, se realizó una simulación del circuito en \texttt{KiCad} utilizando
+el análisis de pequeña señal (AC). En la Figura \ref{fig.ej1:simulacion_kicad} se observa la respuesta en frecuencia obtenida, la
+cual presenta una total coincidencia con los gráficos anteriormente analizados.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej1_simulacion_kicad.tex}
+    \caption{Respuesta en frecuencia simulada.}
+    \label{fig.ej1:simulacion_kicad}
+\end{figure}
