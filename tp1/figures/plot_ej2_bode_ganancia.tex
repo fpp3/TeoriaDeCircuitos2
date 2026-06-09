@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+    \begin{semilogxaxis}[
+        width=15cm,
+        height=8cm,
+        grid=both,
+        xlabel={$f$ [Hz]},
+        ylabel={Magnitud [dB]},
+        xmin=0.01, xmax=1e7,
+        ymin=-110, ymax=10,
+        legend pos=south west,
+        major grid style={solid, gray!30},
+        minor grid style={dotted, gray!30},
+    ]
+        % Asymptotic
+        \addplot[red, dashed, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=1] {sources/plots/ej2/bode_asintotico.csv};
+        \addlegendentry{Asintótico}
+        
+        % Exact
+        \addplot[blue, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=1] {sources/plots/ej2/bode_exacto.csv};
+        \addlegendentry{Exacto}
+    \end{semilogxaxis}
+\end{tikzpicture}

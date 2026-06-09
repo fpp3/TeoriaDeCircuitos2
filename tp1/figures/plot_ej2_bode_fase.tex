@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+    \begin{semilogxaxis}[
+        width=15cm,
+        height=8cm,
+        grid=both,
+        xlabel={$f$ [Hz]},
+        ylabel={Fase [º]},
+        xmin=0.01, xmax=1e7,
+        ymin=-110, ymax=110,
+        ytick={-90, -45, 0, 45, 90},
+        major grid style={solid, gray!30},
+        minor grid style={dotted, gray!30},
+        legend pos=south east,
+    ]
+        % Asymptotic Phase
+        \addplot[red, dashed, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=2] {sources/plots/ej2/bode_asintotico.csv};
+        \addlegendentry{Asintótico}
+        
+        % Exact Phase
+        \addplot[blue, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=2] {sources/plots/ej2/bode_exacto.csv};
+        \addlegendentry{Exacto}
+    \end{semilogxaxis}
+\end{tikzpicture}

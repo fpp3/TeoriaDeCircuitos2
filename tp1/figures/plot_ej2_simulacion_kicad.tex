@@ -1,0 +1,41 @@
+\begin{tikzpicture}
+    \pgfplotsset{
+        nice plot/.style={
+            /pgf/number format/read comma as period,
+            grid=both,
+            major grid style={solid, gray!50},
+            minor grid style={dotted, gray!50},
+            axis line style={black},
+            axis x line* = bottom,
+            axis y line* = left,
+            extra description/.code={
+                \draw[gray!50] (rel axis cs:0,1) -- (rel axis cs:1,1) -- (rel axis cs:1,0);
+            },
+            width=15cm,
+            height=7cm,
+            xmin=0.01, xmax=1e7,
+            minor x tick num=9,
+            minor y tick num=0,
+        }
+    }
+
+    \begin{semilogxaxis}[
+        nice plot,
+        xlabel={$f$ [Hz]},
+        ylabel={Magnitud [dB]},
+        ymin=-110, ymax=10,
+    ]
+        \addplot[thick, blue, filter discard warning=false] table [col sep=comma, x=frequency, y=magnitude] {sources/plots/ej2/bode_simulado.csv};
+    \end{semilogxaxis}
+
+    \begin{semilogxaxis}[
+        nice plot,
+        xlabel={$f$ [Hz]},
+        ylabel={Fase [º]},
+        ymin=-110, ymax=110,
+        ytick={-90, -45, 0, 45, 90},
+        at={(0,-9.0cm)},
+    ]
+        \addplot[thick, red, filter discard warning=false] table [col sep=comma, x=frequency, y=phase] {sources/plots/ej2/bode_simulado.csv};
+    \end{semilogxaxis}
+\end{tikzpicture}

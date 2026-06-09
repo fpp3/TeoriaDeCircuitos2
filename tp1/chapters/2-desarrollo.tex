@@ -159,8 +159,8 @@ del desarrollo analítico realizado manualmente (cuyo registro se encuentra en e
 \subsection{Simulación y Comparación}
 
 Para validar los resultados teóricos y de cálculo, se realizó una simulación del circuito en \texttt{KiCad} utilizando
-el análisis de pequeña señal (AC). En la Figura \ref{fig.ej1:simulacion_kicad} se observa la respuesta en frecuencia obtenida, la
-cual presenta una total coincidencia con los gráficos anteriormente analizados.
+el análisis de pequeña señal (AC). En la Figura \ref{fig.ej1:simulacion_kicad} se observa la respuesta en frecuencia
+obtenida, la cual presenta una total coincidencia con los gráficos anteriormente analizados.
 
 \begin{figure}[!ht]
     \centering
@@ -168,3 +168,212 @@ cual presenta una total coincidencia con los gráficos anteriormente analizados.
     \caption{Respuesta en frecuencia simulada.}
     \label{fig.ej1:simulacion_kicad}
 \end{figure}
+
+\clearpage
+
+\section{Ejercicio 2}
+
+El circuito a analizar consiste en una red RLC que se comporta como un filtro rechaza-banda (notch). El análisis se
+realiza en el dominio de Laplace (sin condiciones iniciales) considerando el circuito como un divisor de tensión,
+tal como se muestra en la Figura \ref{crkt.ej2:esquematico}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \input{figures/crkt_ej2_esquematico.tex}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \begin{gather*}
+            R = 100 \si{\kilo\ohm} \\
+            C = 3,\!18 \si{\micro\farad} \\
+            L = 31,\!83 \si{\milli\henry}
+        \end{gather*}
+    \end{subfigure}
+    \caption{Red RLC notch (rechaza-banda).}
+    \label{crkt.ej2:esquematico}
+\end{figure}
+
+
+\subsection{Obtención de la Función de Transferencia}
+
+La impedancia de la rama en derivación (shunt), formada por la conexión en serie del inductor $L$ y el capacitor $C$,
+se plantea como:
+\begin{equation}
+    Z_{LC}(s) = L s + \frac{1}{C s} = \frac{L C s^2 + 1}{C s}
+\end{equation}
+
+Aplicando el divisor de tensión, la tensión de salida $V_o(s)$ en función de la tensión de entrada $V_i(s)$ resulta:
+\begin{equation}
+    V_o(s) = V_i(s) \frac{Z_{LC}(s)}{R + Z_{LC}(s)}
+\end{equation}
+
+Sustituyendo $Z_{LC}(s)$ obtenemos la función de transferencia simbólica $H(s)$:
+{
+\allowdisplaybreaks
+\begin{align}
+    H(s) &= \frac{V_o(s)}{V_i(s)} = \frac{\frac{L C s^2 + 1}{C s}}{R + \frac{L C s^2 + 1}{C s}} \nonumber \\[6pt]
+    H(s) &= \frac{L C s^2 + 1}{L C s^2 + R C s + 1} \nonumber \\[6pt]
+    H(s) &= \frac{s^2 + \frac{1}{LC}}{s^2 + \frac{R}{L} s + \frac{1}{LC}}
+    \label{eq.ej2:fdt_simbolica}
+\end{align}
+}
+
+Sustituyendo numéricamente con los valores asignados:
+\begin{align*}
+    L C &= 31,\!83 \times 10^{-3} \si{\henry} \times 3,\!18 \times 10^{-6} \si{\farad} \\
+    &\approx 1,\!012194 \times 10^{-7} \si{\second\squared} \\[6pt]
+    R C &= 100 \si{\kilo\ohm} \times 3,\!18 \si{\micro\farad} = 0,\!318 \si{\second} \\[6pt]
+    \frac{R}{L} &= \frac{100 \si{\kilo\ohm}}{31,\!83 \si{\milli\henry}} \\
+    &\approx 3,\!14169 \times 10^6 \si{\radian\per\second} \\[6pt]
+    \frac{1}{LC} &= \omega_0^2 \approx 9,\!8795 \times 10^6 \si{\radian\squared\per\second\squared}
+\end{align*}
+
+Reemplazando estos coeficientes en la ecuación \ref{eq.ej2:fdt_simbolica}, se obtiene la función de transferencia
+numérica:
+\begin{equation}
+    H(s) = \frac{s^2 + 9,\!8795 \times 10^6}{s^2 + 3,\!1417 \times 10^6 s + 9,\!8795 \times 10^6}
+    \label{eq.ej2:fdt_numerica}
+\end{equation}
+
+
+\subsection{Valor de continua, ceros y polos}
+
+El valor de ganancia en continua (DC) se calcula evaluando la función de transferencia en $s = 0$:
+\begin{equation*}
+    H(0) = \frac{9,\!8795 \times 10^6}{9,\!8795 \times 10^6} = 1 \implies 20\log_{10}(1) = 0 \si{\decibel}
+\end{equation*}
+
+De igual manera, el límite de alta frecuencia ($s \to \infty$) tiende a la unidad:
+\begin{equation*}
+    \lim_{s \to \infty} H(s) = 1 \implies 0 \si{\decibel}
+\end{equation*}
+
+Los ceros del sistema corresponden a las raíces del numerador de la función de transferencia:
+\begin{equation*}
+    s^2 + \omega_0^2 = 0 \implies s_{z1,z2} = \pm j \omega_0 \approx \pm j 3143,\!17 \si{\radian\per\second}
+\end{equation*}
+Lo cual representa un par de ceros conjugados sobre el eje imaginario, con una frecuencia de resonancia de
+$f_0 = \frac{\omega_0}{2\pi} \approx 500,\!25 \si{\hertz}$. En este punto la ganancia es
+nula ($-\infty \si{\decibel}$).
+
+Los polos corresponden a las raíces del polinomio del denominador:
+\begin{equation*}
+    s^2 + \frac{R}{L}s + \omega_0^2 = 0
+\end{equation*}
+Debido a que la constante de amortiguamiento cumple $\left(\frac{R}{2L}\right)^2 \gg \omega_0^2$, los polos son
+reales y distintos:
+\begin{align*}
+    s_{p1,p2} &= \frac{-R/L \pm \sqrt{(R/L)^2 - 4\omega_0^2}}{2} \\[6pt]
+    s_{p1} &\approx -\frac{1}{RC} \approx -3,\!145 \si{\radian\per\second} \\
+    &\quad (f_{p1} \approx 0,\!50 \si{\hertz}) \\[6pt]
+    s_{p2} &\approx -\frac{R}{L} \approx -3,\!142 \times 10^6 \si{\radian\per\second} \\
+    &\quad (f_{p2} \approx 500 \si{\kilo\hertz})
+\end{align*}
+
+
+\subsection{Análisis fasorial}
+
+Sustituyendo $s = j\omega$ en la ecuación \ref{eq.ej2:fdt_simbolica}, se obtiene la expresión fasorial:
+\begin{equation}
+    H(j\omega) = \frac{\omega_0^2 - \omega^2}{\omega_0^2 - \omega^2 + j\omega\frac{R}{L}}
+\end{equation}
+
+Para separar la parte real de la imaginaria, multiplicamos por el conjugado del denominador:
+\begin{equation*}
+    H(j\omega) = \frac{(\omega_0^2 - \omega^2)\left[(\omega_0^2 - \omega^2) -
+    j\omega\frac{R}{L}\right]}{(\omega_0^2 - \omega^2)^2 + \omega^2\left(\frac{R}{L}\right)^2}
+\end{equation*}
+
+Deduciendo las componentes real e imaginaria:
+\begin{equation}
+    \Re\left\{H(j\omega)\right\} =
+    \frac{(\omega_0^2 - \omega^2)^2}{(\omega_0^2 - \omega^2)^2 + \omega^2\left(\frac{R}{L}\right)^2}
+    \label{eq.ej2:re_h}
+\end{equation}
+\begin{equation}
+    \Im\left\{H(j\omega)\right\} =
+    \frac{-\omega\frac{R}{L}(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2)^2 + \omega^2\left(\frac{R}{L}\right)^2}
+    \label{eq.ej2:im_h}
+\end{equation}
+
+
+\subsection{Diagrama Polar}
+
+Para trazar el diagrama polar, evaluamos las ecuaciones \ref{eq.ej2:re_h} e \ref{eq.ej2:im_h}. Definiendo
+$X = \Re\left\{H(j\omega)\right\}$ e $Y = \Im\left\{H(j\omega)\right\}$, se verifica la relación:
+\begin{equation*}
+    X^2 + Y^2 = X \implies \left(X - 0,\!5\right)^2 + Y^2 = 0,\!5^2
+\end{equation*}
+Esta representa una circunferencia de diámetro unitario centrada en $(0,\!5; 0)$ en el plano complejo, la cual
+se recorre en sentido horario a medida que aumenta la frecuencia, partiendo de $(1; 0)$ para $\omega = 0$, pasando
+por el origen $(0; 0)$ en la sintonía $\omega = \omega_0$ y regresando a $(1; 0)$ para $\omega \to \infty$.
+
+Los puntos analizados se resumen en la Tabla \ref{tab.ej2:puntos_polar} y el gráfico en la Figura \ref{fig.ej2:polar}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{figures/plot_ej2_polar.tex}
+        }
+        \caption{Diagrama polar.}
+        \label{fig.ej2:polar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $f$ [\SI{}{\hertz}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ \\ \hline
+            0 & 1 & 0 \\ \hline
+            0,\!5 & 0,\!5 & -0,\!5 \\ \hline
+            50 & $\approx 0$ & -0,\!01 \\ \hline
+            500 & 0 & 0 \\ \hline
+            5000 & $\approx 0$ & 0,\!01 \\ \hline
+            500 \si{\kilo\hertz} & 0,\!5 & 0,\!5 \\ \hline
+            $\infty$ & 1 & 0 \\ \hline
+        \end{tabular}
+        \caption{puntos calculados para el diagrama.}
+        \label{tab.ej2:puntos_polar}
+    \end{subfigure}
+    \caption{Análisis de respuesta en frecuencia polar.}
+\end{figure}
+
+
+\subsection{Diagrama de Bode}
+
+En la Figura \ref{fig.ej2:bode} se presentan los diagramas de magnitud (incluyendo las asíntotas y la curva exacta)
+y fase obtenidos a partir de los datos calculados.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \input{figures/plot_ej2_bode_ganancia.tex}
+    \end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \vspace{0.4cm}
+        \input{figures/plot_ej2_bode_fase.tex}
+    \end{subfigure}
+    \caption{Diagramas de Bode (Magnitud y Fase) para el Ejercicio 2.}
+    \label{fig.ej2:bode}
+\end{figure}
+
+
+\subsection{Simulación y Comparación}
+
+Para validar los resultados teóricos, se simuló el circuito de la segunda etapa utilizando la herramienta de simulación
+\texttt{LTspice}. En la Figura \ref{fig.ej2:simulacion_ltspice} se presenta la respuesta en frecuencia simulada (módulo
+y fase), la cual muestra una perfecta concordancia con las curvas teóricas calculadas.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej2_simulacion_kicad.tex}
+    \caption{Respuesta en frecuencia simulada en LTspice.}
+    \label{fig.ej2:simulacion_ltspice}
+\end{figure}
+
