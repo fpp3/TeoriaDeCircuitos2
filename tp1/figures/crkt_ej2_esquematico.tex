@@ -1,8 +1,8 @@
 \begin{circuitikz}[american]
-    \draw (0,0) to[V, l=$V_i(s)$] (0,2)
-    to[R, l=$R$] (3,2)
-    to[L, l=$L$] (3,1)
-    to[C, l=$C$] (3,0) -- (0,0);
-    \draw (3,2) to[short, -*] (3.8,2) node[above] {$V_o(s)$};
-    \node[ground] at (3,0) {};
+    \draw (0,4) to[V, l=$V_i(s)$] (0,0);
+    \draw (0,4) to[R, l=$R$] (4,4)
+    to[L, l=$L$] (4,2)
+    to[C, l=$C$] (4,0) -- (0,0);
+    \draw (4,4) to[short, -*] (4.8,4) node[above] {$V_o(s)$};
+    \node[ground] at (4,0) {};
 \end{circuitikz}

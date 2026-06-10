@@ -173,7 +173,7 @@ obtenida, la cual presenta una total coincidencia con los gráficos anteriorment
 
 \section{Ejercicio 2}
 
-El circuito a analizar consiste en una red RLC que se comporta como un filtro rechaza-banda (notch). El análisis se
+El circuito a analizar consiste en una red RLC que se comporta como un filtro rechaza-banda. El análisis se
 realiza en el dominio de Laplace (sin condiciones iniciales) considerando el circuito como un divisor de tensión,
 tal como se muestra en la Figura \ref{crkt.ej2:esquematico}.
 
@@ -191,7 +191,7 @@ tal como se muestra en la Figura \ref{crkt.ej2:esquematico}.
             L = 31,\!83 \si{\milli\henry}
         \end{gather*}
     \end{subfigure}
-    \caption{Red RLC notch (rechaza-banda).}
+    \caption{Red RLC rechaza-banda.}
     \label{crkt.ej2:esquematico}
 \end{figure}
 
@@ -247,30 +247,62 @@ El valor de ganancia en continua (DC) se calcula evaluando la función de transf
 
 De igual manera, el límite de alta frecuencia ($s \to \infty$) tiende a la unidad:
 \begin{equation*}
-    \lim_{s \to \infty} H(s) = 1 \implies 0 \si{\decibel}
+    \lim_{s \to \infty} H(s) = 1
 \end{equation*}
-
-Los ceros del sistema corresponden a las raíces del numerador de la función de transferencia:
+Los ceros de la función de transferencia se calculan igualando el numerador a cero:
+\begin{equation}
+    N(s) = s^2 + \omega_0^2 = 0
+\end{equation}
+De aquí se obtiene de forma directa un par de ceros conjugados ubicados en el eje imaginario:
+\begin{equation}
+    s_{z1,z2} = \pm j \omega_0
+\end{equation}
+Reemplazando con los valores de $L$ y $C$:
+\begin{align*}
+    s_{z1,z2} &= \pm j \frac{1}{\sqrt{31,\!83 \si{\milli\henry} \times 3,\!18 \si{\micro\farad}}} \\
+    &= \pm j \frac{1}{\sqrt{1,\!012194 \times 10^{-7} \si{\second\squared}}} \\
+    &\approx \pm j 3143,\!17 \si{\radian\per\second}
+\end{align*}
+Esto define una frecuencia de resonancia de:
 \begin{equation*}
-    s^2 + \omega_0^2 = 0 \implies s_{z1,z2} = \pm j \omega_0 \approx \pm j 3143,\!17 \si{\radian\per\second}
+    f_0 = \frac{\omega_0}{2\pi} \approx 500,\!25 \si{\hertz}
 \end{equation*}
-Lo cual representa un par de ceros conjugados sobre el eje imaginario, con una frecuencia de resonancia de
-$f_0 = \frac{\omega_0}{2\pi} \approx 500,\!25 \si{\hertz}$. En este punto la ganancia es
-nula ($-\infty \si{\decibel}$).
+En esta frecuencia, la ganancia teórica de tensión se anula por completo ($-\infty \si{\decibel}$).
 
 Los polos corresponden a las raíces del polinomio del denominador:
-\begin{equation*}
-    s^2 + \frac{R}{L}s + \omega_0^2 = 0
-\end{equation*}
-Debido a que la constante de amortiguamiento cumple $\left(\frac{R}{2L}\right)^2 \gg \omega_0^2$, los polos son
-reales y distintos:
+\begin{equation}
+    D(s) = s^2 + \frac{R}{L}s + \omega_0^2 = 0
+\end{equation}
+Sustituyendo los valores numéricos correspondientes a los componentes:
+\begin{equation}
+    s^2 + 3,\!1417 \times 10^6 s + 9,\!8795 \times 10^6 = 0
+\end{equation}
+Al resolver esta ecuación cuadrática obtenemos dos raíces reales que representan los polos del sistema:
 \begin{align*}
-    s_{p1,p2} &= \frac{-R/L \pm \sqrt{(R/L)^2 - 4\omega_0^2}}{2} \\[6pt]
-    s_{p1} &\approx -\frac{1}{RC} \approx -3,\!145 \si{\radian\per\second} \\
-    &\quad (f_{p1} \approx 0,\!50 \si{\hertz}) \\[6pt]
-    s_{p2} &\approx -\frac{R}{L} \approx -3,\!142 \times 10^6 \si{\radian\per\second} \\
-    &\quad (f_{p2} \approx 500 \si{\kilo\hertz})
+    s_{p1} &\approx -3,\!1447 \si{\radian\per\second} \\
+    s_{p2} &\approx -3,\!1417 \times 10^6 \si{\radian\per\second}
 \end{align*}
+En términos de frecuencia en Hz, las frecuencias de quiebre asociadas resultan:
+\begin{align*}
+    f_{p1} &= \frac{|s_{p1}|}{2\pi} \approx 0,\!5 \si{\hertz} \\
+    f_{p2} &= \frac{|s_{p2}|}{2\pi} \approx 500 \si{\kilo\hertz}
+\end{align*}
+
+Podemos comprobar de manera directa que estos valores coinciden con las aproximaciones físicas dadas por los
+componentes del circuito:
+\begin{itemize}
+    \item El polo de baja frecuencia se asocia a la constante de tiempo del resistor y el capacitor:
+    \begin{equation*}
+        s_{p1} \approx -\frac{1}{RC} = -\frac{1}{100 \si{\kilo\ohm} \times 3,\!18 \si{\micro\farad}}
+        \approx -3,\!1447 \si{\radian\per\second} \quad (f_{p1} \approx 0,\!5 \si{\hertz})
+    \end{equation*}
+    \item El polo de alta frecuencia se asocia a la relación entre el resistor y el inductor:
+    \begin{equation*}
+        s_{p2} \approx -\frac{R}{L} = -\frac{100 \si{\kilo\ohm}}{31,\!83 \si{\milli\henry}}
+        \approx -3,\!1417 \times 10^6 \si{\radian\per\second} \quad (f_{p2} \approx 500 \si{\kilo\hertz})
+    \end{equation*}
+\end{itemize}
+Estos son los dos polos que definen los quiebres asintóticos en las respuestas de módulo y fase.
 
 
 \subsection{Análisis fasorial}
@@ -344,6 +376,41 @@ Los puntos analizados se resumen en la Tabla \ref{tab.ej2:puntos_polar} y el gr�
 
 
 \subsection{Diagrama de Bode}
+
+Para trazar el diagrama de Bode de forma asintótica, representamos la función de transferencia
+en su forma normalizada de constante de tiempo (forma de Bode), donde la ganancia a bajas frecuencias
+se hace explícita. Partiendo de la expresión con polos y ceros:
+\begin{equation}
+    H(s) = \frac{s^2 + \omega_0^2}{(s - s_{p1})(s - s_{p2})}
+\end{equation}
+Como los polos son reales y negativos ($s_{p1} \approx -3,\!15 \si{\radian\per\second}$ y
+$s_{p2} \approx -3,\!14 \times 10^6 \si{\radian\per\second}$), podemos definir sus frecuencias de quiebre
+absolutas en rad/s como $p_1 = |s_{p1}| \approx 3,\!15$ y $p_2 = |s_{p2}| \approx 3,\!14 \times 10^6$.
+Factorizando los términos constantes en el numerador y denominador:
+\begin{equation}
+    H(s) = \frac{\omega_0^2 \left(1 + \frac{s^2}{\omega_0^2}\right)}
+    {(-s_{p1})\left(1 - \frac{s}{s_{p1}}\right) (-s_{p2})\left(1 - \frac{s}{s_{p2}}\right)}
+    = \frac{\omega_0^2 \left(1 + \frac{s^2}{\omega_0^2}\right)}
+    {p_1 p_2 \left(1 + \frac{s}{p_1}\right)\left(1 + \frac{s}{p_2}\right)}
+\end{equation}
+Dado que el producto de los polos es igual al término independiente del denominador
+($p_1 p_2 = \omega_0^2 \approx 9,\!88 \times 10^6$), las constantes del numerador y del denominador
+se cancelan, resultando:
+\begin{equation}
+    H(s) \approx \frac{1 + \frac{s^2}{9,\!88 \times 10^6}}
+    {\left(1 + \frac{s}{3,\!15}\right)\left(1 + \frac{s}{3,\!14 \times 10^6}\right)}
+\end{equation}
+De esta expresión estandarizada se obtienen de forma directa las tres contribuciones individuales para el trazado
+de las curvas de magnitud y fase de Bode:
+\begin{itemize}
+    \item Un término de ceros conjugados en la frecuencia de resonancia: 
+    $1 + \frac{s^2}{9,\!88 \times 10^6}$ (donde $\omega_0 \approx 3143 \si{\radian\per\second}$, 
+    o $f_0 \approx 500 \si{\hertz}$).
+    \item Un polo simple de baja frecuencia: $\frac{1}{1 + s/3,\!15}$ 
+    (donde $p_1 \approx 3,\!15 \si{\radian\per\second}$, o $f_{p1} \approx 0,\!5 \si{\hertz}$).
+    \item Un polo simple de alta frecuencia: $\frac{1}{1 + s/(3,\!14 \times 10^6)}$ 
+    (donde $p_2 \approx 3,\!14 \times 10^6 \si{\radian\per\second}$, o $f_{p2} \approx 500 \si{\kilo\hertz}$).
+\end{itemize}
 
 En la Figura \ref{fig.ej2:bode} se presentan los diagramas de magnitud (incluyendo las asíntotas y la curva exacta)
 y fase obtenidos a partir de los datos calculados.

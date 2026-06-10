@@ -12,12 +12,29 @@
         minor grid style={dotted, gray!30},
         legend pos=south east,
     ]
-        % Asymptotic Phase
-        \addplot[red, dashed, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=2] {sources/plots/ej2/bode_asintotico.csv};
-        \addlegendentry{Asintótico}
+        % Exact phase (Column 5)
+        \addplot[blue, thick, each nth point=5, filter discard warning=false] 
+            table [col sep=comma, x index=0, y index=5] {sources/plots/ej2/bode_fase_individuales.csv};
+        \addlegendentry{$H_{\text{exacto}}(s)$}
+
+        % Asymptotic Sum (Column 1)
+        \addplot[red, dashed, thick, each nth point=5, filter discard warning=false] 
+            table [col sep=comma, x index=0, y index=1] {sources/plots/ej2/bode_fase_individuales.csv};
+        \addlegendentry{Suma Asintótica}
         
-        % Exact Phase
-        \addplot[blue, thick, each nth point=5, filter discard warning=false] table [col sep=comma, x index=0, y index=2] {sources/plots/ej2/bode_exacto.csv};
-        \addlegendentry{Exacto}
+        % Pole 1 contribution (Column 2)
+        \addplot[gray, dotted, thick, each nth point=5, filter discard warning=false] 
+            table [col sep=comma, x index=0, y index=2] {sources/plots/ej2/bode_fase_individuales.csv};
+        \addlegendentry{$1 / (1 + s/3,\!15)$}
+        
+        % Zeros contribution (Column 3)
+        \addplot[olive, dashdotted, thick, each nth point=5, filter discard warning=false] 
+            table [col sep=comma, x index=0, y index=3] {sources/plots/ej2/bode_fase_individuales.csv};
+        \addlegendentry{$1 + s^2/9,\!88\cdot 10^6$}
+        
+        % Pole 2 contribution (Column 4)
+        \addplot[orange, densely dotted, thick, each nth point=5, filter discard warning=false] 
+            table [col sep=comma, x index=0, y index=4] {sources/plots/ej2/bode_fase_individuales.csv};
+        \addlegendentry{$1 / (1 + s/3,\!14\cdot 10^6)$}
     \end{semilogxaxis}
 \end{tikzpicture}
