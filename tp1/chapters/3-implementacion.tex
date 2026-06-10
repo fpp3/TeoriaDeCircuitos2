@@ -1,1 +1,141 @@
-\chapter{Implementacion}
+\chapter{Implementación}
+
+En este capítulo se describe el proceso de implementación física de los tres circuitos analizados, 
+detallando la normalización de componentes, el montaje experimental y la comparación de los 
+resultados medidos con los teóricos y simulados.
+
+\section{Ejercicio 1: Filtro RC de dos etapas}
+
+Para la implementación del primer circuito, se utilizaron los valores normalizados más próximos 
+a los calculados en el capítulo de desarrollo.
+
+\subsection{Montaje y Mediciones}
+
+En la Figura \ref{fig.ej1:foto_implementacion} se muestra el circuito montado en protoboard.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image}
+    \caption{Fotografía del circuito implementado (Ejercicio 1).}
+    \label{fig.ej1:foto_implementacion}
+\end{figure}
+
+Se realizaron mediciones de la respuesta en frecuencia registrando la amplitud de salida para 
+diferentes frecuencias de entrada. Los resultados se resumen en la Tabla \ref{tab.ej1:mediciones}.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Mediciones de respuesta en frecuencia (Ejercicio 1).}
+    \label{tab.ej1:mediciones}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
+        % Placeholders para datos experimentales
+        100   & 1.0 & 0.99 & -0.08 & -2   \\ \hline
+        1000  & 1.0 & 0.95 & -0.44 & -15  \\ \hline
+        10000 & 1.0 & 0.50 & -6.02 & -45  \\ \hline
+        20000 & 1.0 & 0.25 & -12.04 & -70 \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Comparación con Simulación}
+
+En la Figura \ref{fig.ej1:bode_comparativa} se presenta la comparación entre la curva teórica 
+simulada y los puntos medidos experimentalmente.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej1_bode_comparativa.tex}
+    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 1).}
+    \label{fig.ej1:bode_comparativa}
+\end{figure}
+
+
+\section{Ejercicio 2: Filtro RLC Rechaza-Banda}
+
+La implementación del filtro RLC requirió la selección de un inductor y un capacitor comerciales, 
+ajustando el diseño a las disponibilidades del laboratorio.
+
+\subsection{Montaje y Mediciones}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image}
+    \caption{Fotografía del circuito implementado (Ejercicio 2).}
+    \label{fig.ej2:foto_implementacion}
+\end{figure}
+
+Las mediciones se centraron en identificar la frecuencia de resonancia (mínimo de ganancia). 
+Los datos se presentan en la Tabla \ref{tab.ej2:mediciones}.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Mediciones de respuesta en frecuencia (Ejercicio 2).}
+    \label{tab.ej2:mediciones}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
+        % Placeholders para datos experimentales
+        100   & 1.0 & 0.99 & -0.08 & 0    \\ \hline
+        500   & 1.0 & 0.10 & -20.0 & 0    \\ \hline
+        1000  & 1.0 & 0.90 & -0.91 & 0    \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Comparación con Simulación}
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej2_bode_comparativa.tex}
+    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 2).}
+    \label{fig.ej2:bode_comparativa}
+\end{figure}
+
+
+\section{Ejercicio 3: Filtro Activo con Amplificador Operacional}
+
+La implementación del tercer circuito corresponde a un filtro activo. Para el montaje se 
+utilizaron los valores de componentes especificados en la consigna, buscando su normalización 
+más próxima en caso de ser necesario.
+
+\begin{itemize}
+    \item $R_1 = 20 \si{\kilo\ohm}$
+    \item $R_2 = 400 \si{\kilo\ohm}$
+    \item $C_1 = 1,\!25 \si{\micro\farad}$
+    \item $C_2 = 15,\!625 \si{\nano\farad}$
+\end{itemize}
+
+\subsection{Montaje y Mediciones}
+
+En la Figura \ref{fig.ej3:foto_implementacion} se muestra el circuito montado, utilizando 
+un amplificador operacional de la familia TL08x alimentado simétricamente con $\pm 12 \si{\volt}$.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image}
+    \caption{Fotografía del circuito implementado (Ejercicio 3).}
+    \label{fig.ej3:foto_implementacion}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Mediciones de respuesta en frecuencia (Ejercicio 3).}
+    \label{tab.ej3:mediciones}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
+        % Placeholders para datos experimentales
+        10    & 1.0 & 2.0  & 6.02  & 0    \\ \hline
+        100   & 1.0 & 2.0  & 6.02  & -10  \\ \hline
+        1000  & 1.0 & 1.41 & 3.01  & -45  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Comparación con Simulación}
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej3_bode_comparativa.tex}
+    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 3).}
+    \label{fig.ej3:bode_comparativa}
+\end{figure}
