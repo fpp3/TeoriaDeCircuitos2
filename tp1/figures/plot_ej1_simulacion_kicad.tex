@@ -13,7 +13,7 @@
             },
             width=16cm,
             height=8cm,
-            xmin=1e4, xmax=1e8,
+            xmin=1e2, xmax=1e7,
             minor x tick num=9,
             minor y tick num=0,
         }
@@ -24,16 +24,16 @@
         ylabel={A [dB]},
         ymin=-120, ymax=0,
     ]
-        \addplot[thick, blue] table [x expr=\thisrow{frequency}*2*pi, y={V(/Vo) (ganancia)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
+        \addplot[thick, blue] table [x expr=\thisrow{frequency}, y={V(/Vo) (ganancia)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
     \end{semilogxaxis}
 
     \begin{semilogxaxis}[
         nice plot,
-        xlabel={$\omega$ [rad/s]},
+        xlabel={$\omega$ [Hz]},
         ylabel={$\phi$ [º]},
         ymin=-200, ymax=0,
         at={(0,-8.5cm)},
     ]
-        \addplot[thick, red] table [x expr=\thisrow{frequency}*2*pi, y={V(/Vo) (fase)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
+        \addplot[thick, red] table [x expr=\thisrow{frequency}, y={V(/Vo) (fase)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
     \end{semilogxaxis}
 \end{tikzpicture}

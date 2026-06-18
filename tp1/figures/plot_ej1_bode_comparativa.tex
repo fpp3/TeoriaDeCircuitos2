@@ -1,4 +1,73 @@
-% Placeholder para el gráfico comparativo del Ejercicio 1
 \begin{tikzpicture}
-    \node[draw, minimum width=0.8\textwidth, minimum height=5cm, dashed] {Bode Comparativo Ejercicio 1 (Placeholder)};
+    \pgfplotsset{
+        nice plot/.style={
+            /pgf/number format/read comma as period,
+            grid=both,
+            major grid style={solid, gray!50},
+            minor grid style={dotted, gray!50},
+            axis line style={black},
+            axis x line* = bottom,
+            axis y line* = left,
+            extra description/.code={
+                \draw[gray!50] (rel axis cs:0,1) -- (rel axis cs:1,1) -- (rel axis cs:1,0);
+            },
+            width=14cm,
+            height=6.5cm,
+            xmin=10, xmax=100000,
+            minor x tick num=9,
+            minor y tick num=4,
+        }
+    }
+
+    \begin{semilogxaxis}[
+        nice plot,
+        ylabel={Ganancia [dB]},
+        ymin=-40, ymax=5,
+        ytick={-40,-30,-20,-10,-3,0},
+        legend pos=south west,
+    ]
+        \addplot[thick, blue] table [x=frequency, y={V(/Vo) (ganancia)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
+        
+        \addplot[only marks, mark=*, red, thick] coordinates {
+            (500,-0.40)
+            (1000,-0.40)
+            (1500,-0.49)
+            (2000,-0.58)
+            (5000,-1.57)
+            (10000,-4.22)
+            (20000,-9.12)
+            (40000,-17.56)
+            (60000,-23.22)
+            (80000,-27.43)
+            (100000,-30.46)
+        };
+    \end{semilogxaxis}
+
+    \begin{semilogxaxis}[
+        nice plot,
+        xlabel={$f$ [Hz]},
+        ylabel={Fase [º]},
+        ymin=-180, ymax=10,
+        ytick={-180,-135,-90,-45,0},
+        at={(0,-6cm)},
+        legend pos=south west,
+    ]
+        \addplot[thick, blue] table [x=frequency, y={V(/Vo) (fase)}, col sep=semicolon] {sources/plots/tdc2_tp1_ej1};
+        \addlegendentry{Simulación (KiCad)}
+        
+        \addplot[only marks, mark=*, red, thick] coordinates {
+            (500,0)
+            (1000,-5)
+            (1500,-10)
+            (2000,-16)
+            (5000,-36)
+            (10000,-63)
+            (20000,-95)
+            (40000,-120)
+            (60000,-136)
+            (80000,-144)
+            (100000,-144)
+        };
+        \addlegendentry{Medición}
+    \end{semilogxaxis}
 \end{tikzpicture}
