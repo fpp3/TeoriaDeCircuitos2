@@ -50,23 +50,48 @@ simulada y los puntos medidos experimentalmente.
     \label{fig.ej1:bode_comparativa}
 \end{figure}
 
+\clearpage
 
 \section{Ejercicio 2: Filtro RLC Rechaza-Banda}
 
-La implementación del filtro RLC requirió la selección de un inductor y un capacitor comerciales, 
-ajustando el diseño a las disponibilidades del laboratorio.
+Como no se disponía de un inductor comercial con el valor de $L = 31,\!83 \si{\milli\henry}$ provisto por la
+consigna, se fabricó el componente bobinándolo a mano en el laboratorio. El inductor resultante midió
+$8 \si{\milli\henry}$ al medirlo con un puente LCR, como se ve en la Figura \ref{fig.ej2:inductor_lcr}.
+
+Para mantener la frecuencia de resonancia en $500 \si{\hertz}$, se realizó un escalado aproximado por 4
+en los componentes reactivos: la inductancia se redujo a la cuarta parte ($L' = 8 \si{\milli\henry}$) y la
+capacitancia se aumentó 4 veces ($C' \approx 12,\!72 \si{\micro\farad}$). Para esto, se colocaron
+capacitores de $10 \si{\micro\farad}$ y $2,\!2 \si{\micro\farad}$ en paralelo, sumando un valor nominal de
+$12,\!2 \si{\micro\farad}$. Por su parte, la resistencia se redujo también a la cuarta parte
+($R' \approx 25 \si{\kilo\ohm}$) para mantener el factor de calidad original del filtro. Esto se resolvió
+conectando dos resistencias de $51 \si{\kilo\ohm}$ en paralelo, sumando una resistencia nominal de
+$25,\!5 \si{\kilo\ohm}$.
 
 \subsection{Montaje y Mediciones}
 
+En la Figura \ref{fig.ej2:montaje_completo} se presenta la implementación física del circuito. En la
+subfigura \ref{fig.ej2:foto_implementacion} se observa el montaje en protoboard, mientras que la
+subfigura \ref{fig.ej2:inductor_lcr} muestra la medición del inductor bobinado a mano. Las mediciones
+se detallan en la Tabla \ref{tab.ej2:mediciones}.
+
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{example-image}
-    \caption{Fotografía del circuito implementado (Ejercicio 2).}
-    \label{fig.ej2:foto_implementacion}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/Implementacion_EJ2.jpeg}
+        \caption{Fotografía del circuito implementado.}
+        \label{fig.ej2:foto_implementacion}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/inductor_EJ2.jpeg}
+        \caption{Medición del inductor bobinado a mano en puente LCR.}
+        \label{fig.ej2:inductor_lcr}
+    \end{subfigure}
+    \caption{Implementación física y medición de componentes (Ejercicio 2).}
+    \label{fig.ej2:montaje_completo}
 \end{figure}
-
-Las mediciones se centraron en identificar la frecuencia de resonancia (mínimo de ganancia). 
-Los datos se presentan en la Tabla \ref{tab.ej2:mediciones}.
 
 \begin{table}[!ht]
     \centering
@@ -75,14 +100,24 @@ Los datos se presentan en la Tabla \ref{tab.ej2:mediciones}.
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
-        % Placeholders para datos experimentales
-        100   & 1.0 & 0.99 & -0.08 & 0    \\ \hline
-        500   & 1.0 & 0.10 & -20.0 & 0    \\ \hline
-        1000  & 1.0 & 0.90 & -0.91 & 0    \\ \hline
+        1      & 12.0 & 4.8   & -7.96  & -50  \\ \hline
+        10     & 12.0 & 0.6   & -26.02 & -79  \\ \hline
+        50     & 12.0 & 0.154 & -37.84 & -82  \\ \hline
+        100    & 12.0 & 0.087 & -42.79 & -97  \\ \hline
+        230    & 12.0 & 0.059 & -46.17 & -72  \\ \hline
+        500    & 12.0 & 0.0   & -60.0  & 0    \\ \hline
+        1000   & 12.0 & 0.048 & -47.96 & 86   \\ \hline
+        10000  & 12.0 & 0.226 & -34.50 & 86   \\ \hline
+        50000  & 12.0 & 1.1   & -20.76 & 86   \\ \hline
+        100000 & 12.0 & 2.4   & -13.98 & 64   \\ \hline
+        250000 & 12.0 & 8.6   & -2.89  & 45   \\ \hline
     \end{tabular}
 \end{table}
 
 \subsection{Comparación con Simulación}
+
+En la Figura \ref{fig.ej2:bode_comparativa} se presenta la comparación entre la curva teórica simulada y los
+puntos medidos experimentalmente.
 
 \begin{figure}[!ht]
     \centering
@@ -91,6 +126,48 @@ Los datos se presentan en la Tabla \ref{tab.ej2:mediciones}.
     \label{fig.ej2:bode_comparativa}
 \end{figure}
 
+\subsubsection{Análisis de Resultados}
+
+Al analizar la respuesta en frecuencia medida en el laboratorio para el filtro rechaza-banda RLC, se pueden
+extraer las siguientes conclusiones:
+
+\begin{itemize}
+    \item Frecuencia de resonancia: La mayor atenuación se midió a los $500 \si{\hertz}$, donde la tensión de
+    salida casi desaparece (llega a $0 \si{\volt}$ en el osciloscopio). Esto coincide muy bien con los
+    $500 \si{\hertz}$ teóricos de la consigna.
+    
+    \item Atenuación: En la frecuencia de resonancia la atenuación supera los $60 \si{\decibel}$ (como se
+    muestra en la Tabla \ref{tab.ej2:mediciones}). Al alejarse de la resonancia (ya sea hacia frecuencias
+    bajas como hacia frecuencias altas), la tensión de salida vuelve a subir hasta acercarse a los
+    $12 \si{\volt}$ de entrada, cumpliendo con la función de un rechaza-banda.
+    
+    \item Pérdidas de inserción: En los extremos (a $1 \si{\hertz}$ y a $250 \si{\kilo\hertz}$), la tensión
+    no llega a ser exactamente igual a los $12 \si{\volt}$ de entrada. Esto pasa porque la reactancia del
+    capacitor a baja frecuencia (cerca de $50 \si{\kilo\ohm}$ a $1 \si{\hertz}$) y la del inductor a alta
+    frecuencia (también cercana a $50 \si{\kilo\ohm}$ a $250 \si{\kilo\hertz}$) no son infinitas frente
+    al resistor de entrada de $100 \si{\kilo\ohm}$, dividiendo la tensión en la rama LC. Este efecto se
+    puede apreciar claramente en el gráfico comparativo de la Figura \ref{fig.ej2:bode_comparativa}.
+    
+    \item Comportamiento de la fase: Por debajo de los $500 \si{\hertz}$, la fase es negativa (cercana a
+    $-90 \si{\degree}$) porque el capacitor domina la impedancia de la rama LC. Al pasar por la resonancia
+    se produce la inversión de fase esperada, volviéndose positiva (cercana a $90 \si{\degree}$) debido a
+    que ahora domina el inductor. Finalmente, a frecuencias muy altas, la fase empieza a caer hacia
+    $0 \si{\degree}$, registrándose $45 \si{\degree}$ a los $250 \si{\kilo\hertz}$. Toda esta evolución
+    se puede contrastar con la curva simulada en la Figura \ref{fig.ej2:bode_comparativa}.
+\end{itemize}
+
+Asimismo, se obtuvo el espectro en frecuencia de la señal mediante la función FFT del osciloscopio
+para evaluar la selectividad y el rechazo en el dominio de la frecuencia. En la Figura \ref{fig.ej2:fft}
+se presenta la captura de dicha medición.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/FFT_Ej2.jpeg}
+    \caption{Captura de la FFT (Ejercicio 2).}
+    \label{fig.ej2:fft}
+\end{figure}
+
+\clearpage
 
 \section{Ejercicio 3: Filtro Activo con Amplificador Operacional}
 

@@ -1,4 +1,54 @@
-% Placeholder para el gráfico comparativo del Ejercicio 2
 \begin{tikzpicture}
-    \node[draw, minimum width=0.8\textwidth, minimum height=5cm, dashed] {Bode Comparativo Ejercicio 2 (Placeholder)};
+    % Upper Plot (Magnitude)
+    \begin{semilogxaxis}[
+        name=plot_mag,
+        width=13.5cm,
+        height=6.5cm,
+        grid=both,
+        xlabel={$f$ [Hz]},
+        ylabel={Magnitud [dB]},
+        xmin=1, xmax=3e5,
+        ymin=-60, ymax=5,
+        legend pos=south west,
+        major grid style={solid, gray!30},
+        minor grid style={dotted, gray!30},
+    ]
+        % Simulated magnitude
+        \addplot[blue, thick, filter discard warning=false] 
+            table [col sep=comma, x=frequency, y=magnitude] {sources/plots/ej2/bode_simulado.csv};
+        \addlegendentry{Simulación}
+        
+        % Measured magnitude (points)
+        \addplot[red, mark=*, only marks, mark size=2pt, filter discard warning=false] 
+            table [col sep=comma, x=frequency, y=magnitude] {sources/plots/ej2/bode_medido.csv};
+        \addlegendentry{Medición}
+    \end{semilogxaxis}
+
+    % Lower Plot (Phase)
+    \begin{semilogxaxis}[
+        at={(plot_mag.south)},
+        anchor=north,
+        yshift=-1.5cm,
+        width=13.5cm,
+        height=6.5cm,
+        grid=both,
+        xlabel={$f$ [Hz]},
+        ylabel={Fase [$^\circ$]},
+        xmin=1, xmax=3e5,
+        ymin=-110, ymax=110,
+        ytick={-90, -45, 0, 45, 90},
+        legend pos=north west,
+        major grid style={solid, gray!30},
+        minor grid style={dotted, gray!30},
+    ]
+        % Simulated phase
+        \addplot[blue, thick, filter discard warning=false] 
+            table [col sep=comma, x=frequency, y=phase] {sources/plots/ej2/bode_simulado.csv};
+        \addlegendentry{Simulación}
+        
+        % Measured phase (points)
+        \addplot[red, mark=*, only marks, mark size=2pt, filter discard warning=false] 
+            table [col sep=comma, x=frequency, y=phase] {sources/plots/ej2/bode_medido.csv};
+        \addlegendentry{Medición}
+    \end{semilogxaxis}
 \end{tikzpicture}
