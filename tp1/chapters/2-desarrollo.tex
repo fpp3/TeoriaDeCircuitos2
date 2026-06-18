@@ -145,12 +145,16 @@ del desarrollo analítico realizado manualmente (cuyo registro se encuentra en e
     \centering
     \begin{subfigure}[t]{\textwidth}
         \centering
-        \input{figures/plot_ej1_bode_octave_ganancia.tex}
+        \resizebox{\textwidth}{!}{%
+            \input{figures/plot_ej1_bode_octave_ganancia.tex}%
+        }
     \end{subfigure}
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \vspace{-1cm}
-        \input{figures/plot_ej1_bode_octave_fase.tex}
+        \vspace{-0.5cm}
+        \resizebox{\textwidth}{!}{%
+            \input{figures/plot_ej1_bode_octave_fase.tex}%
+        }
     \end{subfigure}
     \caption{Diagramas de Bode (Magnitud y Fase) generados con Octave.}
     \label{fig.ej1:bode_octave}
@@ -444,3 +448,178 @@ y fase), la cual muestra una perfecta concordancia con las curvas teóricas calc
     \label{fig.ej2:simulacion_ltspice}
 \end{figure}
 
+\clearpage
+
+\section{Ejercicio 3}
+
+El circuito a analizar consiste en una red activa paso-banda utilizando un amplificador operacional en configuración
+inversora. El análisis se realiza en el dominio de Laplace (sin condiciones iniciales) considerando la impedancia de
+entrada y la impedancia de realimentación, tal como se muestra en la Figura \ref{crkt.ej3:esquematico}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.5\textwidth}
+        \centering
+        \input{sources/tdc2_tp1_ej3/circuito_ej3.tikz}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \begin{gather*}
+            R_1 = 20 \si{\kilo\ohm} \quad C_1 = 1,\!25 \si{\micro\farad} \\
+            R_2 = 400 \si{\kilo\ohm} \quad C_2 = 15,\!625 \si{\nano\farad}
+        \end{gather*}
+    \end{subfigure}
+    \caption{Red activa paso-banda con amplificador operacional.}
+    \label{crkt.ej3:esquematico}
+\end{figure}
+
+\subsection{Obtención de la Función de Transferencia}
+
+La impedancia de entrada $Z_1(s)$, formada por la conexión en serie del resistor $R_1$ y el capacitor $C_1$, se plantea como:
+\begin{equation}
+    Z_1(s) = R_1 + \frac{1}{C_1 s} = \frac{R_1 C_1 s + 1}{C_1 s}
+\end{equation}
+
+La impedancia de realimentación $Z_2(s)$, formada por la conexión en paralelo del resistor $R_2$ y el capacitor $C_2$, se expresa como:
+\begin{equation}
+    Z_2(s) = \frac{R_2 \cdot \frac{1}{C_2 s}}{R_2 + \frac{1}{C_2 s}} = \frac{R_2}{R_2 C_2 s + 1}
+\end{equation}
+
+Considerando un amplificador operacional ideal en configuración inversora, la función de transferencia resulta de la relación:
+\begin{equation}
+    H(s) = \frac{V_o(s)}{V_i(s)} = -\frac{Z_2(s)}{Z_1(s)}
+\end{equation}
+
+Sustituyendo las expresiones de las impedancias:
+{
+\allowdisplaybreaks
+\begin{align}
+    H(s) &= -\frac{\frac{R_2}{R_2 C_2 s + 1}}{\frac{R_1 C_1 s + 1}{C_1 s}} \nonumber \\[6pt]
+    H(s) &= -\frac{R_2 C_1 s}{(R_1 C_1 s + 1)(R_2 C_2 s + 1)} \nonumber \\[6pt]
+    H(s) &= -\frac{R_2 C_1}{R_1 C_1 R_2 C_2} \frac{s}{\left(s + \frac{1}{R_1 C_1}\right) \left(s + \frac{1}{R_2 C_2}\right)} \nonumber \\[6pt]
+    H(s) &= -\frac{1}{R_1 C_2} \frac{s}{\left(s + \frac{1}{R_1 C_1}\right) \left(s + \frac{1}{R_2 C_2}\right)}
+    \label{eq.ej3:fdt_simbolica}
+\end{align}
+}
+
+Sustituyendo con los valores numéricos asignados:
+\begin{align*}
+    R_1 C_1 &= 20 \si{\kilo\ohm} \times 1,\!25 \si{\micro\farad} = 0,\!025 \si{\second} \\[6pt]
+    R_2 C_2 &= 400 \si{\kilo\ohm} \times 15,\!625 \si{\nano\farad} = 0,\!00625 \si{\second} \\[6pt]
+    R_2 C_1 &= 400 \si{\kilo\ohm} \times 1,\!25 \si{\micro\farad} = 0,\!5 \si{\second} \\[6pt]
+    R_1 C_2 &= 20 \si{\kilo\ohm} \times 15,\!625 \si{\nano\farad} = 3,\!125 \times 10^{-4} \si{\second} \implies \frac{1}{R_1 C_2} = 3200 \si{\radian\per\second}
+\end{align*}
+
+Reemplazando estos coeficientes en la ecuación \ref{eq.ej3:fdt_simbolica}, obtenemos la función de transferencia numérica:
+\begin{equation}
+    H(s) = -\frac{3200 s}{(s + 40)(s + 160)}
+    \label{eq.ej3:fdt_numerica}
+\end{equation}
+
+\subsection{Valor de continua, ceros y polos}
+
+La componente de continua o constante total del sistema se puede obtener normalizando la función de transferencia \ref{eq.ej3:fdt_numerica} de
+forma que queden los polos y ceros de la forma $ks \pm 1$. De esta forma, la función de transferencia queda expresada como:
+\begin{equation}
+    H(s) = -\frac{0,\!5 s}{\left(0,\!025 s + 1\right) \left(6,\!25 \times 10^{-3} s + 1\right)}
+    \label{eq.ej3:fdt_normalizada}
+\end{equation}
+
+Haciendo $20\log_{10}\left(K_{te}\right)$ podemos obtener la constante total o componente de continua del sistema:
+\begin{align*}
+    K_{te} &= 20 \log_{10}\left(3200 \cdot \frac{1}{40} \cdot \frac{1}{160}\right) \\[6pt]
+    K_{te} &= 20 \log_{10}(0,\!5) = -6,\!02 \si{\decibel}
+\end{align*}
+
+El sistema presenta un cero en:
+\begin{align*}
+    \omega &= 0 \si{\radian\per\second}
+\end{align*}
+
+Los polos del sistema se encuentran en:
+\begin{align*}
+    \omega &= 40 \si{\radian\per\second} \\[6pt]
+    \omega &= 160 \si{\radian\per\second}
+\end{align*}
+
+\subsection{Analisis fasorial}
+
+Para obtener la respuesta en frecuencia de forma polar, pasamos a la forma fasorial haciendo $s \to j\omega$. Partiendo de la ecuación \ref{eq.ej3:fdt_normalizada}, obtenemos la expresión fasorial:
+\begin{equation}
+    H(j\omega) = -\frac{0,\!5 j\omega}{\left(0,\!025 j\omega + 1\right) \left(6,\!25 \times 10^{-3} j\omega + 1\right)}
+    \label{eq.ej3:fdt_fasorial}
+\end{equation}
+
+\subsection{Diagrama Polar}
+
+Para trazar el diagrama polar, simplemente se evalúa la ecuación \ref{eq.ej3:fdt_fasorial} para distintos valores de la frecuencia angular $\omega$. Los resultados obtenidos se resumen en la Tabla \ref{tab.ej3:puntos_polar} y el gráfico correspondiente se presenta en la Figura \ref{fig.ej3:polar}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{figures/plot_ej3_polar.tex}
+        }
+        \caption{Diagrama polar.}
+        \label{fig.ej3:polar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                $\omega$ [\SI{}{\radian\per\second}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ & $|H(j\omega)|$ & $\theta$ [$^\circ$] \\ \hline
+                0 & 0 & 0 & 0 & -90 \\ \hline
+                10 & -1,\!46 & -4,\!61 & 4,\!84 & -107,\!6 \\ \hline
+                20 & -4,\!92 & -7,\!38 & 8,\!88 & -123,\!7 \\ \hline
+                40 & -11,\!76 & -7,\!06 & 13,\!72 & -149,\!0 \\ \hline
+                80 & -16 & 0 & 16 & 180 \\ \hline
+                160 & -11,\!76 & 7,\!06 & 13,\!72 & 149,\!0 \\ \hline
+                320 & -4,\!92 & 7,\!38 & 8,\!88 & 123,\!7 \\ \hline
+                640 & -1,\!46 & 4,\!61 & 4,\!84 & 107,\!6 \\ \hline
+                $\infty$ & 0 & 0 & 0 & 90 \\ \hline
+            \end{tabular}
+        }
+        \caption{Puntos calculados para el diagrama.}
+        \label{tab.ej3:puntos_polar}
+    \end{subfigure}
+    \caption{Análisis de respuesta en frecuencia polar.}
+\end{figure}
+
+\subsection{Diagrama de Bode}
+
+En la Figura \ref{fig.ej3:bode_octave} se presentan los diagramas de magnitud y fase generados mediante Octave utilizando la biblioteca \texttt{bodas} \cite{bodas}. Los mismos muestran las asíntotas individuales, su suma y el comportamiento exacto del sistema.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+            \input{figures/plot_ej3_bodas_gain.tex}%
+        }
+    \end{subfigure}
+    
+    \vspace{0.5cm}
+    
+    \begin{subfigure}{\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{%
+            \input{figures/plot_ej3_bodas_phase.tex}%
+        }
+    \end{subfigure}
+    \caption{Diagramas de Bode (Magnitud y Fase) generados con Octave.}
+    \label{fig.ej3:bode_octave}
+\end{figure}
+
+\subsection{Simulación y Comparación}
+
+Para validar los resultados del desarrollo analítico, se simuló el circuito de la tercera etapa. En la Figura \ref{fig.ej3:simulacion_kicad} se presenta la respuesta en frecuencia simulada (módulo y fase), la cual corrobora la exactitud de los gráficos y cálculos teóricos presentados en las secciones anteriores.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej3_simulacion_kicad.tex}
+    \caption{Respuesta en frecuencia simulada.}
+    \label{fig.ej3:simulacion_kicad}
+\end{figure}
