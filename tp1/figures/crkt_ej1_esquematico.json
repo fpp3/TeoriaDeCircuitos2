@@ -1,0 +1,171 @@
+{
+    "version": "0.1",
+    "tikzSettings": {},
+    "components": [
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 0,
+                    "y": -56.693
+                },
+                {
+                    "x": 0,
+                    "y": 56.693
+                }
+            ],
+            "label": {
+                "value": "V_i"
+            },
+            "id": "american voltage source"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 0,
+                    "y": -56.693
+                },
+                {
+                    "x": 113.386,
+                    "y": -56.693
+                }
+            ],
+            "label": {
+                "value": "R_1"
+            },
+            "id": "american resistor"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 113.386,
+                    "y": -56.693
+                },
+                {
+                    "x": 226.772,
+                    "y": -56.693
+                }
+            ],
+            "label": {
+                "value": "R_2"
+            },
+            "id": "american resistor"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 113.386,
+                    "y": -56.693
+                },
+                {
+                    "x": 113.386,
+                    "y": 56.693
+                }
+            ],
+            "label": {
+                "value": "C_1"
+            },
+            "id": "capacitor"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 226.772,
+                    "y": -56.693
+                },
+                {
+                    "x": 226.772,
+                    "y": 56.693
+                }
+            ],
+            "label": {
+                "value": "C_2"
+            },
+            "id": "capacitor"
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 0,
+                    "y": 56.693
+                },
+                {
+                    "x": 226.772,
+                    "y": 56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 226.772,
+                    "y": 56.693
+                },
+                {
+                    "x": 302.362,
+                    "y": 56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 226.772,
+                    "y": -56.693
+                },
+                {
+                    "x": 302.362,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "open",
+            "points": [
+                {
+                    "x": 302.362,
+                    "y": -56.693
+                },
+                {
+                    "x": 302.362,
+                    "y": 56.693
+                }
+            ],
+            "voltage": {
+                "label": "V_o",
+                "bump": 0.1,
+                "dir": ">",
+                "pos": "^"
+            },
+            "poles": {
+                "start": "circ",
+                "end": "circ"
+            }
+        }
+    ]
+}

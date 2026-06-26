@@ -1,8 +1,12 @@
-\begin{circuitikz}[american]
-    \draw (0,0) to[V, l=$V_i(s)$] (0,2)
-    to[R, l=$R_1$] (2,2)
-    to[C, l=$C_1$] (2,0) -- (0,0);
-    \draw (2,2) to[R, l=$R_2$] (5,2)
-    to[C, l=$C_2$, v=$V_o(s)$] (5,0) -- (2,0);
-    \node at (2,2.3) {$V_1$};
-\end{circuitikz}
+\begin{tikzpicture}[transform shape]
+	% Paths, nodes and wires:
+	\draw (0, 1.5) to[american voltage source, l={$V_i$}] (0, -1.5);
+	\draw (-0, 1.5) to[american resistor, l={$R_1$}] (3, 1.5);
+	\draw (3, 1.5) to[american resistor, l={$R_2$}] (6, 1.5);
+	\draw (3, 1.5) to[capacitor, l={$C_1$}] (3, -1.5);
+	\draw (6, 1.5) to[capacitor, l={$C_2$}] (6, -1.5);
+	\draw (-0, -1.5) -- (6, -1.5);
+	\draw (6, -1.5) -- (8, -1.5);
+	\draw (6, 1.5) -- (8, 1.5);
+	\draw (8, 1.5) to[open, *-*, v^>=$V_o$, voltage/bump b=0.1] (8, -1.5);
+\end{tikzpicture}
