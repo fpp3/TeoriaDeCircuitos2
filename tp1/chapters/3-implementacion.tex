@@ -7,19 +7,19 @@ experimental y la comparación de los resultados medidos con los teóricos y sim
 
 Para la implementacion de la red, se utilizaron series y paralelos de los componentes para tratar de aproximarse a los
 valores del circuito ideal. La resistencia de $182 \si{\kilo\ohm}$ se logró sumando una resistencia de $180
-\si{\kilo\ohm}$ y otra de $2 \si{\kilo\ohm}]$. El capacitor de $91 \si{\pico\farad}$ se consiguió haciendo el serie de
+\si{\kilo\ohm}$ y otra de $2 \si{\kilo\ohm}$. El capacitor de $91 \si{\pico\farad}$ se consiguió haciendo el serie de
 dos capacitores de $180 \si{\pico\farad}$, logrando una capacidad de $90 \si{\pico\farad}$.
 
 \subsection{Montaje y Mediciones}
 
 El circuito se montó sobre un circuito impreso, minimizando la longitud de las 
-conexiones para evitar introducir capacitancias y resistencias parásitas adicionales de gran magnitud. 
+conexiones para evitar introducir capacitancias y resistencias parásitas adicionales. 
 La disposición del montaje se muestra en la Figura \ref{fig.ej1:foto_implementacion}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{pictures/crkt_ej1}
-    \caption{Fotografía del circuito implementado (Ejercicio 1).}
+    \caption{circuito implementado.}
     \label{fig.ej1:foto_implementacion}
 \end{figure}
 
@@ -50,8 +50,8 @@ tabla \ref{tab.ej1:mediciones}.
         80000 & 20,0 & 0,85 & -27,43 & -144 \\ \hline
         100000 & 20,0 & 0,60 & -30,46 & -144 \\ \hline
     \end{tabular}
+    \caption{mediciones de respuesta en frecuencia.}
     \label{tab.ej1:mediciones}
-    \caption{Mediciones de respuesta en frecuencia (Ejercicio 1).}
 \end{table}
 
 En la figura \ref{fig.ej1:fft_osciloscopio} se presenta la captura de pantalla del osciloscopio digital configurado
@@ -63,7 +63,7 @@ y referencia del instrumento en este modo.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.5\textwidth]{pictures/osc_ej1_fft}
-    \caption{Respuesta espectral obtenida mediante la función FFT del osciloscopio (Ejercicio 1).}
+    \caption{respuesta espectral obtenida mediante la función FFT del osciloscopio.}
     \label{fig.ej1:fft_osciloscopio}
 \end{figure}
 
@@ -75,7 +75,7 @@ contrastan las curvas simuladas con los puntos obtenidos en el laboratorio.
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej1_bode_comparativa.tex}
-    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 1).}
+    \caption{diagrama de Bode comparativo: medición vs simulación.}
     \label{fig.ej1:bode_comparativa}
 \end{figure}
 
@@ -85,13 +85,12 @@ simulada ronda los $-2,\!91 \si{\decibel}$, mientras que la medida es de $-4,\!2
 $20 \si{\kilo\hertz}$ la simulación predice $-7,\!28 \si{\decibel}$ frente a los $-9,\!12 \si{\decibel}$ obtenidos
 experimentalmente.
 
-Esta diferencia se puede atribuir principalmente a la capacidad de carga introducida por la punta del osciloscopio 
-conectada en el nodo de salida (en paralelo con $C_2$). Para puntas de prueba pasivas tradicionales 10x, la 
-capacitancia de entrada típica ronda los $15 \si{\pico\farad}$ a $20 \si{\pico\farad}$. Dado que $C_2$ posee 
-un valor sumamente bajo ($33 \si{\pico\farad}$), la capacitancia parásita de la punta del osciloscopio 
-eleva la capacidad efectiva en la salida a aproximadamente $50 \si{\pico\farad}$. Esto desplaza el segundo 
-polo a una frecuencia sensiblemente menor, incrementando la atenuación y el desfasaje en la banda de paso alta, 
-tal como se constata en las mediciones.
+Esta diferencia se puede atribuir principalmente a la capacidad de carga introducida por la punta del osciloscopio
+conectada en el nodo de salida (en paralelo con $C_2$). Para puntas de prueba pasivas tradicionales 10x, la capacitancia
+de entrada típica ronda los $15 \si{\pico\farad}$ a $20 \si{\pico\farad}$. Dado que $C_2$ posee un valor sumamente bajo
+($33 \si{\pico\farad}$), la capacitancia parásita de la punta del osciloscopio eleva la capacidad efectiva en la salida.
+Esto desplaza el segundo polo a una frecuencia menor, incrementando la atenuación y el desfasaje en la banda de paso
+alta.
 
 \section{Ejercicio 2: Filtro RLC Rechaza-Banda}
 
@@ -111,7 +110,7 @@ $25,\!5 \si{\kilo\ohm}$.
 \subsection{Montaje y Mediciones}
 
 En la Figura \ref{fig.ej2:montaje_completo} se presenta la implementación física del circuito. En la
-subfigura \ref{fig.ej2:foto_implementacion} se observa el montaje en protoboard, mientras que la
+subfigura \ref{fig.ej2:foto_implementacion} se observa el montaje, mientras que la
 subfigura \ref{fig.ej2:inductor_lcr} muestra la medición del inductor bobinado a mano. Las mediciones
 se detallan en la Tabla \ref{tab.ej2:mediciones}.
 
@@ -119,25 +118,23 @@ se detallan en la Tabla \ref{tab.ej2:mediciones}.
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/Implementacion_EJ2.jpeg}
+        \includegraphics[height=6cm]{Images/Implementacion_EJ2.jpeg}
         \caption{Fotografía del circuito implementado.}
         \label{fig.ej2:foto_implementacion}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Images/inductor_EJ2.jpeg}
+        \includegraphics[height=6cm]{Images/inductor_EJ2.jpeg}
         \caption{Medición del inductor bobinado a mano en puente LCR.}
         \label{fig.ej2:inductor_lcr}
     \end{subfigure}
-    \caption{Implementación física y medición de componentes (Ejercicio 2).}
+    \caption{implementación física y medición de componentes.}
     \label{fig.ej2:montaje_completo}
 \end{figure}
 
 \begin{table}[!ht]
     \centering
-    \caption{Mediciones de respuesta en frecuencia (Ejercicio 2).}
-    \label{tab.ej2:mediciones}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
@@ -153,6 +150,8 @@ se detallan en la Tabla \ref{tab.ej2:mediciones}.
         100000 & 12.0 & 2.4   & -13.98 & 64   \\ \hline
         250000 & 12.0 & 8.6   & -2.89  & 45   \\ \hline
     \end{tabular}
+    \caption{mediciones de respuesta en frecuencia.}
+    \label{tab.ej2:mediciones}
 \end{table}
 
 \subsection{Comparación con Simulación}
@@ -163,10 +162,41 @@ puntos medidos experimentalmente.
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej2_bode_comparativa.tex}
-    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 2).}
+    \caption{diagrama de Bode comparativo: medición vs simulación.}
     \label{fig.ej2:bode_comparativa}
 \end{figure}
 
+<<<<<<< HEAD
+=======
+\subsubsection{Análisis de Resultados}
+
+Al analizar la respuesta en frecuencia medida en el laboratorio para el filtro rechaza-banda RLC, se pueden
+extraer las siguientes conclusiones:
+
+\begin{itemize}
+    \item Frecuencia de resonancia: La mayor atenuación se midió a los $500 \si{\hertz}$, donde la tensión de salida
+        casi desaparece. Esto coincide muy bien con los $500 \si{\hertz}$ teóricos de la consigna.
+    
+    \item Atenuación: En la frecuencia de resonancia la atenuación supera los $60 \si{\decibel}$. Al alejarse de la
+        resonancia (ya sea hacia frecuencias bajas como altas), la tensión de salida vuelve a subir
+        hasta acercarse a los $12 \si{\volt}$ de entrada, cumpliendo con la función de un rechaza-banda.
+    
+    \item Pérdidas de inserción: En los extremos (a $1 \si{\hertz}$ y a $250 \si{\kilo\hertz}$), la tensión no llega a
+        ser exactamente igual a los $12 \si{\volt}$ de entrada. Esto pasa porque la reactancia del capacitor a baja
+        frecuencia (cerca de $50 \si{\kilo\ohm}$ a $1 \si{\hertz}$) y la del inductor a alta frecuencia (también cercana
+        a $50 \si{\kilo\ohm}$ a $250 \si{\kilo\hertz}$) no son infinitas frente al resistor de entrada de $100
+        \si{\kilo\ohm}$, dividiendo la tensión en la rama LC. Este efecto se puede apreciar claramente en el gráfico
+        comparativo de la Figura \ref{fig.ej2:bode_comparativa}.
+    
+    \item Comportamiento de la fase: Por debajo de los $500 \si{\hertz}$, la fase es negativa (cercana a $-90
+        \si{\degree}$) porque el capacitor domina la impedancia de la rama LC. Al pasar por la resonancia se produce la
+        inversión de fase esperada, volviéndose positiva (cercana a $90 \si{\degree}$) debido a que ahora domina el
+        inductor. Finalmente, a frecuencias muy altas, la fase empieza a caer hacia $0 \si{\degree}$, registrándose $45
+        \si{\degree}$ a los $250 \si{\kilo\hertz}$. Toda esta evolución se puede contrastar con la curva simulada en la
+        Figura \ref{fig.ej2:bode_comparativa}.
+\end{itemize}
+
+>>>>>>> f3e1796 (tp1: Correcciones de formato en implementacion)
 Asimismo, se obtuvo el espectro en frecuencia de la señal mediante la función FFT del osciloscopio
 para evaluar la selectividad y el rechazo en el dominio de la frecuencia. En la Figura \ref{fig.ej2:fft}
 se presenta la captura de dicha medición.
@@ -174,7 +204,11 @@ se presenta la captura de dicha medición.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{Images/FFT_Ej2.jpeg}
+<<<<<<< HEAD
     \caption{Captura de la FFT.}
+=======
+    \caption{captura de la FFT.}
+>>>>>>> f3e1796 (tp1: Correcciones de formato en implementacion)
     \label{fig.ej2:fft}
 \end{figure}
 
