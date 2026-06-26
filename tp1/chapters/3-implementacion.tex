@@ -167,36 +167,6 @@ puntos medidos experimentalmente.
     \label{fig.ej2:bode_comparativa}
 \end{figure}
 
-\subsubsection{Análisis de Resultados}
-
-Al analizar la respuesta en frecuencia medida en el laboratorio para el filtro rechaza-banda RLC, se pueden
-extraer las siguientes conclusiones:
-
-\begin{itemize}
-    \item Frecuencia de resonancia: La mayor atenuación se midió a los $500 \si{\hertz}$, donde la tensión de
-    salida casi desaparece (llega a $0 \si{\volt}$ en el osciloscopio). Esto coincide muy bien con los
-    $500 \si{\hertz}$ teóricos de la consigna.
-    
-    \item Atenuación: En la frecuencia de resonancia la atenuación supera los $60 \si{\decibel}$ (como se
-    muestra en la Tabla \ref{tab.ej2:mediciones}). Al alejarse de la resonancia (ya sea hacia frecuencias
-    bajas como hacia frecuencias altas), la tensión de salida vuelve a subir hasta acercarse a los
-    $12 \si{\volt}$ de entrada, cumpliendo con la función de un rechaza-banda.
-    
-    \item Pérdidas de inserción: En los extremos (a $1 \si{\hertz}$ y a $250 \si{\kilo\hertz}$), la tensión
-    no llega a ser exactamente igual a los $12 \si{\volt}$ de entrada. Esto pasa porque la reactancia del
-    capacitor a baja frecuencia (cerca de $50 \si{\kilo\ohm}$ a $1 \si{\hertz}$) y la del inductor a alta
-    frecuencia (también cercana a $50 \si{\kilo\ohm}$ a $250 \si{\kilo\hertz}$) no son infinitas frente
-    al resistor de entrada de $100 \si{\kilo\ohm}$, dividiendo la tensión en la rama LC. Este efecto se
-    puede apreciar claramente en el gráfico comparativo de la Figura \ref{fig.ej2:bode_comparativa}.
-    
-    \item Comportamiento de la fase: Por debajo de los $500 \si{\hertz}$, la fase es negativa (cercana a
-    $-90 \si{\degree}$) porque el capacitor domina la impedancia de la rama LC. Al pasar por la resonancia
-    se produce la inversión de fase esperada, volviéndose positiva (cercana a $90 \si{\degree}$) debido a
-    que ahora domina el inductor. Finalmente, a frecuencias muy altas, la fase empieza a caer hacia
-    $0 \si{\degree}$, registrándose $45 \si{\degree}$ a los $250 \si{\kilo\hertz}$. Toda esta evolución
-    se puede contrastar con la curva simulada en la Figura \ref{fig.ej2:bode_comparativa}.
-\end{itemize}
-
 Asimismo, se obtuvo el espectro en frecuencia de la señal mediante la función FFT del osciloscopio
 para evaluar la selectividad y el rechazo en el dominio de la frecuencia. En la Figura \ref{fig.ej2:fft}
 se presenta la captura de dicha medición.
@@ -204,7 +174,7 @@ se presenta la captura de dicha medición.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{Images/FFT_Ej2.jpeg}
-    \caption{Captura de la FFT (Ejercicio 2).}
+    \caption{Captura de la FFT.}
     \label{fig.ej2:fft}
 \end{figure}
 
@@ -212,55 +182,75 @@ se presenta la captura de dicha medición.
 
 \section{Ejercicio 3: Filtro Activo con Amplificador Operacional}
 
-La implementación del tercer circuito corresponde a un filtro activo. Para el montaje se 
-utilizaron los valores de componentes especificados en la consigna, buscando su normalización 
-más próxima en caso de ser necesario.
+Para el montaje se utilizaron valores de componentes aproximados a los
+especificados en la consigna. Para el caso de las resistencias se usaron los
+valores correspondientes, pero para uno de los capacitores se realizo una
+combinación paralelo. Los valores utilizados fueron:
 
 \begin{itemize}
     \item $R_1 = 20 \si{\kilo\ohm}$
-    \item $R_2 = 400 \si{\kilo\ohm}$
-    \item $C_1 = 1,\!25 \si{\micro\farad}$
-    \item $C_2 = 15,\!625 \si{\nano\farad}$
+    \item $R_2 = (300 + 100)\si{\kilo\ohm} = 400 \si{\kilo\ohm}$
+    \item $C_1 = (1 // 0.22)\si{\micro\farad} = 1,\!22 \si{\micro\farad}$
+    \item $C_2 = 15 \si{\nano\farad}$
 \end{itemize}
 
 \subsection{Montaje y Mediciones}
 
-En la Figura \ref{fig.ej3:foto_implementacion} se muestra el circuito montado, utilizando 
-un amplificador operacional de la familia TL08x alimentado simétricamente con $\pm 12 \si{\volt}$.
+El circuito se montó sobre una pcb, utilizando un amplificador operacional de la
+familia TL08x (TL082 específicamente). La disposición física del montaje
+experimental se expone en la Figura \ref{fig.ej3:foto_implementacion}.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{example-image}
-    \caption{Fotografía del circuito implementado (Ejercicio 3).}
+    \includegraphics[width=0.6\textwidth]{pictures/crkt_ej3.jpeg}
+    \caption{Fotografía del circuito implementado.}
     \label{fig.ej3:foto_implementacion}
 \end{figure}
 
+Las mediciones se realizaron variando la frecuencia del generador desde continua
+($0 \si{\hertz}$) hasta $10 \si{\kilo\hertz}$, registrando los valores de
+tensión pico a pico y el desfase de la salida respecto de la entrada. Los
+resultados experimentales se recopilan en la Tabla \ref{tab.ej3:mediciones}.
+
 \begin{table}[!ht]
     \centering
-    \caption{Mediciones de respuesta en frecuencia (Ejercicio 3).}
+    \caption{Mediciones de respuesta en frecuencia.}
     \label{tab.ej3:mediciones}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
         % Mediciones experimentales
-        0     & 1.50 & 0.00 & $-\infty$ & -- \\ \hline
-        1     & 1.26 & 3.00 & 7.54   & -86 \\ \hline
-        5     & 1.50 & 15.40 & 20.23  & -129 \\ \hline
-        10    & 1.30 & 21.60 & 24.41  & -163 \\ \hline
-        15    & 1.50 & 22.40 & 23.48  & -183 \\ \hline
-        20    & 1.50 & 22.00 & 23.33  & -198 \\ \hline
-        40    & 1.50 & 16.40 & 20.78  & -227 \\ \hline
-        530   & 1.50 & 1.54  & 0.23   & -261 \\ \hline
-        1100  & 1.50 & 0.78  & -5.68  & -261 \\ \hline
-        10000 & 1.50 & 0.10  & -23.52 & -262 \\ \hline
+        0     & 1,50 & 0,00 & $-\infty$ & -- \\ \hline
+        1     & 1,26 & 3,00 & 7,54   & -86 \\ \hline
+        5     & 1,50 & 15,40 & 20,23  & -129 \\ \hline
+        10    & 1,30 & 21,60 & 24,41  & -163 \\ \hline
+        15    & 1,50 & 22,40 & 23,48  & -183 \\ \hline
+        20    & 1,50 & 22,00 & 23,33  & -198 \\ \hline
+        40    & 1,50 & 16,40 & 20,78  & -227 \\ \hline
+        530   & 1,50 & 1,54  & 0,23   & -261 \\ \hline
+        1100  & 1,50 & 0,78  & -5,68  & -261 \\ \hline
+        10000 & 1,50 & 0,10  & -23,52 & -262 \\ \hline
     \end{tabular}
 \end{table}
 
+Para complementar las mediciones puntuales, se capturó la respuesta espectral del filtro mediante la función FFT del osciloscopio digital. En la Figura \ref{fig.ej3:fft_osciloscopio} se muestra la captura de dicha medición, donde se observa la característica curva de respuesta paso-banda, concordando con el comportamiento esperado del filtro.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pictures/osc_ej3_fft.jpeg}
+    \caption{Respuesta espectral obtenida mediante la función FFT del osciloscopio.}
+    \label{fig.ej3:fft_osciloscopio}
+\end{figure}
+
 \subsection{Comparación con Simulación}
+
+En la Figura \ref{fig.ej3:bode_comparativa} se presenta el diagrama de Bode comparativo, donde se contrastan las curvas obtenidas de la simulación del circuito con los puntos medidos experimentalmente en el laboratorio.
 
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej3_bode_comparativa.tex}
-    \caption{Diagrama de Bode comparativo: Medición vs Simulación (Ejercicio 3).}
+    \caption{Diagrama de Bode comparativo: Medición vs Simulación.}
     \label{fig.ej3:bode_comparativa}
 \end{figure}
+
+
