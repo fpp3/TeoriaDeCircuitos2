@@ -202,7 +202,7 @@ tal como se muestra en la Figura \ref{crkt.ej2:esquematico}.
 
 \subsection{Obtención de la Función de Transferencia}
 
-La impedancia de la rama en derivación (shunt), formada por la conexión en serie del inductor $L$ y el capacitor $C$,
+La impedancia de la rama en derivación, formada por la conexión en serie del inductor $L$ y el capacitor $C$,
 se plantea como:
 \begin{equation}
     Z_{LC} = L s + \frac{1}{C s}
@@ -249,7 +249,7 @@ Los polos del sistema se encuentran en:
 \begin{align*}
     \omega &= 3,\!1447 \approx 3,\!1 \si{\radian\per\second} \\[6pt]
     \omega &= 3,\!1417 \times 10^6 \approx 3,\!1 \times 10^6 \si{\radian\per\second}
-\end{align}
+\end{align*}
 
 \subsection{Analisis fasorial}
 
@@ -281,6 +281,36 @@ De donde se obtienen las expresiones para el análisis del diagrama polar:
 Para trazar el diagrama polar, se evalúan las ecuaciones \ref{eq.ej2:re_h} e \ref{eq.ej2:im_h} para diferentes valores de
 frecuencia angular $\omega$. Los resultados se resumen en la Tabla \ref{tab.ej2:puntos_polar} y la figura
 \ref{fig.ej2:polar}.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{figures/plot_ej2_polar.tex}
+        }
+        \caption{diagrama polar.}
+        \label{fig.ej2:polar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $\omega$ [\SI{}{\radian\per\second}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ \\ \hline
+            0 & 1 & 0 \\ \hline
+            3,\!14 & 0,\!5 & -0,\!5 \\ \hline
+            314 & $\approx 0$ & -0,\!01 \\ \hline
+            3142 & 0 & 0 \\ \hline
+            31416 & $\approx 0$ & 0,\!01 \\ \hline
+            $3,\!14 \times 10^6$ & 0,\!5 & 0,\!5 \\ \hline
+            $\infty$ & 1 & 0 \\ \hline
+        \end{tabular}
+        \caption{puntos calculados para el diagrama.}
+        \label{tab.ej2:puntos_polar}
+    \end{subfigure}
+    \caption{analisis polar.}
+\end{figure}
 
 \subsection{Diagrama de Bode}
 

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Diferencia de Fase</title>
+<style>
+  :root {
+    --bg: #0e1420;
+    --panel: #18212f;
+    --panel-2: #1f2a3c;
+    --ink: #e8edf5;
+    --muted: #8fa0b8;
+    --accent: #4cc9f0;
+    --accent-2: #f4a261;
+    --border: #2c3a50;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .app { width: 100%; max-width: 760px; }
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .inputs { grid-template-columns: 1fr; } }
+  label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; }
+  .field { display: flex; gap: 0.5rem; }
+  input[type="number"] {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 1rem;
+    padding: 0.55rem 0.7rem;
+    outline: none;
+  }
+  input[type="number"]:focus { border-color: var(--accent); }
+  select {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.9rem;
+    padding: 0.55rem 0.4rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .results { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .results { grid-template-columns: 1fr; } }
+  .result-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+  }
+  .result-box .tag { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .result-box .value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 0.2rem;
+    font-variant-numeric: tabular-nums;
+    word-break: break-all;
+  }
+  .result-box .wrapped { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+  .result-box .wrapped b { color: var(--accent-2); font-weight: 600; }
+  canvas { width: 100%; height: 240px; display: block; }
+  .legend { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); margin-top: 0.6rem; }
+  .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 18px; height: 3px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .legend .s1::before { background: var(--accent); }
+  .legend .s2::before { background: var(--accent-2); }
+  .error { color: #e76f51; font-size: 0.85rem; margin-top: 0.6rem; display: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Calculadora de Diferencia de Fase</h1>
+  <p class="subtitle">φ = 2π · f · ΔT — ingresá la frecuencia y el desfasaje temporal entre las dos señales.</p>
+
+  <div class="card">
+    <div class="inputs">
+      <div>
+        <label for="freq">Frecuencia (f)</label>
+        <div class="field">
+          <input type="number" id="freq" value="50" step="any" min="0">
+          <select id="freqUnit">
+            <option value="1">Hz</option>
+            <option value="1e3">kHz</option>
+            <option value="1e6">MHz</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="dt">Desfasaje temporal (ΔT)</label>
+        <div class="field">
+          <input type="number" id="dt" value="2" step="any">
+          <select id="dtUnit">
+            <option value="1">s</option>
+            <option value="1e-3" selected>ms</option>
+            <option value="1e-6">µs</option>
+            <option value="1e-9">ns</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <p class="error" id="error">Ingresá valores numéricos válidos (frecuencia &gt; 0).</p>
+  </div>
+
+  <div class="card">
+    <div class="results">
+      <div class="result-box">
+        <div class="tag">Fase en grados</div>
+        <div class="value" id="degTotal">—</div>
+        <div class="wrapped">Normalizada (±180°): <b id="degWrapped">—</b></div>
+      </div>
+      <div class="result-box">
+        <div class="tag">Fase en radianes</div>
+        <div class="value" id="radTotal">—</div>
+        <div class="wrapped">Normalizada (±π): <b id="radWrapped">—</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <canvas id="plot" width="1400" height="480"></canvas>
+    <div class="legend">
+      <span class="s1">Señal 1 — sin(2πft)</span>
+      <span class="s2">Señal 2 — sin(2πf(t − ΔT))</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const inputs = ["freq", "freqUnit", "dt", "dtUnit"];
+
+function fmt(x, digits = 6) {
+  if (!isFinite(x)) return "—";
+  const abs = Math.abs(x);
+  if (abs !== 0 && (abs >= 1e7 || abs < 1e-4)) return x.toExponential(4);
+  return parseFloat(x.toPrecision(digits)).toString();
+}
+
+// Envuelve un ángulo al rango (-medio, +medio], p.ej. ±180° o ±π
+function wrap(angle, full) {
+  let w = angle % full;
+  if (w > full / 2) w -= full;
+  if (w <= -full / 2) w += full;
+  return w;
+}
+
+function update() {
+  const f = parseFloat($("freq").value) * parseFloat($("freqUnit").value);
+  const dt = parseFloat($("dt").value) * parseFloat($("dtUnit").value);
+  const valid = isFinite(f) && f > 0 && isFinite(dt);
+
+  $("error").style.display = valid ? "none" : "block";
+  if (!valid) {
+    ["degTotal", "degWrapped", "radTotal", "radWrapped"].forEach(id => $(id).textContent = "—");
+    drawPlot(NaN);
+    return;
+  }
+
+  const phaseRad = 2 * Math.PI * f * dt;
+  const phaseDeg = 360 * f * dt;
+
+  $("degTotal").textContent = fmt(phaseDeg) + "°";
+  $("radTotal").textContent = fmt(phaseRad) + " rad" +
+    (Math.abs(phaseRad) > 1e-12 ? "  (" + fmt(phaseRad / Math.PI, 5) + "π)" : "");
+  $("degWrapped").textContent = fmt(wrap(phaseDeg, 360)) + "°";
+  $("radWrapped").textContent = fmt(wrap(phaseRad, 2 * Math.PI)) + " rad";
+
+  drawPlot(wrap(phaseRad, 2 * Math.PI));
+}
+
+function drawPlot(phase) {
+  const canvas = $("plot");
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const midY = H / 2;
+  const amp = H * 0.38;
+  const cycles = 2; // se grafican 2 ciclos de la señal de referencia
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Grilla: eje horizontal y marcas por cuarto de ciclo
+  ctx.strokeStyle = "#2c3a50";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, midY);
+  ctx.lineTo(W, midY);
+  ctx.stroke();
+  ctx.setLineDash([4, 6]);
+  for (let i = 1; i < cycles * 4; i++) {
+    const x = (i / (cycles * 4)) * W;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  if (!isFinite(phase)) return;
+
+  const drawWave = (phi, color) => {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let px = 0; px <= W; px++) {
+      const theta = (px / W) * cycles * 2 * Math.PI;
+      const y = midY - amp * Math.sin(theta - phi);
+      px === 0 ? ctx.moveTo(px, y) : ctx.lineTo(px, y);
+    }
+    ctx.stroke();
+  };
+
+  drawWave(0, "#4cc9f0");
+  drawWave(phase, "#f4a261");
+}
+
+inputs.forEach(id => $(id).addEventListener("input", update));
+update();
+</script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ploteador X-Y</title>
+<style>
+  :root {
+    --bg: #0e1420;
+    --panel: #18212f;
+    --panel-2: #1f2a3c;
+    --ink: #e8edf5;
+    --muted: #8fa0b8;
+    --accent: #4cc9f0;
+    --accent-2: #f4a261;
+    --danger: #e76f51;
+    --border: #2c3a50;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .app { width: 100%; max-width: 1080px; }
+  h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.25rem; letter-spacing: 0.02em; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+  .layout { display: grid; grid-template-columns: 320px 1fr; gap: 1rem; align-items: start; }
+  @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .card h2 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.7rem;
+    font-weight: 600;
+  }
+  label { display: block; font-size: 0.8rem; color: var(--muted); margin: 0.6rem 0 0.3rem; }
+  select {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    padding: 0.45rem 0.4rem;
+    outline: none;
+    cursor: pointer;
+  }
+  select:focus { border-color: var(--accent); }
+  textarea, input[type="text"] {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.92rem;
+    padding: 0.5rem 0.65rem;
+    outline: none;
+    font-family: inherit;
+  }
+  textarea { font-family: ui-monospace, monospace; min-height: 130px; resize: vertical; }
+  textarea:focus, input:focus { border-color: var(--accent); }
+  button {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 0.85rem;
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #0b2230; font-weight: 600; }
+  .row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+  .toggles { display: flex; gap: 1.2rem; }
+  .toggles label {
+    display: flex; align-items: center; gap: 0.45rem;
+    margin: 0; font-size: 0.9rem; color: var(--ink); cursor: pointer;
+  }
+  input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+
+  table.data { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
+  table.data th {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); text-align: left; padding: 0.2rem 0.3rem; font-weight: 600;
+  }
+  table.data td { padding: 0.15rem 0.15rem; }
+  table.data input {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    padding: 0.3rem 0.45rem;
+    outline: none;
+    font-family: ui-monospace, monospace;
+  }
+  table.data input:focus { border-color: var(--accent); }
+  table.data input.bad { border-color: var(--danger); }
+  .del {
+    background: none; border: none; color: var(--muted);
+    font-size: 1rem; padding: 0 0.3rem; cursor: pointer;
+  }
+  .del:hover { color: var(--danger); }
+  .table-wrap { max-height: 320px; overflow-y: auto; }
+
+  canvas { width: 100%; display: block; border-radius: 8px; }
+  .warning { color: var(--accent-2); font-size: 0.82rem; margin-top: 0.5rem; display: none; }
+  .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Ploteador X-Y</h1>
+  <p class="subtitle">Pegá o cargá una tabla de pares X-Y y graficala en escala lineal o logarítmica.</p>
+
+  <div class="layout">
+    <div>
+      <div class="card">
+        <h2>Pegar datos</h2>
+        <textarea id="paste" placeholder="Un par por línea, ej.:&#10;10, 0.5&#10;100, 2.3&#10;1000, 8.1&#10;(sirve copiar desde Excel)"></textarea>
+        <div class="row">
+          <button class="primary" id="loadBtn">Cargar a la tabla</button>
+          <button id="appendBtn">Agregar a la tabla</button>
+        </div>
+        <p class="hint">Separadores aceptados: coma, punto y coma, tab o espacio.</p>
+      </div>
+
+      <div class="card">
+        <h2>Tabla de datos</h2>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>X</th><th>Y</th><th></th></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div class="row">
+          <button id="addRow">+ Agregar fila</button>
+          <button id="clearAll">Vaciar</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Opciones del gráfico</h2>
+        <div class="toggles">
+          <label><input type="checkbox" id="logX"> Log X</label>
+          <label><input type="checkbox" id="logY"> Log Y</label>
+          <label><input type="checkbox" id="dbY"> Y en dB</label>
+          <label><input type="checkbox" id="radX"> X: Hz → rad/s</label>
+        </div>
+        <div id="dbOpts" style="display:none;">
+          <label for="vref">Vref (Vpp de referencia) — dB = 20·log₁₀(Y/Vref)</label>
+          <input type="text" id="vref" value="1">
+        </div>
+        <label for="phaseMode">Bode de fase (interpreta la columna Y)</label>
+        <div class="row" style="margin-top:0;">
+          <select id="phaseMode" style="flex:1;">
+            <option value="off">Desactivado</option>
+            <option value="dt">Y es ΔT → calcula φ = 2π·f·ΔT (X = f en Hz)</option>
+            <option value="deg">Y ya es fase en grados</option>
+          </select>
+          <select id="dtUnit" style="display:none;">
+            <option value="1">s</option>
+            <option value="1e-3">ms</option>
+            <option value="1e-6" selected>µs</option>
+            <option value="1e-9">ns</option>
+          </select>
+          <select id="phaseUnit" style="display:none;">
+            <option value="deg">grados (°)</option>
+            <option value="rad">radianes</option>
+          </select>
+        </div>
+        <label for="title">Título</label>
+        <input type="text" id="title" placeholder="Mi gráfico">
+        <div class="row" style="margin-top:0;">
+          <div style="flex:1;">
+            <label for="xlabel">Eje X</label>
+            <input type="text" id="xlabel" placeholder="X">
+          </div>
+          <div style="flex:1;">
+            <label for="ylabel">Eje Y</label>
+            <input type="text" id="ylabel" placeholder="Y">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <canvas id="plot" width="1440" height="960"></canvas>
+        <p class="warning" id="warning"></p>
+        <div class="row">
+          <button class="primary" id="exportBtn">Descargar PNG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const tbody = $("tbody");
+
+// ---------- Tabla editable (fuente canónica de los datos) ----------
+
+function makeRow(x = "", y = "") {
+  const tr = document.createElement("tr");
+  for (const val of [x, y]) {
+    const td = document.createElement("td");
+    const inp = document.createElement("input");
+    inp.value = val;
+    inp.addEventListener("input", () => { validateCell(inp); draw(); });
+    td.appendChild(inp);
+    tr.appendChild(td);
+  }
+  const tdDel = document.createElement("td");
+  const del = document.createElement("button");
+  del.className = "del";
+  del.textContent = "✕";
+  del.title = "Eliminar fila";
+  del.addEventListener("click", () => { tr.remove(); draw(); });
+  tdDel.appendChild(del);
+  tr.appendChild(tdDel);
+  tbody.appendChild(tr);
+  return tr;
+}
+
+function validateCell(inp) {
+  const v = inp.value.trim();
+  inp.classList.toggle("bad", v !== "" && !isFinite(parseFloat(v.replace(",", "."))));
+}
+
+function readTable() {
+  const pts = [];
+  for (const tr of tbody.rows) {
+    const x = parseFloat(tr.cells[0].firstChild.value.trim().replace(",", "."));
+    const y = parseFloat(tr.cells[1].firstChild.value.trim().replace(",", "."));
+    if (isFinite(x) && isFinite(y)) pts.push({ x, y });
+  }
+  return pts;
+}
+
+// ---------- Parseo de texto pegado ----------
+
+function parsePasted(text) {
+  const pts = [];
+  for (const line of text.split(/\r?\n/)) {
+    const t = line.trim();
+    if (!t || t.startsWith("#")) continue;
+    // separadores: tab, punto y coma, coma o espacios
+    const parts = t.split(/[\t;]+|,(?=\s)|,(?=\d)|\s+/).filter(s => s !== "");
+    if (parts.length < 2) continue;
+    const x = parseFloat(parts[0].replace(",", "."));
+    const y = parseFloat(parts[1].replace(",", "."));
+    if (isFinite(x) && isFinite(y)) pts.push({ x, y });
+  }
+  return pts;
+}
+
+function loadPasted(replace) {
+  const pts = parsePasted($("paste").value);
+  if (replace) tbody.innerHTML = "";
+  pts.forEach(p => makeRow(String(p.x), String(p.y)));
+  if (tbody.rows.length === 0) makeRow();
+  draw();
+}
+
+// ---------- Escalas y ticks ----------
+
+function niceStep(span, target) {
+  const raw = span / target;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 5, 10]) if (raw <= m * mag) return m * mag;
+  return 10 * mag;
+}
+
+function linearTicks(min, max) {
+  const step = niceStep(max - min, 6);
+  const ticks = [];
+  for (let v = Math.ceil(min / step) * step; v <= max + step * 1e-9; v += step)
+    ticks.push({ v: Math.abs(v) < step * 1e-9 ? 0 : v, major: true });
+  return ticks;
+}
+
+function logTicks(min, max) {
+  // min y max ya son log10 de los límites
+  const ticks = [];
+  for (let k = Math.floor(min); k <= Math.ceil(max); k++) {
+    if (k >= min - 1e-9 && k <= max + 1e-9) ticks.push({ v: k, major: true });
+    for (let m = 2; m <= 9; m++) {
+      const v = k + Math.log10(m);
+      if (v >= min && v <= max) ticks.push({ v, major: false });
+    }
+  }
+  return ticks;
+}
+
+function fmtTick(v, isLog) {
+  if (isLog) {
+    const p = Math.round(v);
+    if (Math.abs(v - p) < 1e-9) {
+      if (p >= -3 && p <= 4) return String(Math.pow(10, p));
+      return "10^" + p;
+    }
+    return "";
+  }
+  if (v === 0) return "0";
+  const abs = Math.abs(v);
+  if (abs >= 1e5 || abs < 1e-3) return v.toExponential(1);
+  return parseFloat(v.toPrecision(6)).toString();
+}
+
+// ---------- Dibujo ----------
+
+function draw() {
+  const canvas = $("plot");
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const phaseMode = $("phaseMode").value;
+  const phaseUnit = $("phaseUnit").value;
+  // En modo fase el eje Y es lineal: dB y Log Y no aplican
+  const logX = $("logX").checked, radX = $("radX").checked;
+  const logY = $("logY").checked && phaseMode === "off";
+  const dbY = $("dbY").checked && phaseMode === "off";
+  let vref = parseFloat($("vref").value.trim().replace(",", "."));
+  if (!isFinite(vref) || vref <= 0) vref = 1;
+
+  ctx.fillStyle = "#18212f";
+  ctx.fillRect(0, 0, W, H);
+
+  let pts = readTable();
+  // La conversión de fase usa X como frecuencia en Hz, antes de pasar a rad/s
+  if (phaseMode === "dt") {
+    const dtScale = parseFloat($("dtUnit").value);
+    const k = phaseUnit === "deg" ? 360 : 2 * Math.PI;
+    pts = pts.map(p => ({ x: p.x, y: k * p.x * p.y * dtScale }));
+  } else if (phaseMode === "deg") {
+    pts = pts.map(p => ({ x: p.x, y: phaseUnit === "deg" ? p.y : p.y * Math.PI / 180 }));
+  }
+  if (radX) pts = pts.map(p => ({ x: 2 * Math.PI * p.x, y: p.y }));
+  const total = pts.length;
+  if (logX) pts = pts.filter(p => p.x > 0);
+  if (logY || dbY) pts = pts.filter(p => p.y > 0);
+  const skipped = total - pts.length;
+
+  const warn = $("warning");
+  if (skipped > 0) {
+    warn.style.display = "block";
+    warn.textContent = `⚠ ${skipped} punto(s) omitido(s): valores ≤ 0 no se pueden graficar en escala logarítmica / dB.`;
+  } else {
+    warn.style.display = "none";
+  }
+
+  const margin = { l: 110, r: 40, t: 70, b: 95 };
+  const pw = W - margin.l - margin.r;
+  const ph = H - margin.t - margin.b;
+
+  // Título y etiquetas
+  ctx.fillStyle = "#e8edf5";
+  ctx.textAlign = "center";
+  ctx.font = "600 34px 'Segoe UI', system-ui, sans-serif";
+  if ($("title").value.trim()) ctx.fillText($("title").value.trim(), W / 2, 44);
+  ctx.font = "26px 'Segoe UI', system-ui, sans-serif";
+  ctx.fillStyle = "#8fa0b8";
+  let xl = $("xlabel").value.trim() || "X";
+  if (radX) xl += "  (ω = 2πf, rad/s)";
+  if (logX) xl += "  (log)";
+  let yl = $("ylabel").value.trim() || (phaseMode !== "off" ? "Fase" : "Y");
+  if (phaseMode !== "off") yl += phaseUnit === "deg" ? "  (°)" : "  (rad)";
+  else if (dbY) yl += "  (dB" + (vref !== 1 ? ", ref " + vref + " Vpp" : "V") + ")";
+  else if (logY) yl += "  (log)";
+  ctx.fillText(xl, margin.l + pw / 2, H - 18);
+  ctx.save();
+  ctx.translate(26, margin.t + ph / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText(yl, 0, 0);
+  ctx.restore();
+
+  if (pts.length === 0) {
+    ctx.fillStyle = "#8fa0b8";
+    ctx.font = "28px 'Segoe UI', system-ui, sans-serif";
+    ctx.fillText("Sin datos para graficar", margin.l + pw / 2, margin.t + ph / 2);
+    return;
+  }
+
+  // Transformación a coordenadas de gráfico (en log se trabaja en log10)
+  const tx = v => logX ? Math.log10(v) : v;
+  const ty = v => dbY ? 20 * Math.log10(v / vref) : (logY ? Math.log10(v) : v);
+
+  let xmin = Math.min(...pts.map(p => tx(p.x)));
+  let xmax = Math.max(...pts.map(p => tx(p.x)));
+  let ymin = Math.min(...pts.map(p => ty(p.y)));
+  let ymax = Math.max(...pts.map(p => ty(p.y)));
+
+  // Padding del 5% (y rangos degenerados de un solo valor)
+  const padR = (lo, hi) => {
+    if (hi - lo < 1e-12) { const d = Math.abs(hi) || 1; return [lo - d * 0.5, hi + d * 0.5]; }
+    const pad = (hi - lo) * 0.05;
+    return [lo - pad, hi + pad];
+  };
+  [xmin, xmax] = padR(xmin, xmax);
+  [ymin, ymax] = padR(ymin, ymax);
+
+  const px = v => margin.l + ((v - xmin) / (xmax - xmin)) * pw;
+  const py = v => margin.t + ph - ((v - ymin) / (ymax - ymin)) * ph;
+
+  // Grilla y ticks
+  const xticks = logX ? logTicks(xmin, xmax) : linearTicks(xmin, xmax);
+  const yticks = (logY && !dbY) ? logTicks(ymin, ymax) : linearTicks(ymin, ymax);
+
+  ctx.lineWidth = 1;
+  ctx.font = "22px ui-monospace, monospace";
+  for (const t of xticks) {
+    const x = px(t.v);
+    ctx.strokeStyle = t.major ? "#2c3a50" : "#222d40";
+    ctx.beginPath(); ctx.moveTo(x, margin.t); ctx.lineTo(x, margin.t + ph); ctx.stroke();
+    if (t.major) {
+      ctx.fillStyle = "#8fa0b8";
+      ctx.textAlign = "center";
+      ctx.fillText(fmtTick(t.v, logX), x, margin.t + ph + 32);
+    }
+  }
+  for (const t of yticks) {
+    const y = py(t.v);
+    ctx.strokeStyle = t.major ? "#2c3a50" : "#222d40";
+    ctx.beginPath(); ctx.moveTo(margin.l, y); ctx.lineTo(margin.l + pw, y); ctx.stroke();
+    if (t.major) {
+      ctx.fillStyle = "#8fa0b8";
+      ctx.textAlign = "right";
+      ctx.fillText(fmtTick(t.v, logY && !dbY), margin.l - 12, y + 8);
+    }
+  }
+
+  // Marco
+  ctx.strokeStyle = "#3d4f6b";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(margin.l, margin.t, pw, ph);
+
+  // Línea (en el orden de la tabla)
+  ctx.strokeStyle = "#4cc9f0";
+  ctx.lineWidth = 3.5;
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  pts.forEach((p, i) => {
+    const x = px(tx(p.x)), y = py(ty(p.y));
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Puntos
+  ctx.fillStyle = "#f4a261";
+  for (const p of pts) {
+    ctx.beginPath();
+    ctx.arc(px(tx(p.x)), py(ty(p.y)), 6.5, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+}
+
+// ---------- Exportar PNG ----------
+
+function exportPNG() {
+  const a = document.createElement("a");
+  const name = ($("title").value.trim() || "grafico").replace(/[^\w\-]+/g, "_");
+  a.download = name + ".png";
+  a.href = $("plot").toDataURL("image/png");
+  a.click();
+}
+
+// ---------- Eventos ----------
+
+$("loadBtn").addEventListener("click", () => loadPasted(true));
+$("appendBtn").addEventListener("click", () => loadPasted(false));
+$("addRow").addEventListener("click", () => { makeRow(); });
+$("clearAll").addEventListener("click", () => { tbody.innerHTML = ""; makeRow(); draw(); });
+$("exportBtn").addEventListener("click", exportPNG);
+["logX", "logY", "radX", "vref", "title", "xlabel", "ylabel"].forEach(id => $(id).addEventListener("input", draw));
+$("dbY").addEventListener("input", () => {
+  const on = $("dbY").checked;
+  $("dbOpts").style.display = on ? "block" : "none";
+  // En dB el eje Y ya es logarítmico: Log Y queda deshabilitado
+  $("logY").disabled = on;
+  if (on) $("logY").checked = false;
+  draw();
+});
+["dtUnit", "phaseUnit"].forEach(id => $(id).addEventListener("input", draw));
+$("phaseMode").addEventListener("input", () => {
+  const mode = $("phaseMode").value;
+  $("dtUnit").style.display = mode === "dt" ? "" : "none";
+  $("phaseUnit").style.display = mode !== "off" ? "" : "none";
+  // El eje de fase es lineal: dB y Log Y no aplican mientras esté activo
+  $("dbY").disabled = $("logY").disabled = mode !== "off";
+  if (mode === "off") $("logY").disabled = $("dbY").checked;
+  draw();
+});
+
+// Datos de ejemplo iniciales
+[[1, 2], [10, 9], [100, 35], [1000, 120], [10000, 480]].forEach(p => makeRow(String(p[0]), String(p[1])));
+draw();
+</script>
+</body>
+</html>
