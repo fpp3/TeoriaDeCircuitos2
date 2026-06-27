@@ -297,13 +297,13 @@ frecuencia angular $\omega$. Los resultados se resumen en la Tabla \ref{tab:ej2_
         \centering
         \begin{tabular}{|c|c|c|}
             \hline
-            $\omega$ [\si{\radian\per\second}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ \\ \hline
+            $f$ [\si{\hertz}] & $\text{Re}\{H(j\omega)\}$ & $\text{Im}\{H(j\omega)\}$ \\ \hline
             0 & 1 & 0 \\ \hline
-            3,14 & 0,5 & -0,5 \\ \hline
-            314 & $\approx 0$ & -0,01 \\ \hline
-            3142 & 0 & 0 \\ \hline
-            31416 & $\approx 0$ & 0,01 \\ \hline
-            $3,14 \times 10^6$ & 0,5 & 0,5 \\ \hline
+            0,5 & 0,5 & -0,5 \\ \hline
+            50 & $\approx 0$ & -0,01 \\ \hline
+            500 & 0 & 0 \\ \hline
+            5000 & $\approx 0$ & 0,01 \\ \hline
+            500 \si{\kilo\hertz} & 0,5 & 0,5 \\ \hline
             $\infty$ & 1 & 0 \\ \hline
         \end{tabular}
         \caption{puntos calculados para el diagrama.}
@@ -315,7 +315,7 @@ frecuencia angular $\omega$. Los resultados se resumen en la Tabla \ref{tab:ej2_
 \subsection{Diagrama de Bode}
 
 En la Figura \ref{fig:ej2_bode_octave} se presentan los diagramas de magnitud y fase generados mediante la herramienta
-\texttt{Octave}, utilizando la biblioteca \texttt{bodas} \cite{bodas}. Estos gráficos corroboran los resultados
+\texttt{Octave}. Estos gráficos corroboran los resultados
 del desarrollo analítico realizado manualmente (cuyo registro se encuentra en el Anexo \ref{sec:ej1_anexo_papel}).
 
 \begin{figure}[!ht]
