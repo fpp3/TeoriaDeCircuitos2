@@ -6,21 +6,21 @@ experimental y la comparación de los resultados medidos con los teóricos y sim
 \section{Ejercicio 1: Filtro RC de dos etapas}
 
 Para la implementacion de la red, se utilizaron series y paralelos de los componentes para tratar de aproximarse a los
-valores del circuito ideal. La resistencia de $182 \si{\kilo\ohm}$ se logró sumando una resistencia de $180
-\si{\kilo\ohm}$ y otra de $2 \si{\kilo\ohm}$. El capacitor de $91 \si{\pico\farad}$ se consiguió haciendo el serie de
+valores del circuito ideal. La resistencia de $182 \si{\kilo\ohm}$ se logró sumando una resistencia de $180 \si{\kilo\ohm}$
+y otra de $2 \si{\kilo\ohm}$. El capacitor de $91 \si{\pico\farad}$ se consiguió haciendo el serie de
 dos capacitores de $180 \si{\pico\farad}$, logrando una capacidad de $90 \si{\pico\farad}$.
 
 \subsection{Montaje y Mediciones}
 
 El circuito se montó sobre un circuito impreso, minimizando la longitud de las 
 conexiones para evitar introducir capacitancias y resistencias parásitas adicionales. 
-La disposición del montaje se muestra en la Figura \ref{fig.ej1:foto_implementacion}.
+La disposición del montaje se muestra en la Figura \ref{fig:ej1_foto_implementacion}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{pictures/crkt_ej1}
     \caption{circuito implementado.}
-    \label{fig.ej1:foto_implementacion}
+    \label{fig:ej1_foto_implementacion}
 \end{figure}
 
 El instrumental de laboratorio empleado consistió en un generador de funciones para proveer la señal 
@@ -30,7 +30,7 @@ para visualizar en simultáneo la señal de entrada y la de salida.
 Las mediciones se realizaron variando la frecuencia del generador desde $500 \si{\hertz}$ hasta $100 \si{\kilo\hertz}$,
 registrando también la respuesta a corriente continua ($0 \si{\hertz}$). En cada punto, se registró la amplitud
 pico a pico de la salida y el desfasaje angular. Los resultados experimentales se recopilan en la
-tabla \ref{tab.ej1:mediciones}.
+tabla \ref{tab:ej1_mediciones}.
 
 \begin{table}[!ht]
     \centering
@@ -51,10 +51,10 @@ tabla \ref{tab.ej1:mediciones}.
         100000 & 20,0 & 0,60 & -30,46 & -144 \\ \hline
     \end{tabular}
     \caption{mediciones de respuesta en frecuencia.}
-    \label{tab.ej1:mediciones}
+    \label{tab:ej1_mediciones}
 \end{table}
 
-En la figura \ref{fig.ej1:fft_osciloscopio} se presenta la captura de pantalla del osciloscopio digital configurado
+En la figura \ref{fig:ej1_fft_osciloscopio} se presenta la captura de pantalla del osciloscopio digital configurado
 en modo FFT durante un barrido de frecuencias de la señal de entrada. En esta se aprecia una curva de atenuación que
 reproduce cualitativamente la respuesta en frecuencia de la magnitud del filtro RC (como la observada en el diagrama
 de Bode), aunque sin coincidencia directa en la escala de amplitud absoluta debido a las diferencias de calibración
@@ -64,73 +64,73 @@ y referencia del instrumento en este modo.
     \centering
     \includegraphics[width=0.5\textwidth]{pictures/osc_ej1_fft}
     \caption{respuesta espectral obtenida mediante la función FFT del osciloscopio.}
-    \label{fig.ej1:fft_osciloscopio}
+    \label{fig:ej1_fft_osciloscopio}
 \end{figure}
 
 \subsection{Comparación con Simulación}
 
-En la Figura \ref{fig.ej1:bode_comparativa} se expone el diagrama de Bode comparativo, donde se 
+En la Figura \ref{fig:ej1_bode_comparativa} se expone el diagrama de Bode comparativo, donde se 
 contrastan las curvas simuladas con los puntos obtenidos en el laboratorio.
 
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej1_bode_comparativa.tex}
     \caption{diagrama de Bode comparativo: medición vs simulación.}
-    \label{fig.ej1:bode_comparativa}
+    \label{fig:ej1_bode_comparativa}
 \end{figure}
 
 Al analizar las curvas comparativas, se observa una buena correlación a bajas frecuencias, pero surge una
 desviación perceptible a partir de los $10 \si{\kilo\hertz}$. Específicamente, a $10 \si{\kilo\hertz}$ la ganancia
-simulada ronda los $-2,\!91 \si{\decibel}$, mientras que la medida es de $-4,\!22 \si{\decibel}$. A
-$20 \si{\kilo\hertz}$ la simulación predice $-7,\!28 \si{\decibel}$ frente a los $-9,\!12 \si{\decibel}$ obtenidos
+simulada ronda los $-2,91 \si{\decibel}$, mientras que la medida es de $-4,22 \si{\decibel}$. A
+$20 \si{\kilo\hertz}$ la simulación predice $-7,28 \si{\decibel}$ frente a los $-9,12 \si{\decibel}$ obtenidos
 experimentalmente.
 
 Esta diferencia se puede atribuir principalmente a la capacidad de carga introducida por la punta del osciloscopio
 conectada en el nodo de salida (en paralelo con $C_2$). Para puntas de prueba pasivas tradicionales 10x, la capacitancia
 de entrada típica ronda los $15 \si{\pico\farad}$ a $20 \si{\pico\farad}$. Dado que $C_2$ posee un valor sumamente bajo
-($33 \si{\pico\farad}$), la capacitancia parásita de la punta del osciloscopio eleva la capacidad efectiva en la salida.
+($33\si{\pico\farad}$), la capacitancia parásita de la punta del osciloscopio eleva la capacidad efectiva en la salida.
 Esto desplaza el segundo polo a una frecuencia menor, incrementando la atenuación y el desfasaje en la banda de paso
 alta.
 
 \section{Ejercicio 2: Filtro RLC Rechaza-Banda}
 
-Como no se disponía de un inductor comercial con el valor de $L = 31,\!83 \si{\milli\henry}$ provisto por la
+Como no se disponía de un inductor comercial con el valor de $L = 31,83 \si{\milli\henry}$ provisto por la
 consigna, se fabricó el componente bobinándolo a mano en el laboratorio. El inductor resultante midió
-$8 \si{\milli\henry}$ al medirlo con un puente LCR, como se ve en la Figura \ref{fig.ej2:inductor_lcr}.
+$8 \si{\milli\henry}$ al medirlo con un puente LCR, como se ve en la Figura \ref{fig:ej2_inductor_lcr}.
 
 Para mantener la frecuencia de resonancia en $500 \si{\hertz}$, se realizó un escalado aproximado por 4
 en los componentes reactivos: la inductancia se redujo a la cuarta parte ($L' = 8 \si{\milli\henry}$) y la
-capacitancia se aumentó 4 veces ($C' \approx 12,\!72 \si{\micro\farad}$). Para esto, se colocaron
-capacitores de $10 \si{\micro\farad}$ y $2,\!2 \si{\micro\farad}$ en paralelo, sumando un valor nominal de
-$12,\!2 \si{\micro\farad}$. Por su parte, la resistencia se redujo también a la cuarta parte
+capacitancia se aumentó 4 veces ($C' \approx 12,72 \si{\micro\farad}$). Para esto, se colocaron
+capacitores de $10 \si{\micro\farad}$ y $2,2 \si{\micro\farad}$ en paralelo, sumando un valor nominal de
+$12,2 \si{\micro\farad}$. Por su parte, la resistencia se redujo también a la cuarta parte
 ($R' \approx 25 \si{\kilo\ohm}$) para mantener el factor de calidad original del filtro. Esto se resolvió
 conectando dos resistencias de $51 \si{\kilo\ohm}$ en paralelo, sumando una resistencia nominal de
-$25,\!5 \si{\kilo\ohm}$.
+$25,5 \si{\kilo\ohm}$.
 
 \subsection{Montaje y Mediciones}
 
-En la Figura \ref{fig.ej2:montaje_completo} se presenta la implementación física del circuito. En la
-subfigura \ref{fig.ej2:foto_implementacion} se observa el montaje, mientras que la
-subfigura \ref{fig.ej2:inductor_lcr} muestra la medición del inductor bobinado a mano. Las mediciones
-se detallan en la Tabla \ref{tab.ej2:mediciones}.
+En la Figura \ref{fig:ej2_montaje_completo} se presenta la implementación física del circuito. En la
+subfigura \ref{fig:ej2_foto_implementacion} se observa el montaje, mientras que la
+subfigura \ref{fig:ej2_inductor_lcr} muestra la medición del inductor bobinado a mano. Las mediciones
+se detallan en la Tabla \ref{tab:ej2_mediciones}.
 
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
-        \includegraphics[height=6cm]{Images/Implementacion_EJ2.jpeg}
+        \includegraphics[height=6cm]{images/Implementacion_EJ2.jpeg}
         \caption{Fotografía del circuito implementado.}
-        \label{fig.ej2:foto_implementacion}
+        \label{fig:ej2_foto_implementacion}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
-        \includegraphics[height=6cm]{Images/inductor_EJ2.jpeg}
+        \includegraphics[height=6cm]{images/inductor_EJ2.jpeg}
         \caption{Medición del inductor bobinado a mano en puente LCR.}
-        \label{fig.ej2:inductor_lcr}
+        \label{fig:ej2_inductor_lcr}
     \end{subfigure}
     \caption{implementación física y medición de componentes.}
-    \label{fig.ej2:montaje_completo}
+    \label{fig:ej2_montaje_completo}
 \end{figure}
 
 \begin{table}[!ht]
@@ -138,78 +138,43 @@ se detallan en la Tabla \ref{tab.ej2:mediciones}.
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
-        1      & 12.0 & 4.8   & -7.96  & -50  \\ \hline
-        10     & 12.0 & 0.6   & -26.02 & -79  \\ \hline
-        50     & 12.0 & 0.154 & -37.84 & -82  \\ \hline
-        100    & 12.0 & 0.087 & -42.79 & -97  \\ \hline
-        230    & 12.0 & 0.059 & -46.17 & -72  \\ \hline
-        500    & 12.0 & 0.0   & -60.0  & 0    \\ \hline
-        1000   & 12.0 & 0.048 & -47.96 & 86   \\ \hline
-        10000  & 12.0 & 0.226 & -34.50 & 86   \\ \hline
-        50000  & 12.0 & 1.1   & -20.76 & 86   \\ \hline
-        100000 & 12.0 & 2.4   & -13.98 & 64   \\ \hline
-        250000 & 12.0 & 8.6   & -2.89  & 45   \\ \hline
+        1      & 12,0 & 4,8   & -7,96  & -50  \\ \hline
+        10     & 12,0 & 0,6   & -26,02 & -79  \\ \hline
+        50     & 12,0 & 0,154 & -37,84 & -82  \\ \hline
+        100    & 12,0 & 0,087 & -42,79 & -97  \\ \hline
+        230    & 12,0 & 0,059 & -46,17 & -72  \\ \hline
+        500    & 12,0 & 0,0   & -60,0  & 0    \\ \hline
+        1000   & 12,0 & 0,048 & -47,96 & 86   \\ \hline
+        10000  & 12,0 & 0,226 & -34,50 & 86   \\ \hline
+        50000  & 12,0 & 1,1   & -20,76 & 86   \\ \hline
+        100000 & 12,0 & 2,4   & -13,98 & 64   \\ \hline
+        250000 & 12,0 & 8,6   & -2,89  & 45   \\ \hline
     \end{tabular}
     \caption{mediciones de respuesta en frecuencia.}
-    \label{tab.ej2:mediciones}
+    \label{tab:ej2_mediciones}
 \end{table}
 
 \subsection{Comparación con Simulación}
 
-En la Figura \ref{fig.ej2:bode_comparativa} se presenta la comparación entre la curva teórica simulada y los
+En la Figura \ref{fig:ej2_bode_comparativa} se presenta la comparación entre la curva teórica simulada y los
 puntos medidos experimentalmente.
 
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej2_bode_comparativa.tex}
     \caption{diagrama de Bode comparativo: medición vs simulación.}
-    \label{fig.ej2:bode_comparativa}
+    \label{fig:ej2_bode_comparativa}
 \end{figure}
 
-<<<<<<< HEAD
-=======
-\subsubsection{Análisis de Resultados}
-
-Al analizar la respuesta en frecuencia medida en el laboratorio para el filtro rechaza-banda RLC, se pueden
-extraer las siguientes conclusiones:
-
-\begin{itemize}
-    \item Frecuencia de resonancia: La mayor atenuación se midió a los $500 \si{\hertz}$, donde la tensión de salida
-        casi desaparece. Esto coincide muy bien con los $500 \si{\hertz}$ teóricos de la consigna.
-    
-    \item Atenuación: En la frecuencia de resonancia la atenuación supera los $60 \si{\decibel}$. Al alejarse de la
-        resonancia (ya sea hacia frecuencias bajas como altas), la tensión de salida vuelve a subir
-        hasta acercarse a los $12 \si{\volt}$ de entrada, cumpliendo con la función de un rechaza-banda.
-    
-    \item Pérdidas de inserción: En los extremos (a $1 \si{\hertz}$ y a $250 \si{\kilo\hertz}$), la tensión no llega a
-        ser exactamente igual a los $12 \si{\volt}$ de entrada. Esto pasa porque la reactancia del capacitor a baja
-        frecuencia (cerca de $50 \si{\kilo\ohm}$ a $1 \si{\hertz}$) y la del inductor a alta frecuencia (también cercana
-        a $50 \si{\kilo\ohm}$ a $250 \si{\kilo\hertz}$) no son infinitas frente al resistor de entrada de $100
-        \si{\kilo\ohm}$, dividiendo la tensión en la rama LC. Este efecto se puede apreciar claramente en el gráfico
-        comparativo de la Figura \ref{fig.ej2:bode_comparativa}.
-    
-    \item Comportamiento de la fase: Por debajo de los $500 \si{\hertz}$, la fase es negativa (cercana a $-90
-        \si{\degree}$) porque el capacitor domina la impedancia de la rama LC. Al pasar por la resonancia se produce la
-        inversión de fase esperada, volviéndose positiva (cercana a $90 \si{\degree}$) debido a que ahora domina el
-        inductor. Finalmente, a frecuencias muy altas, la fase empieza a caer hacia $0 \si{\degree}$, registrándose $45
-        \si{\degree}$ a los $250 \si{\kilo\hertz}$. Toda esta evolución se puede contrastar con la curva simulada en la
-        Figura \ref{fig.ej2:bode_comparativa}.
-\end{itemize}
-
->>>>>>> f3e1796 (tp1: Correcciones de formato en implementacion)
 Asimismo, se obtuvo el espectro en frecuencia de la señal mediante la función FFT del osciloscopio
-para evaluar la selectividad y el rechazo en el dominio de la frecuencia. En la Figura \ref{fig.ej2:fft}
+para evaluar la selectividad y el rechazo en el dominio de la frecuencia. En la Figura \ref{fig:ej2_fft}
 se presenta la captura de dicha medición.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{Images/FFT_Ej2.jpeg}
-<<<<<<< HEAD
-    \caption{Captura de la FFT.}
-=======
+    \includegraphics[width=0.6\textwidth]{images/FFT_Ej2.jpeg}
     \caption{captura de la FFT.}
->>>>>>> f3e1796 (tp1: Correcciones de formato en implementacion)
-    \label{fig.ej2:fft}
+    \label{fig:ej2_fft}
 \end{figure}
 
 \clearpage
@@ -224,7 +189,7 @@ combinación paralelo. Los valores utilizados fueron:
 \begin{itemize}
     \item $R_1 = 20 \si{\kilo\ohm}$
     \item $R_2 = (300 + 100)\si{\kilo\ohm} = 400 \si{\kilo\ohm}$
-    \item $C_1 = (1 // 0.22)\si{\micro\farad} = 1,\!22 \si{\micro\farad}$
+    \item $C_1 = (1 // 0,22)\si{\micro\farad} = 1,22 \si{\micro\farad}$
     \item $C_2 = 15 \si{\nano\farad}$
 \end{itemize}
 
@@ -232,24 +197,22 @@ combinación paralelo. Los valores utilizados fueron:
 
 El circuito se montó sobre una pcb, utilizando un amplificador operacional de la
 familia TL08x (TL082 específicamente). La disposición física del montaje
-experimental se expone en la Figura \ref{fig.ej3:foto_implementacion}.
+experimental se expone en la Figura \ref{fig:ej3_foto_implementacion}.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{pictures/crkt_ej3.jpeg}
     \caption{Fotografía del circuito implementado.}
-    \label{fig.ej3:foto_implementacion}
+    \label{fig:ej3_foto_implementacion}
 \end{figure}
 
 Las mediciones se realizaron variando la frecuencia del generador desde continua
 ($0 \si{\hertz}$) hasta $10 \si{\kilo\hertz}$, registrando los valores de
 tensión pico a pico y el desfase de la salida respecto de la entrada. Los
-resultados experimentales se recopilan en la Tabla \ref{tab.ej3:mediciones}.
+resultados experimentales se recopilan en la Tabla \ref{tab:ej3_mediciones}.
 
 \begin{table}[!ht]
     \centering
-    \caption{Mediciones de respuesta en frecuencia.}
-    \label{tab.ej3:mediciones}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Frecuencia [\si{\hertz}] & $V_{in}$ [\si{\volt}] & $V_{out}$ [\si{\volt}] & Ganancia [\si{\decibel}] & Fase [\si{\degree}] \\ \hline
@@ -265,26 +228,28 @@ resultados experimentales se recopilan en la Tabla \ref{tab.ej3:mediciones}.
         1100  & 1,50 & 0,78  & -5,68  & -261 \\ \hline
         10000 & 1,50 & 0,10  & -23,52 & -262 \\ \hline
     \end{tabular}
+    \caption{Mediciones de respuesta en frecuencia.}
+    \label{tab:ej3_mediciones}
 \end{table}
 
-Para complementar las mediciones puntuales, se capturó la respuesta espectral del filtro mediante la función FFT del osciloscopio digital. En la Figura \ref{fig.ej3:fft_osciloscopio} se muestra la captura de dicha medición, donde se observa la característica curva de respuesta paso-banda, concordando con el comportamiento esperado del filtro.
+Para complementar las mediciones puntuales, se capturó la respuesta espectral del filtro mediante la función FFT del osciloscopio digital. En la Figura \ref{fig:ej3_fft_osciloscopio} se muestra la captura de dicha medición, donde se observa la característica curva de respuesta paso-banda, concordando con el comportamiento esperado del filtro.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{pictures/osc_ej3_fft.jpeg}
     \caption{Respuesta espectral obtenida mediante la función FFT del osciloscopio.}
-    \label{fig.ej3:fft_osciloscopio}
+    \label{fig:ej3_fft_osciloscopio}
 \end{figure}
 
 \subsection{Comparación con Simulación}
 
-En la Figura \ref{fig.ej3:bode_comparativa} se presenta el diagrama de Bode comparativo, donde se contrastan las curvas obtenidas de la simulación del circuito con los puntos medidos experimentalmente en el laboratorio.
+En la Figura \ref{fig:ej3_bode_comparativa} se presenta el diagrama de Bode comparativo, donde se contrastan las curvas obtenidas de la simulación del circuito con los puntos medidos experimentalmente en el laboratorio.
 
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_ej3_bode_comparativa.tex}
     \caption{Diagrama de Bode comparativo: Medición vs Simulación.}
-    \label{fig.ej3:bode_comparativa}
+    \label{fig:ej3_bode_comparativa}
 \end{figure}
 
 

@@ -1,13 +1,29 @@
 \chapter{Conclusiones}
 
-Tras el análisis realizado, se puede concluir que el circuito responde a un filtro pasa-bajos de segundo orden. La
-función de transferencia obtenida mediante el método de divisores resistivos (bajo la premisa de independencia entre
-etapas) concuerda con los resultados esperados para este tipo de topologías pasivas.
+Luego del análisis teórico, la simulación y el ensayo experimental de los tres sistemas lineales, se pueden extraer
+las siguientes conclusiones generales e individuales:
 
-La simulación permite verificar que la respuesta en frecuencia presenta la atenuación característica a partir de las
-frecuencias de corte calculadas. Se observa una pendiente de $40 \si{\decibel\per\decade}$ en la banda de parada, lo
-cual es consistente con un sistema de segundo orden.
+En primer lugar, para el filtro pasivo RC de dos etapas (Ejercicio 1), se validó su comportamiento como un filtro
+pasa-bajos de segundo orden, con una atenuación de $40 \si{\decibel\per\decade}$ en la banda de parada. No obstante,
+las mediciones de laboratorio revelaron una discrepancia en altas frecuencias respecto a la simulación ideal. Este
+efecto se atribuyó correctamente a la impedancia de carga de la punta del osciloscopio en paralelo con el capacitor
+de salida $C_2$. Al ser $C_2$ de un valor muy bajo ($33 \si{\pico\farad}$), la capacidad parásita del instrumento
+desplazó el polo a frecuencias menores, evidenciando la importancia de considerar el instrumental en las mediciones.
 
-La futura implementación con componentes normalizados permitirá validar estos resultados teóricos frente a las
-limitaciones reales de los componentes electrónicos y los efectos de carga que podrían haberse despreciado en la
-primera aproximación del análisis.
+En segundo lugar, respecto al filtro RLC rechaza-banda (Ejercicio 2), la falta de disponibilidad de un inductor
+con el valor comercial de la consigna obligó a realizar un escalado de componentes. Reduciendo la inductancia a la
+cuarta parte ($8 \si{\milli\henry}$) e incrementando la capacitancia en proporción inversa, se logró mantener la
+frecuencia de resonancia de diseño en $500 \si{\hertz}$. La respuesta experimental reflejó un rechazo sobresaliente,
+con una atenuación superior a los $60 \si{\decibel}$ en resonancia. Las leves pérdidas observadas en los extremos de
+la banda se justificaron por la reactancia no infinita de los componentes reactivos reales frente a la resistencia
+de entrada de la red.
+
+En tercer lugar, para el filtro activo paso-banda (Ejercicio 3) implementado con el amplificador operacional
+TL082, los resultados experimentales mostraron una gran concordancia con el modelo teórico y la simulación en KiCad.
+La topología activa demostró ser robusta frente a efectos de carga externos, confirmando las ventajas de las redes
+activas con amplificadores operacionales en comparación con sus equivalentes pasivas en aplicaciones de baja señal.
+
+En conclusión, el trabajo práctico permitió corroborar el estrecho vínculo entre el modelado en el dominio de
+Laplace, las herramientas de simulación por computadora y el comportamiento físico real. Las discrepancias
+encontradas entre la teoría y la práctica sirvieron para comprender las limitaciones de los componentes reales y
+los efectos de carga de los instrumentos de medición, cumpliendo plenamente con los objetivos pedagógicos.

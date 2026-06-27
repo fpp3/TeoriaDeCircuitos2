@@ -1,15 +1,43 @@
 \chapter{Anexos}
 
 \section{Código Fuente Octave}
-\label{sec.ej1:anexo_octave}
+\label{sec:ej1_anexo_octave}
 
 A continuación se adjunta el script utilizado para la generación de los diagramas de Bode y el análisis de la función
 de transferencia. Se utilizó la biblioteca \texttt{bodas} \cite{bodas} para la representación gráfica.
 
 \lstinputlisting[style=octave, caption={Script de Octave para el Ejercicio 1.}]{sources/ej1.m}
 
+\section{Herramientas Web de Verificación y Cálculo}
+\label{sec:herramientas_web}
+
+Con el fin de facilitar la corroboración en tiempo real de los resultados teóricos, las
+simulaciones y las mediciones experimentales, se diseñaron con IA dos herramientas interactivas basadas
+en tecnologías web estándar (HTML, CSS y JavaScript). Estas utilidades están disponibles de forma
+local en la carpeta \texttt{tp1/sources/tools/}, y también se pueden consultar en el repositorio
+remoto del proyecto: \url{https://github.com/fpp3/TeoriaDeCircuitos2}.
+
+A continuación se detalla el propósito y funcionamiento de cada una de ellas:
+
+\begin{description}
+  \item[Calculadora de Fase (\texttt{fase-app}):] Diseñada para calcular la diferencia de fase
+  $\phi$ a partir de la frecuencia $f$ y la demora temporal $\Delta T$ medida con el osciloscopio,
+  mediante la expresión $\phi = 2\pi f \Delta T$. Presenta el desfasaje tanto en grados como en
+  radianes (con sus respectivos valores normalizados a $\pm 180^\circ$ y $\pm \pi$). Además,
+  genera una simulación visual dinámica de ambas senoides en pantalla para facilitar la
+  comprensión del retraso relativo.
+
+  \item[Ploteador X-Y (\texttt{plot-xy}):] Desarrollada para representar curvas de respuesta en
+  frecuencia de forma interactiva. Permite ingresar puntos manualmente o pegar tablas de datos
+  directamente desde planillas de cálculo. Admite escalas lineales y logarítmicas en ambos ejes
+  (ideal para diagramas de Bode de magnitud), conversión a decibelios ($\si{\decibel}$) respecto a
+  una tensión de referencia $V_{\text{ref}}$, y cuenta con un modo específico para traducir
+  demoras de tiempo $\Delta T$ a fase en tiempo real, permitiendo construir diagramas de Bode de
+  fase experimentales. Los gráficos obtenidos pueden exportarse en formato PNG.
+\end{description}
+
 \section{Trabajo en Papel}
-\label{sec.ej1:anexo_papel}
+\label{sec:ej1_anexo_papel}
 
 Se adjuntan las hojas del desarrollo analítico realizado manualmente durante la resolución de los ejercicios.
 
