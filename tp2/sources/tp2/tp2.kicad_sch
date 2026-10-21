@@ -708,6 +708,172 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:Jumper_2_Open"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "JP"
+				(at 0 2.794 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Open"
+				(at 0 -2.286 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, open"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_0_1"
+				(arc
+					(start -1.524 1.27)
+					(mid 0 1.778)
+					(end 1.524 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Mechanical:MountingHole_Pad"
 			(pin_numbers
 				(hide yes)
@@ -1840,7 +2006,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 127) (xy 209.55 130.81)
+			(xy 209.55 124.46) (xy 209.55 130.81)
 		)
 		(stroke
 			(width 0)
@@ -1867,6 +2033,16 @@
 			(type default)
 		)
 		(uuid "07305ec7-392f-4ca2-95c9-90dc847a78a2")
+	)
+	(wire
+		(pts
+			(xy 275.59 127) (xy 278.13 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "085b7f65-f81d-4a22-8718-a4d9fdb964d8")
 	)
 	(wire
 		(pts
@@ -2187,6 +2363,16 @@
 			(type default)
 		)
 		(uuid "56c85bdf-1ef9-4c3b-b747-ee05b59b7892")
+	)
+	(wire
+		(pts
+			(xy 261.62 127) (xy 265.43 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60292404-e5bb-493b-93a3-cbef10edc8d2")
 	)
 	(wire
 		(pts
@@ -2728,6 +2914,16 @@
 		)
 		(uuid "4eb4bf5b-0dc9-4cb7-b9fc-3ef4c1d6d03d")
 	)
+	(label "V+"
+		(at 278.13 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "509badf2-b68f-4d7c-a886-e4be6d507edf")
+	)
 	(label "Vout_{filter}"
 		(at 213.36 161.29 0)
 		(effects
@@ -2749,7 +2945,7 @@
 		(uuid "7afe515b-242b-406b-bb04-08a20ea04910")
 	)
 	(label "V+"
-		(at 209.55 127 0)
+		(at 209.55 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2767,6 +2963,16 @@
 			(justify left bottom)
 		)
 		(uuid "939e928e-9c4a-4127-b400-1c2c007ac744")
+	)
+	(label "Vin"
+		(at 261.62 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9afcbf4a-de7b-4234-aeb1-ef3b0fe4f152")
 	)
 	(label "V+"
 		(at 260.35 161.29 0)
@@ -3848,6 +4054,86 @@
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "U7")
 					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 270.51 127 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "27931408-6814-4a45-a08d-174be9bfccab")
+		(property "Reference" "JP1"
+			(at 270.51 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Jumper_2_Open"
+			(at 270.51 123.19 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 270.51 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 270.51 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 270.51 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b2ad3ca9-f957-40b0-834c-09da524dc5e5")
+		)
+		(pin "2"
+			(uuid "ed20e635-0a65-4147-bfd9-30641d2dabbf")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "JP1")
+					(unit 1)
 				)
 			)
 		)
