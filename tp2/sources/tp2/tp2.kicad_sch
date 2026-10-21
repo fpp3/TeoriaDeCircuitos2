@@ -1870,7 +1870,7 @@
 	)
 	(text ".param pi=3.141592653589793"
 		(exclude_from_sim no)
-		(at 244.348 136.652 0)
+		(at 233.172 143.51 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1991,6 +1991,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c53b66fc-587b-4c28-8262-f102c24f0251")
+	)
+	(junction
+		(at 19.05 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c727b5c4-582e-4aa5-80ee-322f8d404a33")
 	)
 	(junction
 		(at 196.85 59.69)
@@ -2152,6 +2158,26 @@
 	)
 	(wire
 		(pts
+			(xy 261.62 137.16) (xy 265.43 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1de55e87-c40f-4288-9206-b733c4c60373")
+	)
+	(wire
+		(pts
+			(xy 19.05 41.91) (xy 19.05 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20d8012d-3448-4851-a017-a5bbe6c04ec6")
+	)
+	(wire
+		(pts
 			(xy 127 43.18) (xy 135.89 43.18)
 		)
 		(stroke
@@ -2209,6 +2235,16 @@
 			(type default)
 		)
 		(uuid "30f34d61-06d7-4cd3-aa67-07de3cd41f2b")
+	)
+	(wire
+		(pts
+			(xy 279.4 137.16) (xy 279.4 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33bc51a9-a299-4fc7-8c40-716dbc961fcb")
 	)
 	(wire
 		(pts
@@ -2382,6 +2418,16 @@
 	)
 	(wire
 		(pts
+			(xy 275.59 137.16) (xy 279.4 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67b3c2ee-03da-464c-93e9-d7377a37b427")
+	)
+	(wire
+		(pts
 			(xy 180.34 59.69) (xy 186.69 59.69)
 		)
 		(stroke
@@ -2409,16 +2455,6 @@
 			(type default)
 		)
 		(uuid "6e38885a-2d2a-4545-a6c1-d82ed3d815f4")
-	)
-	(wire
-		(pts
-			(xy 40.64 52.07) (xy 40.64 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7519ee27-f8f9-4c31-b3f7-141c26be0ded")
 	)
 	(wire
 		(pts
@@ -2642,6 +2678,16 @@
 	)
 	(wire
 		(pts
+			(xy 40.64 48.26) (xy 40.64 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb6586aa-af88-4251-b5b8-c07a64bda458")
+	)
+	(wire
+		(pts
 			(xy 220.98 45.72) (xy 237.49 45.72)
 		)
 		(stroke
@@ -2669,6 +2715,16 @@
 			(type default)
 		)
 		(uuid "c49b9f5b-96e4-4f9d-bf20-856087da33f0")
+	)
+	(wire
+		(pts
+			(xy 19.05 43.18) (xy 21.59 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c682031c-f1db-4a21-92cd-d75b315a1bc3")
 	)
 	(wire
 		(pts
@@ -2878,7 +2934,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f1557d44-9b3a-45b1-99b0-eeace59303fe")
+		(uuid "f116fe66-d7cb-4fcd-8d45-0094fa5a9d1c")
 	)
 	(wire
 		(pts
@@ -2899,6 +2955,16 @@
 			(type default)
 		)
 		(uuid "f4dd45d1-5761-4505-8907-bb7ca40b4017")
+	)
+	(wire
+		(pts
+			(xy 19.05 43.18) (xy 19.05 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f56e8b8a-84f4-4492-b84e-10c5c7e24837")
 	)
 	(wire
 		(pts
@@ -2960,6 +3026,16 @@
 		)
 		(uuid "41237d6f-d484-4934-b53c-43027b9870f8")
 	)
+	(label "Vin-"
+		(at 21.59 43.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "462f7f99-b217-4cc3-a4b0-9a2b3582b5b7")
+	)
 	(label "V+"
 		(at 189.23 124.46 0)
 		(effects
@@ -3020,7 +3096,7 @@
 		)
 		(uuid "939e928e-9c4a-4127-b400-1c2c007ac744")
 	)
-	(label "Vin"
+	(label "Vin+"
 		(at 261.62 127 180)
 		(effects
 			(font
@@ -3029,6 +3105,16 @@
 			(justify right bottom)
 		)
 		(uuid "9afcbf4a-de7b-4234-aeb1-ef3b0fe4f152")
+	)
+	(label "Vin-"
+		(at 261.62 137.16 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9e5aaaeb-7d7a-47ae-aa06-ef3abe3af4f4")
 	)
 	(label "V+"
 		(at 260.35 161.29 0)
@@ -3040,7 +3126,7 @@
 		)
 		(uuid "a21b1e9e-e7b8-4406-8f03-b03cd4c99c4f")
 	)
-	(label "Vin"
+	(label "Vin+"
 		(at 22.86 59.69 0)
 		(effects
 			(font
@@ -3080,7 +3166,7 @@
 		)
 		(uuid "b7856487-3cb3-4171-beb3-b02efb4bf68a")
 	)
-	(label "V_{in}"
+	(label "Vin"
 		(at 45.72 71.12 0)
 		(effects
 			(font
@@ -5625,6 +5711,84 @@
 	)
 	(symbol
 		(lib_id "Simulation_SPICE:0")
+		(at 279.4 140.97 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8690c797-5337-4ba9-a773-d99d774b26fd")
+		(property "Reference" "#GND011"
+			(at 279.4 146.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 279.4 138.43 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 279.4 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 279.4 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 279.4 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "84fb36a3-0df2-43b5-a108-eddb425fdd29")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
 		(at 243.84 123.19 0)
 		(unit 1)
 		(body_style 1)
@@ -6332,6 +6496,86 @@
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 270.51 137.16 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6d0a882-3b9c-475d-913c-3c1a4a05efff")
+		(property "Reference" "JP2"
+			(at 270.51 130.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Jumper_2_Open"
+			(at 270.51 133.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 270.51 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 270.51 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 270.51 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e7e7e32e-6787-4420-8d8d-0d393eda9e1a")
+		)
+		(pin "2"
+			(uuid "e8e78f92-d14c-4332-8832-020f2b698a2a")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "JP2")
 					(unit 1)
 				)
 			)
@@ -7935,7 +8179,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
-		(at 19.05 45.72 0)
+		(at 19.05 39.37 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim yes)
@@ -7946,7 +8190,7 @@
 		(fields_autoplaced yes)
 		(uuid "fcbb12f0-9774-4aeb-b799-6fde0d11c83a")
 		(property "Reference" "H1"
-			(at 21.59 43.1799 0)
+			(at 21.59 36.8299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7957,7 +8201,7 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 21.59 45.7199 0)
+			(at 21.59 39.3699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7968,7 +8212,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
-			(at 19.05 45.72 0)
+			(at 19.05 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7979,7 +8223,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 19.05 45.72 0)
+			(at 19.05 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7990,7 +8234,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
-			(at 19.05 45.72 0)
+			(at 19.05 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
