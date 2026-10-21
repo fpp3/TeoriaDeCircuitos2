@@ -1990,6 +1990,16 @@
 	)
 	(wire
 		(pts
+			(xy 243.84 109.22) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27d69012-68a2-4594-84cd-59bb1d8825a0")
+	)
+	(wire
+		(pts
 			(xy 237.49 74.93) (xy 237.49 62.23)
 		)
 		(stroke
@@ -2047,6 +2057,16 @@
 			(type default)
 		)
 		(uuid "39a23240-7a19-421e-8a42-05f77fb73c4c")
+	)
+	(wire
+		(pts
+			(xy 229.87 109.22) (xy 229.87 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39e9ef2d-f2a8-4b94-9e97-c7822932840c")
 	)
 	(wire
 		(pts
@@ -2320,6 +2340,26 @@
 	)
 	(wire
 		(pts
+			(xy 260.35 161.29) (xy 260.35 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9bfe2399-b583-4b5f-8b5b-5e1482688e4b")
+	)
+	(wire
+		(pts
+			(xy 243.84 123.19) (xy 243.84 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0af7337-9861-43a7-8e71-71a033c08d9e")
+	)
+	(wire
+		(pts
 			(xy 92.71 90.17) (xy 66.04 90.17)
 		)
 		(stroke
@@ -2380,7 +2420,7 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 161.29) (xy 251.46 157.48)
+			(xy 236.22 161.29) (xy 236.22 157.48)
 		)
 		(stroke
 			(width 0)
@@ -2460,7 +2500,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 161.29) (xy 204.47 157.48)
+			(xy 189.23 161.29) (xy 189.23 157.48)
 		)
 		(stroke
 			(width 0)
@@ -2550,7 +2590,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 157.48) (xy 179.07 161.29)
+			(xy 163.83 157.48) (xy 163.83 161.29)
 		)
 		(stroke
 			(width 0)
@@ -2580,13 +2620,23 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 161.29) (xy 228.6 157.48)
+			(xy 213.36 161.29) (xy 213.36 157.48)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "e787db26-ac38-40e4-b61e-b4991cd75c85")
+	)
+	(wire
+		(pts
+			(xy 229.87 123.19) (xy 229.87 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f009bdbb-ebb7-4409-8681-584e0b34a1d4")
 	)
 	(wire
 		(pts
@@ -2639,7 +2689,7 @@
 		(uuid "01be0835-b864-4e41-8c30-6412a61e02ce")
 	)
 	(label "V_{C}"
-		(at 251.46 161.29 0)
+		(at 236.22 161.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2647,6 +2697,16 @@
 			(justify left bottom)
 		)
 		(uuid "2619336d-2bb7-42cb-9be1-031152e1f263")
+	)
+	(label "V+"
+		(at 229.87 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3a071d1e-f8a6-491c-bca3-81bf17a87550")
 	)
 	(label "Vout_{1}"
 		(at 180.34 59.69 180)
@@ -2669,7 +2729,7 @@
 		(uuid "4eb4bf5b-0dc9-4cb7-b9fc-3ef4c1d6d03d")
 	)
 	(label "Vout_{filter}"
-		(at 228.6 161.29 0)
+		(at 213.36 161.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2709,6 +2769,16 @@
 		(uuid "939e928e-9c4a-4127-b400-1c2c007ac744")
 	)
 	(label "V+"
+		(at 260.35 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a21b1e9e-e7b8-4406-8f03-b03cd4c99c4f")
+	)
+	(label "Vin"
 		(at 22.86 59.69 0)
 		(effects
 			(font
@@ -2717,6 +2787,16 @@
 			(justify left bottom)
 		)
 		(uuid "aa54b58e-0a05-46a5-a931-3f7217db30f4")
+	)
+	(label "V+"
+		(at 243.84 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b052e455-ade9-4efc-ab9a-29220ea560a2")
 	)
 	(label "V+"
 		(at 168.91 124.46 0)
@@ -2729,7 +2809,7 @@
 		(uuid "b0e7af58-02d5-46d5-ac70-1b0d08e95c67")
 	)
 	(label "Vout_{1}"
-		(at 204.47 161.29 0)
+		(at 189.23 161.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2767,6 +2847,88 @@
 			(justify right bottom)
 		)
 		(uuid "fda9f4e9-474c-4e77-aee1-df3ff3268352")
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 229.87 115.57 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0aa20018-5da1-4801-8662-bdee2d4a378e")
+		(property "Reference" "C3"
+			(at 233.68 114.2999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 233.68 116.8399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 230.8352 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 229.87 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 229.87 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "81bd2c86-16b6-4993-8e43-63532672f6a5")
+		)
+		(pin "1"
+			(uuid "4be89683-aef7-4d1c-8e22-7b134b68836f")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -3296,7 +3458,7 @@
 	)
 	(symbol
 		(lib_id "Simulation_SPICE:0")
-		(at 179.07 161.29 0)
+		(at 163.83 161.29 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3307,7 +3469,7 @@
 		(fields_autoplaced yes)
 		(uuid "265deb67-9f88-4ff5-95ff-b936c972fc4f")
 		(property "Reference" "#GND08"
-			(at 179.07 166.37 0)
+			(at 163.83 166.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3318,7 +3480,7 @@
 			)
 		)
 		(property "Value" "0"
-			(at 179.07 158.75 0)
+			(at 163.83 158.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3328,7 +3490,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 179.07 161.29 0)
+			(at 163.83 161.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3339,7 +3501,7 @@
 			)
 		)
 		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 179.07 171.45 0)
+			(at 163.83 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3350,7 +3512,7 @@
 			)
 		)
 		(property "Description" "0V reference potential for simulation"
-			(at 179.07 168.91 0)
+			(at 163.83 168.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3374,7 +3536,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
-		(at 251.46 154.94 0)
+		(at 236.22 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim yes)
@@ -3385,7 +3547,7 @@
 		(fields_autoplaced yes)
 		(uuid "26fee9bd-7952-4af0-b7c4-1bd3295545e5")
 		(property "Reference" "H6"
-			(at 254 152.3999 0)
+			(at 238.76 152.3999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3396,7 +3558,7 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 254 154.9399 0)
+			(at 238.76 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3407,7 +3569,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
-			(at 251.46 154.94 0)
+			(at 236.22 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3418,7 +3580,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 251.46 154.94 0)
+			(at 236.22 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3429,7 +3591,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
-			(at 251.46 154.94 0)
+			(at 236.22 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3807,6 +3969,84 @@
 		)
 	)
 	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 229.87 123.19 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "44c07863-7920-4abb-8425-b434f729555b")
+		(property "Reference" "#GND06"
+			(at 229.87 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 229.87 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 229.87 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 229.87 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 229.87 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e4095fdd-91a1-4d67-b822-a42c13ed1b9a")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 19.05 66.04 0)
 		(unit 1)
@@ -3968,7 +4208,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
-		(at 228.6 154.94 0)
+		(at 213.36 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim yes)
@@ -3979,7 +4219,7 @@
 		(fields_autoplaced yes)
 		(uuid "4a23315d-dc71-4665-b311-a2c1dae8aeee")
 		(property "Reference" "H5"
-			(at 231.14 152.3999 0)
+			(at 215.9 152.3999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3990,7 +4230,7 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 231.14 154.9399 0)
+			(at 215.9 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4001,7 +4241,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
-			(at 228.6 154.94 0)
+			(at 213.36 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4012,7 +4252,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 228.6 154.94 0)
+			(at 213.36 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4023,7 +4263,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
-			(at 228.6 154.94 0)
+			(at 213.36 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4047,7 +4287,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
-		(at 204.47 154.94 0)
+		(at 189.23 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim yes)
@@ -4058,7 +4298,7 @@
 		(fields_autoplaced yes)
 		(uuid "4f63e485-78e8-42da-ac80-94839221d4c0")
 		(property "Reference" "H4"
-			(at 207.01 152.3999 0)
+			(at 191.77 152.3999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4069,7 +4309,7 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 207.01 154.9399 0)
+			(at 191.77 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4080,7 +4320,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
-			(at 204.47 154.94 0)
+			(at 189.23 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4091,7 +4331,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 204.47 154.94 0)
+			(at 189.23 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4102,7 +4342,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
-			(at 204.47 154.94 0)
+			(at 189.23 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4882,8 +5122,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 243.84 123.19 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "872124d5-33fb-4132-b341-47be1a54161c")
+		(property "Reference" "#GND09"
+			(at 243.84 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 243.84 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 243.84 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 243.84 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "abd981ac-e0f5-440d-9b4f-065555984af0")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
-		(at 179.07 154.94 0)
+		(at 260.35 154.94 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim yes)
@@ -4892,9 +5210,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8fa35b98-e055-4c26-8733-3195223623d3")
-		(property "Reference" "H3"
-			(at 181.61 152.3999 0)
+		(uuid "89aff37b-d197-4dc8-b8cf-a8759b428a01")
+		(property "Reference" "H7"
+			(at 262.89 152.3999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4905,7 +5223,7 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 181.61 154.9399 0)
+			(at 262.89 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4916,7 +5234,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
-			(at 179.07 154.94 0)
+			(at 260.35 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4927,7 +5245,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 154.94 0)
+			(at 260.35 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4938,7 +5256,86 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
-			(at 179.07 154.94 0)
+			(at 260.35 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0c5408e6-3959-40ef-b83e-f6cf3cd0e27f")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "H7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 163.83 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8fa35b98-e055-4c26-8733-3195223623d3")
+		(property "Reference" "H3"
+			(at 166.37 152.3999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 166.37 154.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 163.83 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 163.83 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 163.83 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6153,6 +6550,88 @@
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 243.84 115.57 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3e2cbf5-6ba6-4182-b57c-cf11c9091f36")
+		(property "Reference" "C4"
+			(at 247.65 114.2999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 247.65 116.8399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 244.8052 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 243.84 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "7ab89f94-6921-4a50-a781-b54481cbe17e")
+		)
+		(pin "1"
+			(uuid "3977a143-142c-4efc-beb9-fd8c37c8c931")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "C4")
 					(unit 1)
 				)
 			)
