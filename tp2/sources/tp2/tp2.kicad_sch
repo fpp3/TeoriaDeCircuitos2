@@ -5,6 +5,414 @@
 	(uuid "c95402b1-5d65-4faa-a715-3078d768faff")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Amplifier_Operational:LM324"
+			(pin_names
+				(offset 0.127)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "LM324"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.27 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+				(at 1.27 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "quad opamp"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "SOIC*3.9x8.7mm*P1.27mm* DIP*W7.62mm* TSSOP*4.4x5mm*P0.65mm* SSOP*5.3x6.2mm*P0.65mm* MSOP*3x3mm*P0.5mm*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LM324_1_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "LM324_2_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "LM324_3_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "LM324_4_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "LM324_5_1"
+				(pin power_in line
+					(at -2.54 7.62 270)
+					(length 3.81)
+					(name "V+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 3.81)
+					(name "V-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -300,6 +708,129 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole_Pad"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole_Pad"
+				(at 0 4.445 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Mounting Hole with connection"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*Pad*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_0_1"
+				(circle
+					(center 0 1.27)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_1_1"
+				(pin input line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Simulation_SPICE:0"
 			(power global)
 			(pin_numbers
@@ -408,232 +939,6 @@
 						(effects
 							(font
 								(size 1.016 1.016)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Simulation_SPICE:ISIN"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.0254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "I"
-				(at 2.54 2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "ISIN"
-				(at 2.54 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Current source, sinusoidal"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Sim.Pins" "1=+ 2=-"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Sim.Params" "dc=0 ampl=1 f=1k ac=1"
-				(at 2.54 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Sim.Device" "I"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Sim.Type" "SIN"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "simulation"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "ISIN_0_0"
-				(arc
-					(start -1.27 0)
-					(mid -0.635 0.6323)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 1.27 0)
-					(mid 0.635 -0.6323)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "ISIN_0_1"
-				(polyline
-					(pts
-						(xy -0.254 1.778) (xy 0 1.27) (xy 0.254 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.27) (xy 0 2.286)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 0)
-					(radius 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "ISIN_1_1"
-				(pin passive line
-					(at 0 5.08 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
 							)
 						)
 					)
@@ -905,17 +1210,18 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Simulation_SPICE:OPAMP"
+		(symbol "Simulation_SPICE:Potentiometer"
 			(pin_names
-				(offset 0.254)
+				(offset 1.016)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U3"
-				(at 7.62 5.1502 0)
+			(property "Reference" "R"
+				(at 1.778 2.286 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -924,10 +1230,11 @@
 					)
 				)
 			)
-			(property "Value" "${SIM.PARAMS}"
-				(at 7.62 3.2451 0)
+			(property "Value" "Potentiometer"
+				(at -2.54 0 90)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -945,7 +1252,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -956,8 +1263,8 @@
 					)
 				)
 			)
-			(property "Description" "Operational amplifier, single"
-				(at 0 0 0)
+			(property "Description" "Potentiometer for Simulation"
+				(at 0 -13.97 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -967,8 +1274,8 @@
 					)
 				)
 			)
-			(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-				(at 0 0 0)
+			(property "Sim.Device" "R"
+				(at 0 -20.066 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -978,19 +1285,29 @@
 					)
 				)
 			)
-			(property "Sim.Device" "SUBCKT"
-				(at 0 0 0)
+			(property "Sim.Pins" "1=r0 2=wiper 3=r1"
+				(at 0 -18.288 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Sim.Params" "r=1k pos=0.4"
+				(at 1.27 -2.032 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 0.635 0.635)
 					)
 					(justify left)
 				)
 			)
-			(property "Sim.Library" "lm324.lib"
+			(property "Sim.Type" "POT"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1001,7 +1318,7 @@
 					)
 				)
 			)
-			(property "Sim.Name" "LM324"
+			(property "ki_keywords" "resistor variable spice sim"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1012,36 +1329,56 @@
 					)
 				)
 			)
-			(property "ki_keywords" "simulation"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "OPAMP_0_1"
-				(polyline
-					(pts
-						(xy 5.08 0) (xy -5.08 5.08) (xy -5.08 -5.08) (xy 5.08 0)
-					)
+			(symbol "Potentiometer_0_1"
+				(rectangle
+					(start 1.016 2.54)
+					(end -1.016 -2.54)
 					(stroke
 						(width 0.254)
 						(type default)
 					)
 					(fill
-						(type background)
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.143 0) (xy 2.286 0.508) (xy 2.286 -0.508) (xy 1.143 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 1.524 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 			)
-			(symbol "OPAMP_1_1"
-				(pin input line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "-"
+			(symbol "Potentiometer_1_1"
+				(text "SPICE"
+					(at 0 0 900)
+					(effects
+						(font
+							(size 0.635 0.635)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1056,10 +1393,10 @@
 						)
 					)
 				)
-				(pin input line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "+"
+				(pin passive line
+					(at 3.81 0 180)
+					(length 1.27)
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1074,10 +1411,10 @@
 						)
 					)
 				)
-				(pin output line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name ""
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1085,42 +1422,6 @@
 						)
 					)
 					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -2.54 7.62 270)
-					(length 3.81)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -2.54 -7.62 90)
-					(length 3.81)
-					(name "V-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1442,10 +1743,34 @@
 		(uuid "f2ec2eb7-7020-4b3a-aa48-1139fcab23ee")
 	)
 	(junction
+		(at 19.05 59.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "093e2e4d-e957-4feb-a28e-13ae653d7d5e")
+	)
+	(junction
+		(at 40.64 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0f89026e-1611-4ad6-accf-61d36fc614e6")
+	)
+	(junction
 		(at 135.89 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "29bf40ff-b147-43a5-802a-c92004e44f8f")
+	)
+	(junction
+		(at 34.29 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "310e9593-6bfb-4f07-bac1-cd28790fa8ac")
+	)
+	(junction
+		(at 212.09 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3e3f69fb-a58d-4fd8-bdd5-669870077e8e")
 	)
 	(junction
 		(at 110.49 62.23)
@@ -1460,22 +1785,28 @@
 		(uuid "81cd9998-6f0f-4318-993d-50d01e3aef71")
 	)
 	(junction
+		(at 95.25 140.97)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "87944383-7677-4a99-92d9-9a54f3db74f6")
+	)
+	(junction
 		(at 92.71 45.72)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8c6b0089-e8de-46b4-af2f-16b4842338a3")
 	)
 	(junction
-		(at 40.64 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "99dae594-4f03-41fc-b315-3dd809a3b389")
-	)
-	(junction
 		(at 57.15 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9ee8e897-5c36-4d28-9ceb-471e9c56900e")
+	)
+	(junction
+		(at 40.64 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9f99d187-9a4b-4fd8-9682-740c67de3419")
 	)
 	(junction
 		(at 237.49 62.23)
@@ -1488,12 +1819,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c53b66fc-587b-4c28-8262-f102c24f0251")
-	)
-	(junction
-		(at 40.64 48.26)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cac04697-1f0e-4510-a7e3-b3e415e451b1")
 	)
 	(junction
 		(at 196.85 59.69)
@@ -1555,13 +1880,13 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 66.04) (xy 26.67 73.66)
+			(xy 19.05 58.42) (xy 19.05 59.69)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "09d8329b-792e-418a-a737-6d11e638b8f3")
+		(uuid "0de3a596-0a67-4e22-9abd-73136c582653")
 	)
 	(wire
 		(pts
@@ -1595,6 +1920,16 @@
 	)
 	(wire
 		(pts
+			(xy 19.05 69.85) (xy 19.05 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "149d74d3-a057-4ac6-b43d-4e60431e12dc")
+	)
+	(wire
+		(pts
 			(xy 92.71 57.15) (xy 92.71 45.72)
 		)
 		(stroke
@@ -1615,6 +1950,26 @@
 	)
 	(wire
 		(pts
+			(xy 189.23 124.46) (xy 189.23 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16250f12-2997-45d2-80e2-2038558dbebc")
+	)
+	(wire
+		(pts
+			(xy 95.25 140.97) (xy 95.25 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "181e154c-ca01-4f5e-81d7-70e6faac5e49")
+	)
+	(wire
+		(pts
 			(xy 40.64 73.66) (xy 72.39 73.66)
 		)
 		(stroke
@@ -1622,16 +1977,6 @@
 			(type default)
 		)
 		(uuid "1cff3e3c-86a5-43eb-bcd4-e880e151897f")
-	)
-	(wire
-		(pts
-			(xy 76.2 36.83) (xy 81.28 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24311d14-1787-4e5e-ab9c-388a65278fc5")
 	)
 	(wire
 		(pts
@@ -1695,23 +2040,13 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 66.04) (xy 77.47 68.58)
+			(xy 189.23 142.24) (xy 189.23 140.97)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3a8fe5c9-ab69-4dd0-8773-cd9e31336aeb")
-	)
-	(wire
-		(pts
-			(xy 81.28 36.83) (xy 81.28 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3aef1e1c-cc2f-4963-a61b-5d507dadb1a9")
+		(uuid "39a23240-7a19-421e-8a42-05f77fb73c4c")
 	)
 	(wire
 		(pts
@@ -1725,6 +2060,16 @@
 	)
 	(wire
 		(pts
+			(xy 34.29 73.66) (xy 40.64 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c220912-8c8b-4ad4-a135-3ed58ba5bd32")
+	)
+	(wire
+		(pts
 			(xy 40.64 48.26) (xy 40.64 57.15)
 		)
 		(stroke
@@ -1732,6 +2077,26 @@
 			(type default)
 		)
 		(uuid "3c39bd1c-e333-4e3c-a8a0-354466fb4c7b")
+	)
+	(wire
+		(pts
+			(xy 168.91 124.46) (xy 168.91 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4074d607-f7ea-4071-b842-60d4af2d85b2")
+	)
+	(wire
+		(pts
+			(xy 34.29 69.85) (xy 34.29 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40812c79-9205-4340-9f12-ed6af4a892cc")
 	)
 	(wire
 		(pts
@@ -1785,16 +2150,6 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 71.12) (xy 226.06 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ceae837-2c4b-4cd4-a12e-6e376b872b52")
-	)
-	(wire
-		(pts
 			(xy 220.98 64.77) (xy 217.17 64.77)
 		)
 		(stroke
@@ -1825,13 +2180,23 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 36.83) (xy 76.2 38.1)
+			(xy 19.05 59.69) (xy 19.05 62.23)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "68c52a73-a4df-4177-9819-0427a17ff6e6")
+		(uuid "6766191b-9d3b-4ddd-8d3c-8e8145e8c489")
+	)
+	(wire
+		(pts
+			(xy 180.34 59.69) (xy 186.69 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "689387d0-5b6d-4d46-8ba3-cd5f307d1659")
 	)
 	(wire
 		(pts
@@ -1845,13 +2210,23 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 50.8) (xy 125.73 50.8)
+			(xy 30.48 69.85) (xy 34.29 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "78e0ffb2-ecf9-412d-b0b3-1ce7ca9661a3")
+		(uuid "6e38885a-2d2a-4545-a6c1-d82ed3d815f4")
+	)
+	(wire
+		(pts
+			(xy 212.09 72.39) (xy 212.09 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75f19b5c-48dc-47ca-b473-d87cacbfee7d")
 	)
 	(wire
 		(pts
@@ -1865,33 +2240,53 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 137.16) (xy 64.77 139.7)
+			(xy 212.09 69.85) (xy 212.09 72.39)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7c74c32d-4f61-4120-9b2f-039db86a0273")
+		(uuid "7cb015b5-ae46-4381-9fdf-36ec1daea2ea")
 	)
 	(wire
 		(pts
-			(xy 120.65 69.85) (xy 120.65 67.31)
+			(xy 19.05 59.69) (xy 22.86 59.69)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "854daad2-d1d7-4d4c-b5bc-3072b6d43748")
+		(uuid "81c7320b-a254-44ca-a594-68242f3ce607")
 	)
 	(wire
 		(pts
-			(xy 95.25 138.43) (xy 95.25 142.24)
+			(xy 19.05 73.66) (xy 26.67 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "876e241d-413d-44a2-9c6d-265c6970ec81")
+	)
+	(wire
+		(pts
+			(xy 95.25 138.43) (xy 95.25 140.97)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "88b82c4f-3045-47fa-a617-38bd5d02beb1")
+	)
+	(wire
+		(pts
+			(xy 19.05 48.26) (xy 40.64 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8cc981d9-923b-4189-a687-cc36b6c45c21")
 	)
 	(wire
 		(pts
@@ -1925,26 +2320,6 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 59.69) (xy 186.69 59.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9237f131-7085-4043-8b50-a31fc37626fa")
-	)
-	(wire
-		(pts
-			(xy 76.2 55.88) (xy 76.2 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9bec6dc7-56f1-4e2a-be68-18856f213f69")
-	)
-	(wire
-		(pts
 			(xy 92.71 90.17) (xy 66.04 90.17)
 		)
 		(stroke
@@ -1962,16 +2337,6 @@
 			(type default)
 		)
 		(uuid "a317339a-d4a1-4b40-b42d-ec4d21564578")
-	)
-	(wire
-		(pts
-			(xy 26.67 48.26) (xy 40.64 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a64e1a4f-bea2-4093-bdcb-5de85cf4a122")
 	)
 	(wire
 		(pts
@@ -1995,6 +2360,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 142.24) (xy 168.91 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac78c1fa-845d-46cb-9b38-05e0819c1455")
+	)
+	(wire
+		(pts
 			(xy 217.17 74.93) (xy 237.49 74.93)
 		)
 		(stroke
@@ -2002,6 +2377,16 @@
 			(type default)
 		)
 		(uuid "ad241a92-87ea-4579-8077-6956a8d9e10d")
+	)
+	(wire
+		(pts
+			(xy 251.46 161.29) (xy 251.46 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af3aab2d-5a55-41d3-b41c-4bdeafbfc53e")
 	)
 	(wire
 		(pts
@@ -2035,16 +2420,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 55.88) (xy 26.67 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bf78a635-3338-4eb3-bc44-0d3fccf22a4a")
-	)
-	(wire
-		(pts
 			(xy 57.15 48.26) (xy 71.12 48.26)
 		)
 		(stroke
@@ -2065,6 +2440,16 @@
 	)
 	(wire
 		(pts
+			(xy 95.25 140.97) (xy 101.6 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c71ec8fa-617f-4497-8bc1-e51de5bdd4c6")
+	)
+	(wire
+		(pts
 			(xy 57.15 58.42) (xy 57.15 60.96)
 		)
 		(stroke
@@ -2072,6 +2457,16 @@
 			(type default)
 		)
 		(uuid "c8656c24-8426-4c02-b477-65defb72f7ce")
+	)
+	(wire
+		(pts
+			(xy 204.47 161.29) (xy 204.47 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca279060-4417-41b7-a4ee-d5a11bc837e4")
 	)
 	(wire
 		(pts
@@ -2105,16 +2500,6 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 76.2) (xy 212.09 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d821dd95-cb10-4903-a9c7-dd88e5e5e386")
-	)
-	(wire
-		(pts
 			(xy 66.04 78.74) (xy 72.39 78.74)
 		)
 		(stroke
@@ -2122,16 +2507,6 @@
 			(type default)
 		)
 		(uuid "d8dc81e3-ffe0-4a70-b62e-91bfd033c8d8")
-	)
-	(wire
-		(pts
-			(xy 120.65 50.8) (xy 120.65 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc826fe6-6df8-4f6c-a97f-2d78ae4a502b")
 	)
 	(wire
 		(pts
@@ -2175,13 +2550,13 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 50.8) (xy 125.73 52.07)
+			(xy 179.07 157.48) (xy 179.07 161.29)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e30db534-5b8c-43de-99ff-66e3eaa1a911")
+		(uuid "e3ce2c03-4cd3-4970-ab1a-9b1b606868e2")
 	)
 	(wire
 		(pts
@@ -2195,16 +2570,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 85.09) (xy 77.47 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e6bd8bc3-0abf-480e-a5c3-fa530afdc710")
-	)
-	(wire
-		(pts
 			(xy 212.09 59.69) (xy 212.09 64.77)
 		)
 		(stroke
@@ -2215,13 +2580,13 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 73.66) (xy 26.67 73.66)
+			(xy 228.6 161.29) (xy 228.6 157.48)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e775c82e-33df-4e6f-ac9c-e7ce7d8449ab")
+		(uuid "e787db26-ac38-40e4-b61e-b4991cd75c85")
 	)
 	(wire
 		(pts
@@ -2263,55 +2628,55 @@
 		)
 		(uuid "fb9dd55a-2f1f-40ad-9b79-93f4f611510c")
 	)
-	(wire
-		(pts
-			(xy 64.77 154.94) (xy 64.77 156.21)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fe2862be-1b11-4568-8bd0-3e419e24db15")
-	)
-	(label "V+"
-		(at 64.77 137.16 0)
+	(label "V_{C}"
+		(at 101.6 140.97 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "31e4ad97-0f4a-47e7-9569-786e0911cff1")
+		(uuid "01be0835-b864-4e41-8c30-6412a61e02ce")
 	)
-	(label "V+"
-		(at 77.47 66.04 0)
+	(label "V_{C}"
+		(at 251.46 161.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "52a85f3d-c01c-4f02-8cc8-043d419a3459")
+		(uuid "2619336d-2bb7-42cb-9be1-031152e1f263")
 	)
 	(label "Vout_{1}"
-		(at 185.42 59.69 180)
+		(at 180.34 59.69 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "637aa9cf-1af3-44b7-b1ca-bfa7267ba5d1")
+		(uuid "41237d6f-d484-4934-b53c-43027b9870f8")
 	)
 	(label "V+"
-		(at 120.65 69.85 0)
+		(at 189.23 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "7125e155-3eb4-4c50-a504-10634e383de8")
+		(uuid "4eb4bf5b-0dc9-4cb7-b9fc-3ef4c1d6d03d")
+	)
+	(label "Vout_{filter}"
+		(at 228.6 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "543e2567-91c8-4005-affa-ed436e727ab8")
 	)
 	(label "Vout_{1}"
 		(at 138.43 59.69 0)
@@ -2344,14 +2709,44 @@
 		(uuid "939e928e-9c4a-4127-b400-1c2c007ac744")
 	)
 	(label "V+"
-		(at 226.06 54.61 0)
+		(at 22.86 59.69 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "b02d3691-a377-4776-9349-04f65eaac1ce")
+		(uuid "aa54b58e-0a05-46a5-a931-3f7217db30f4")
+	)
+	(label "V+"
+		(at 168.91 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b0e7af58-02d5-46d5-ac70-1b0d08e95c67")
+	)
+	(label "Vout_{1}"
+		(at 204.47 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b7856487-3cb3-4171-beb3-b02efb4bf68a")
+	)
+	(label "V_{in}"
+		(at 40.64 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "beaa7b51-cf1f-40b7-9849-7da0e050ea42")
 	)
 	(label "Vout_{filter}"
 		(at 241.3 62.23 0)
@@ -2362,16 +2757,6 @@
 			(justify left bottom)
 		)
 		(uuid "dd2f52f6-2064-43a2-be27-12f439d5182f")
-	)
-	(label "V+"
-		(at 76.2 55.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fa6a3dda-f905-4b86-bd98-240118c6dafd")
 	)
 	(label "Vout_{filter}"
 		(at 54.61 144.78 180)
@@ -2417,7 +2802,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 38.862 60.96 90)
 			(hide yes)
 			(show_name no)
@@ -2486,7 +2871,7 @@
 				)
 			)
 		)
-		(property "Value" "47k"
+		(property "Value" "33k"
 			(at 203.2 65.024 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2496,7 +2881,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 203.2 61.468 90)
 			(hide yes)
 			(show_name no)
@@ -2540,6 +2925,165 @@
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "R8")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 228.6 62.23 0)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1925615e-9a2a-41dd-a634-901602019763")
+		(property "Reference" "U1"
+			(at 228.6 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 228.6 54.61 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 227.33 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 229.87 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 228.6 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 228.6 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 228.6 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 228.6 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 228.6 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db7")
+		)
+		(pin "1"
+			(uuid "438f49c0-188c-4866-b153-2a11e0225291")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e46")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b24")
+		)
+		(pin "10"
+			(uuid "93a15273-4988-4061-91e4-3214d444f124")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c309")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11282")
+		)
+		(pin "9"
+			(uuid "e2e308cf-eb3a-4b82-a954-498067d111ad")
+		)
+		(pin "8"
+			(uuid "22e77aae-30dd-4695-bab8-6328c5494e0a")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c92")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec193")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdbf")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d38")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06eac")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U1")
+					(unit 3)
 				)
 			)
 		)
@@ -2624,9 +3168,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:OPAMP")
-		(at 123.19 59.69 0)
-		(mirror x)
+		(lib_id "Simulation_SPICE:Potentiometer")
+		(at 30.48 73.66 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2634,9 +3177,10 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "253c424f-c728-433c-b9e8-8a121798457f")
-		(property "Reference" "U4"
-			(at 130.81 64.8402 0)
+		(fields_autoplaced yes)
+		(uuid "215c23c9-77f8-4625-afdc-ff5314c7f30b")
+		(property "Reference" "R13"
+			(at 30.48 78.74 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2645,8 +3189,136 @@
 				)
 			)
 		)
-		(property "Value" "${SIM.PARAMS}"
-			(at 130.81 62.9351 0)
+		(property "Value" "Potentiometer"
+			(at 30.48 76.2 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_3266Y_Vertical"
+			(at 30.48 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 30.48 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Potentiometer for Simulation"
+			(at 44.45 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "R"
+			(at 50.546 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=r0 2=wiper 3=r1"
+			(at 48.768 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Params" "r=100 pos=0.4"
+			(at 30.48 76.2 90)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+			)
+		)
+		(property "Sim.Type" "POT"
+			(at 30.48 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "3aea71e9-9316-4027-a7b0-768d280764f5")
+		)
+		(pin "1"
+			(uuid "b5f84e3a-e69f-419e-a8e0-a76dd80df0f7")
+		)
+		(pin "2"
+			(uuid "d7d01279-8d94-4d62-85fc-21081acce74d")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 179.07 161.29 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "265deb67-9f88-4ff5-95ff-b936c972fc4f")
+		(property "Reference" "#GND08"
+			(at 179.07 166.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 179.07 158.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2656,7 +3328,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.19 59.69 0)
+			(at 179.07 161.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2666,8 +3338,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
-			(at 123.19 59.69 0)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 179.07 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2677,8 +3349,8 @@
 				)
 			)
 		)
-		(property "Description" "Operational amplifier, single"
-			(at 123.19 59.69 0)
+		(property "Description" "0V reference potential for simulation"
+			(at 179.07 168.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2688,20 +3360,32 @@
 				)
 			)
 		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-			(at 123.19 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+		(pin "1"
+			(uuid "7cbd21d1-ca8f-481e-9153-778fc0dd6fa8")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND08")
+					(unit 1)
 				)
 			)
 		)
-		(property "Sim.Device" "SUBCKT"
-			(at 123.19 59.69 0)
-			(hide yes)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 251.46 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "26fee9bd-7952-4af0-b7c4-1bd3295545e5")
+		(property "Reference" "H6"
+			(at 254 152.3999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2711,8 +3395,19 @@
 				(justify left)
 			)
 		)
-		(property "Sim.Library" "lm324.lib"
-			(at 123.19 59.69 0)
+		(property "Value" "MountingHole_Pad"
+			(at 254 154.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 251.46 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2722,8 +3417,8 @@
 				)
 			)
 		)
-		(property "Sim.Name" "LM324"
-			(at 123.19 59.69 0)
+		(property "Datasheet" ""
+			(at 251.46 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2733,25 +3428,24 @@
 				)
 			)
 		)
-		(pin "2"
-			(uuid "1b31c143-8116-474a-bdba-0227ad54b19f")
+		(property "Description" "Mounting Hole with connection"
+			(at 251.46 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
 		(pin "1"
-			(uuid "25b29589-0ebb-41dd-af79-d5a3ca98d6f4")
-		)
-		(pin "3"
-			(uuid "92170016-0dc6-45fa-91a1-a308246b0d69")
-		)
-		(pin "5"
-			(uuid "aa83f0ed-51cb-49b9-9848-1fef045bd4c9")
-		)
-		(pin "4"
-			(uuid "4a53d02b-7b1e-4a06-a653-a67ed489e9b7")
+			(uuid "d166c13b-7906-4bca-96b6-1497e358a184")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "U4")
+					(reference "H6")
 					(unit 1)
 				)
 			)
@@ -2837,10 +3531,9 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:0")
-		(at 64.77 156.21 0)
-		(mirror y)
-		(unit 1)
+		(lib_id "Amplifier_Operational:LM324")
+		(at 334.01 66.04 0)
+		(unit 3)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2848,9 +3541,29 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "331f256b-6a9a-4e5d-b20f-7ed4ce22e2f7")
-		(property "Reference" "#GND015"
-			(at 64.77 161.29 0)
+		(uuid "274c6b5f-e182-4b7b-8dc5-bccc0169be39")
+		(property "Reference" "U7"
+			(at 334.01 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 334.01 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 332.74 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2860,18 +3573,8 @@
 				)
 			)
 		)
-		(property "Value" "0"
-			(at 64.77 153.67 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 64.77 156.21 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 335.28 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2881,8 +3584,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 64.77 166.37 0)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 334.01 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2892,8 +3595,8 @@
 				)
 			)
 		)
-		(property "Description" "0V reference potential for simulation"
-			(at 64.77 163.83 0)
+		(property "Sim.Library" "lm324.lib"
+			(at 334.01 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2902,15 +3605,87 @@
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 334.01 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 334.01 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 334.01 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db3")
 		)
 		(pin "1"
-			(uuid "bd8b76fb-0929-44b1-ad12-d7b0aca10ede")
+			(uuid "438f49c0-188c-4866-b153-2a11e022528d")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e43")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b21")
+		)
+		(pin "10"
+			(uuid "053190e4-0d34-486c-814d-6b01eb5a70ad")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c305")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e1127f")
+		)
+		(pin "9"
+			(uuid "1aabeca6-f5ad-4875-a165-43b45ad01d08")
+		)
+		(pin "8"
+			(uuid "ac97d780-3d34-47df-9619-1c50ae13f3b4")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c8f")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec18f")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdbc")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d35")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06ea8")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "#GND015")
-					(unit 1)
+					(reference "U7")
+					(unit 3)
 				)
 			)
 		)
@@ -2921,10 +3696,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "40d26779-2837-45f4-9b6e-17af25605919")
 		(property "Reference" "V1"
@@ -3032,9 +3807,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:OPAMP")
-		(at 78.74 45.72 0)
-		(mirror x)
+		(lib_id "Device:R")
+		(at 19.05 66.04 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3042,74 +3816,10 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "452f7ca0-a6c4-42f1-802e-af99252ab07d")
-		(property "Reference" "U2"
-			(at 86.36 50.8702 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "${SIM.PARAMS}"
-			(at 86.36 48.9651 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 78.74 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
-			(at 78.74 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Operational amplifier, single"
-			(at 78.74 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-			(at 78.74 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "SUBCKT"
-			(at 78.74 45.72 0)
-			(hide yes)
+		(fields_autoplaced yes)
+		(uuid "4602a72c-d2e8-4996-b8fc-2226414e370e")
+		(property "Reference" "R12"
+			(at 21.59 64.7699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3119,8 +3829,19 @@
 				(justify left)
 			)
 		)
-		(property "Sim.Library" "lm324.lib"
-			(at 78.74 45.72 0)
+		(property "Value" "680"
+			(at 21.59 67.3099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 17.272 66.04 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3130,8 +3851,19 @@
 				)
 			)
 		)
-		(property "Sim.Name" "LM324"
-			(at 78.74 45.72 0)
+		(property "Datasheet" ""
+			(at 19.05 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 19.05 66.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3142,24 +3874,15 @@
 			)
 		)
 		(pin "2"
-			(uuid "2bf75147-5788-4d0c-81e0-0971d51e348b")
+			(uuid "33aff459-820b-47b6-988a-86242a7b7703")
 		)
 		(pin "1"
-			(uuid "f3383248-c57a-42aa-8e67-d873b49b28ea")
-		)
-		(pin "3"
-			(uuid "0479e278-d393-4733-9cd1-3a63b9d4c1b5")
-		)
-		(pin "5"
-			(uuid "794f7d0d-2d20-4658-a912-3b928b1aade1")
-		)
-		(pin "4"
-			(uuid "d5f8ac79-2327-4ba6-b1d8-58aa89604913")
+			(uuid "5e62a819-4492-4c56-84f5-6cee3e27e9e2")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "U2")
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -3244,20 +3967,41 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:0")
-		(at 77.47 85.09 0)
-		(mirror y)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 228.6 154.94 0)
 		(unit 1)
 		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
+		(exclude_from_sim yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "582b0f5b-a510-40e0-bf4d-1fe8e27fa834")
-		(property "Reference" "#GND012"
-			(at 77.47 90.17 0)
+		(uuid "4a23315d-dc71-4665-b311-a2c1dae8aeee")
+		(property "Reference" "H5"
+			(at 231.14 152.3999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 231.14 154.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 228.6 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3267,18 +4011,8 @@
 				)
 			)
 		)
-		(property "Value" "0"
-			(at 77.47 82.55 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 77.47 85.09 0)
+		(property "Datasheet" ""
+			(at 228.6 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3288,19 +4022,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 77.47 95.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "0V reference potential for simulation"
-			(at 77.47 92.71 0)
+		(property "Description" "Mounting Hole with connection"
+			(at 228.6 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3311,12 +4034,91 @@
 			)
 		)
 		(pin "1"
-			(uuid "d5f582ea-1e73-43b9-afd7-7912c7a998f1")
+			(uuid "ff9429fe-7011-4b55-83eb-d256dc43f56a")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "#GND012")
+					(reference "H5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 204.47 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4f63e485-78e8-42da-ac80-94839221d4c0")
+		(property "Reference" "H4"
+			(at 207.01 152.3999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 207.01 154.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 204.47 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 204.47 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 204.47 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d993229a-4027-47a5-8091-c40e39b0e0ae")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -3356,7 +4158,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 55.372 54.61 90)
 			(hide yes)
 			(show_name no)
@@ -3436,7 +4238,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm"
 			(at 220.98 44.7548 0)
 			(hide yes)
 			(show_name no)
@@ -3505,7 +4307,7 @@
 				)
 			)
 		)
-		(property "Value" "47k"
+		(property "Value" "33k"
 			(at 190.5 65.024 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3515,7 +4317,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 190.5 61.468 90)
 			(hide yes)
 			(show_name no)
@@ -3564,6 +4366,166 @@
 		)
 	)
 	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 123.19 59.69 0)
+		(mirror x)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7a50dfe7-3189-41a9-bd8f-f366be545881")
+		(property "Reference" "U1"
+			(at 123.19 69.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 123.19 67.31 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 121.92 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 124.46 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 123.19 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 123.19 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 123.19 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 123.19 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 123.19 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db4")
+		)
+		(pin "1"
+			(uuid "438f49c0-188c-4866-b153-2a11e022528e")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e44")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b22")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d6a")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c306")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11280")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f8d")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c947897814")
+		)
+		(pin "7"
+			(uuid "53701684-a3fb-41d3-bae2-128b69600501")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec190")
+		)
+		(pin "6"
+			(uuid "5062f411-d097-485b-87bf-f73d7b4c8484")
+		)
+		(pin "5"
+			(uuid "1c014153-9afc-4864-8ab7-73bc252133de")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06ea9")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U1")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 110.49 68.58 180)
 		(unit 1)
@@ -3594,7 +4556,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 112.268 68.58 90)
 			(hide yes)
 			(show_name no)
@@ -3673,7 +4635,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 93.472 163.83 90)
 			(hide yes)
 			(show_name no)
@@ -3722,139 +4684,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:OPAMP")
-		(at 80.01 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "810c84d1-3f33-4ef2-ac3d-b0cf330ab1a9")
-		(property "Reference" "U3"
-			(at 87.63 71.0498 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "${SIM.PARAMS}"
-			(at 87.63 72.9549 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Operational amplifier, single"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "SUBCKT"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Library" "lm324.lib"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Name" "LM324"
-			(at 80.01 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "0985923d-38cc-42d4-bb56-edbf635134ef")
-		)
-		(pin "1"
-			(uuid "8fa0e6bd-d248-4bcf-89a0-68636645d59c")
-		)
-		(pin "3"
-			(uuid "e5ba1fed-c794-452c-a62b-7e0334361da2")
-		)
-		(pin "5"
-			(uuid "aef831e7-c89b-4c86-993d-48cd9a5cfedb")
-		)
-		(pin "4"
-			(uuid "980f4b42-54ce-4e97-bb4c-b36f9f0f3061")
-		)
-		(instances
-			(project "tp2"
-				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "U3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Simulation_SPICE:NPN")
 		(at 92.71 147.32 0)
 		(unit 1)
@@ -3888,7 +4717,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92"
 			(at 156.21 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -4004,7 +4833,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 101.6 58.928 90)
 			(hide yes)
 			(show_name no)
@@ -4053,20 +4882,41 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:0")
-		(at 81.28 38.1 0)
-		(mirror y)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 179.07 154.94 0)
 		(unit 1)
 		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
+		(exclude_from_sim yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8768f5d7-a2ce-4385-99b4-7587f47c9002")
-		(property "Reference" "#GND013"
-			(at 81.28 43.18 0)
+		(uuid "8fa35b98-e055-4c26-8733-3195223623d3")
+		(property "Reference" "H3"
+			(at 181.61 152.3999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 181.61 154.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 179.07 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4076,18 +4926,8 @@
 				)
 			)
 		)
-		(property "Value" "0"
-			(at 81.28 35.56 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 81.28 38.1 0)
+		(property "Datasheet" ""
+			(at 179.07 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4097,19 +4937,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 81.28 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "0V reference potential for simulation"
-			(at 81.28 45.72 0)
+		(property "Description" "Mounting Hole with connection"
+			(at 179.07 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4120,53 +4949,51 @@
 			)
 		)
 		(pin "1"
-			(uuid "df757fe7-8450-4a41-aa8c-b3ff55f01ae3")
+			(uuid "294ec4a0-c100-4c7d-9bd9-d8fc047229b0")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "#GND013")
+					(reference "H3")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:ISIN")
-		(at 26.67 60.96 0)
-		(mirror y)
-		(unit 1)
+		(lib_id "Amplifier_Operational:LM324")
+		(at 334.01 80.01 0)
+		(unit 4)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "950e63a4-c110-4664-be92-4efd5588d603")
-		(property "Reference" "I1"
-			(at 22.86 58.4199 0)
+		(fields_autoplaced yes)
+		(uuid "9960f1e3-6d3a-4840-8716-2980ecbf4737")
+		(property "Reference" "U7"
+			(at 334.01 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "ISIN"
-			(at 22.86 60.9599 0)
+		(property "Value" "LM324"
+			(at 334.01 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 26.67 60.96 0)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 332.74 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4176,8 +5003,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-			(at 26.67 60.96 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 335.28 74.93 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4187,8 +5014,8 @@
 				)
 			)
 		)
-		(property "Description" "Current source, sinusoidal"
-			(at 26.67 60.96 0)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 334.01 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4198,8 +5025,8 @@
 				)
 			)
 		)
-		(property "Sim.Pins" "1=+ 2=-"
-			(at 26.67 60.96 0)
+		(property "Sim.Library" "lm324.lib"
+			(at 334.01 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4209,19 +5036,8 @@
 				)
 			)
 		)
-		(property "Sim.Params" "dc=12mA ampl=8mA f=50 ac=1"
-			(at 17.272 76.962 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Device" "I"
-			(at 26.67 60.96 0)
+		(property "Sim.Name" "LM324"
+			(at 334.01 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4229,11 +5045,21 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Sim.Type" "SIN"
-			(at 26.67 60.96 0)
+		(property "Sim.Device" "SUBCKT"
+			(at 334.01 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 334.01 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4244,16 +5070,212 @@
 			)
 		)
 		(pin "2"
-			(uuid "479d5dc8-4af2-4d02-942a-e34dcbba84b4")
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db5")
 		)
 		(pin "1"
-			(uuid "7f447ee5-36cc-49c6-be07-84dd1cfdb7f7")
+			(uuid "438f49c0-188c-4866-b153-2a11e022528f")
+		)
+		(pin "14"
+			(uuid "862abbaf-5805-47cc-b075-d27ac24725d9")
+		)
+		(pin "12"
+			(uuid "b3388f56-0863-4d17-a46b-5ada45d8a36b")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d6b")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c307")
+		)
+		(pin "13"
+			(uuid "71e05add-8785-4d45-b4d7-4c4d14fe30b9")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f8e")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c947897815")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c91")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec191")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdbe")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d37")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06eaa")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "I1")
-					(unit 1)
+					(reference "U7")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 334.01 49.53 0)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9cf1dfb9-3908-4b86-8159-c34a230b4eef")
+		(property "Reference" "U7"
+			(at 334.01 39.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 334.01 41.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 332.74 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 335.28 44.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 334.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 334.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 334.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 334.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 334.01 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db6")
+		)
+		(pin "1"
+			(uuid "438f49c0-188c-4866-b153-2a11e0225290")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e45")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b23")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d6c")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c308")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11281")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f8f")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c947897816")
+		)
+		(pin "7"
+			(uuid "978ab8ec-b984-4296-9cb6-0a002e5ca7fe")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec192")
+		)
+		(pin "6"
+			(uuid "627026ec-8050-4e82-81f7-d0d18f3b6bcc")
+		)
+		(pin "5"
+			(uuid "94dc790b-d9b2-4aa1-b970-cc31c9a19a47")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06eab")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U7")
+					(unit 2)
 				)
 			)
 		)
@@ -4289,7 +5311,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 93.472 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -4332,139 +5354,6 @@
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "R10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Simulation_SPICE:OPAMP")
-		(at 67.31 147.32 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a71aba06-b739-477c-9ad9-eaf98f480f51")
-		(property "Reference" "U5"
-			(at 74.93 142.1698 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "${SIM.PARAMS}"
-			(at 74.93 144.0749 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Operational amplifier, single"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "SUBCKT"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Library" "lm324.lib"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Name" "LM324"
-			(at 67.31 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "08e996c1-fdf1-4327-afe3-23dab275a1d0")
-		)
-		(pin "1"
-			(uuid "bc3e1f10-cd66-489d-b708-d080f80772fa")
-		)
-		(pin "3"
-			(uuid "3488bcb7-5853-4f12-a81e-a96cf6975875")
-		)
-		(pin "5"
-			(uuid "76f972e1-afc4-47c5-9216-4eda679abf78")
-		)
-		(pin "4"
-			(uuid "9b8f79c2-c278-4b1a-b661-1351617bde4f")
-		)
-		(instances
-			(project "tp2"
-				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "U5")
 					(unit 1)
 				)
 			)
@@ -4571,7 +5460,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "270n"
+		(property "Value" "330n"
 			(at 208.28 69.8499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4582,7 +5471,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm"
 			(at 213.0552 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -4631,9 +5520,9 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:0")
-		(at 226.06 71.12 0)
-		(mirror y)
+		(lib_id "Amplifier_Operational:LM324")
+		(at 78.74 45.72 0)
+		(mirror x)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4641,10 +5530,29 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bb8baeb9-1cf7-4890-809b-3327373e5bf7")
-		(property "Reference" "#GND016"
-			(at 226.06 76.2 0)
+		(uuid "ba5bee8f-e3d1-4f65-b576-1f49418f368d")
+		(property "Reference" "U1"
+			(at 78.74 55.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 78.74 53.34 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 77.47 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4654,18 +5562,8 @@
 				)
 			)
 		)
-		(property "Value" "0"
-			(at 226.06 68.58 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 226.06 71.12 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 80.01 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4675,8 +5573,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 226.06 81.28 0)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 78.74 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4684,120 +5582,10 @@
 				(font
 					(size 1.27 1.27)
 				)
-			)
-		)
-		(property "Description" "0V reference potential for simulation"
-			(at 226.06 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b3976ac2-7fa8-43cb-9483-a1e8f7e32c64")
-		)
-		(instances
-			(project "tp2"
-				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "#GND016")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Simulation_SPICE:OPAMP")
-		(at 228.6 62.23 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "bc2be788-3cde-4c95-9d19-b67fd5c3d8d3")
-		(property "Reference" "U6"
-			(at 236.22 57.0798 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "${SIM.PARAMS}"
-			(at 236.22 58.9849 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 228.6 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec__SUBCKT_Subcircuits"
-			(at 228.6 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Operational amplifier, single"
-			(at 228.6 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5"
-			(at 228.6 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "SUBCKT"
-			(at 228.6 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 			)
 		)
 		(property "Sim.Library" "lm324.lib"
-			(at 228.6 62.23 0)
+			(at 78.74 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4808,7 +5596,29 @@
 			)
 		)
 		(property "Sim.Name" "LM324"
-			(at 228.6 62.23 0)
+			(at 78.74 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 78.74 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 78.74 45.72 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4819,34 +5629,139 @@
 			)
 		)
 		(pin "2"
-			(uuid "e6e71bc0-a523-411d-9dd7-307358780c44")
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db8")
 		)
 		(pin "1"
-			(uuid "9ba65236-3ee9-4acb-9750-4a2fdf6fb050")
+			(uuid "438f49c0-188c-4866-b153-2a11e0225292")
 		)
-		(pin "3"
-			(uuid "4434682f-80b3-4bd5-90ce-6e63c01daf98")
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e47")
 		)
-		(pin "5"
-			(uuid "9e106d58-2d8d-4959-adfb-e300431a01f7")
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b25")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d6e")
 		)
 		(pin "4"
-			(uuid "cd89342a-baa2-43b2-8b82-66b7d876cb25")
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c30a")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11283")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f91")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c947897818")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c93")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec194")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdc0")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d39")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06ead")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "U6")
+					(reference "U1")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:0")
-		(at 125.73 52.07 0)
-		(mirror y)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 19.05 55.88 0)
 		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bb4ae644-0209-486e-ac49-ec2efa164783")
+		(property "Reference" "H2"
+			(at 21.59 53.3399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 21.59 55.8799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 19.05 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 19.05 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 19.05 55.88 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fda7796a-cfde-4624-b712-06734f016d29")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 191.77 133.35 0)
+		(unit 5)
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4854,9 +5769,31 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "c1b51ee1-0062-478d-85aa-7a5d18c23ffb")
-		(property "Reference" "#GND014"
-			(at 125.73 57.15 0)
+		(uuid "c489a3ca-098e-4c99-b2cf-509a1bc4d7a1")
+		(property "Reference" "U7"
+			(at 190.5 132.0799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LM324"
+			(at 190.5 134.6199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 190.5 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4866,18 +5803,8 @@
 				)
 			)
 		)
-		(property "Value" "0"
-			(at 125.73 49.53 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 125.73 52.07 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 193.04 128.27 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4887,8 +5814,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
-			(at 125.73 62.23 0)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 191.77 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4898,8 +5825,8 @@
 				)
 			)
 		)
-		(property "Description" "0V reference potential for simulation"
-			(at 125.73 59.69 0)
+		(property "Sim.Library" "lm324.lib"
+			(at 191.77 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4908,15 +5835,87 @@
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 191.77 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 191.77 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 191.77 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649db9")
 		)
 		(pin "1"
-			(uuid "0ade180d-0787-4011-9d52-04daaf2db7f1")
+			(uuid "438f49c0-188c-4866-b153-2a11e0225293")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e48")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b26")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d6f")
+		)
+		(pin "4"
+			(uuid "15208da0-fe52-4190-8fa6-f0f0407b33be")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11284")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f92")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c947897819")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c94")
+		)
+		(pin "11"
+			(uuid "0697b77f-240f-4b0c-8550-313604dddd2e")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdc1")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d3a")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06eae")
 		)
 		(instances
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
-					(reference "#GND014")
-					(unit 1)
+					(reference "U7")
+					(unit 5)
 				)
 			)
 		)
@@ -5000,6 +5999,166 @@
 		)
 	)
 	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 67.31 147.32 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cf359c9d-85a2-4d6d-8a9d-2f59d6a43c2b")
+		(property "Reference" "U7"
+			(at 67.31 137.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 67.31 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 66.04 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 68.58 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 67.31 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 67.31 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 67.31 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 67.31 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 67.31 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ed96c3f7-a8e1-4521-aba0-e8c46824ffa2")
+		)
+		(pin "1"
+			(uuid "c12f9787-46ce-4314-bbd0-502e13de7a02")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e49")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b27")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d70")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c30b")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11285")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f93")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c94789781a")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c95")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec195")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdc2")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d3b")
+		)
+		(pin "3"
+			(uuid "66cb2997-b62c-488c-9496-e885a16bc812")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 83.82 147.32 270)
 		(unit 1)
@@ -5030,7 +6189,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 83.82 145.542 90)
 			(hide yes)
 			(show_name no)
@@ -5079,6 +6238,168 @@
 		)
 	)
 	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 171.45 133.35 0)
+		(unit 5)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "df7851ed-0b43-47e4-b4de-997340c80549")
+		(property "Reference" "U1"
+			(at 170.18 132.0799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LM324"
+			(at 170.18 134.6199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 170.18 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 172.72 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 171.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 171.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 171.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 171.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 171.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9a98ffb1-6841-423e-bff0-20491d649dba")
+		)
+		(pin "1"
+			(uuid "438f49c0-188c-4866-b153-2a11e0225294")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e4a")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b28")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d71")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c30c")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11286")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f94")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c94789781b")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c96")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec196")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdc3")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d3c")
+		)
+		(pin "3"
+			(uuid "a583801c-abd0-4eaa-a464-f5c2d6e06eaf")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U1")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 101.6 62.23 90)
 		(unit 1)
@@ -5109,7 +6430,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 101.6 64.008 90)
 			(hide yes)
 			(show_name no)
@@ -5158,6 +6479,321 @@
 		)
 	)
 	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 168.91 142.24 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f2f1a396-fb0d-4455-856d-bb612e95d2ca")
+		(property "Reference" "#GND04"
+			(at 168.91 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 168.91 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 168.91 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 168.91 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 168.91 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1ce18ac3-f37a-4d39-93c8-0537fa81800e")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:0")
+		(at 189.23 142.24 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f6635895-6896-4a22-bcb7-b0329ccbe822")
+		(property "Reference" "#GND05"
+			(at 189.23 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 189.23 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 189.23 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#subsec_Circuit_elements__device"
+			(at 189.23 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "0V reference potential for simulation"
+			(at 189.23 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9a939d2e-53d5-49d3-827c-fb989896b959")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "#GND05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amplifier_Operational:LM324")
+		(at 80.01 76.2 0)
+		(unit 4)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f9c42839-4e34-466b-8a4f-55cc3007c716")
+		(property "Reference" "U1"
+			(at 80.01 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LM324"
+			(at 80.01 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket"
+			(at 78.74 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf"
+			(at 81.28 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Low-Power, Quad-Operational Amplifiers, DIP-14/SOIC-14/SSOP-14"
+			(at 80.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Library" "lm324.lib"
+			(at 80.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Name" "LM324"
+			(at 80.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 80.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14"
+			(at 80.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "8650dd99-6912-4513-87c0-5fa2329db905")
+		)
+		(pin "1"
+			(uuid "3ecfee21-7d15-4167-b222-497ed3600e2f")
+		)
+		(pin "14"
+			(uuid "37bb3dfb-0414-4c41-95aa-c9580a017e4b")
+		)
+		(pin "12"
+			(uuid "89333af4-39e7-4331-a4e9-d22058778b29")
+		)
+		(pin "10"
+			(uuid "2f43a3f0-339b-4f6e-a6e9-d4e857cf3d72")
+		)
+		(pin "4"
+			(uuid "30d28a77-1512-407b-bf7b-cfecd879c30d")
+		)
+		(pin "13"
+			(uuid "dedbaa9c-d302-4077-9c37-adc3d7e11287")
+		)
+		(pin "9"
+			(uuid "db3c305d-79d7-4eab-8ce8-3e1b6eba7f95")
+		)
+		(pin "8"
+			(uuid "fc8212ac-802b-4078-addb-90c94789781c")
+		)
+		(pin "7"
+			(uuid "582be4a3-bd7b-47d9-9040-ba8bbdfb0c97")
+		)
+		(pin "11"
+			(uuid "314a34d3-a04a-408e-aa0a-0066a33ec197")
+		)
+		(pin "6"
+			(uuid "8573b368-f752-411b-a128-8a19f8c5fdc4")
+		)
+		(pin "5"
+			(uuid "986bdd8f-f3a2-493d-b671-ca06cdc05d3d")
+		)
+		(pin "3"
+			(uuid "b7eb2573-f5b3-4183-bcf3-00ebf44aeeb1")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "U1")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 123.19 43.18 90)
 		(unit 1)
@@ -5189,7 +6825,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 123.19 44.958 90)
 			(hide yes)
 			(show_name no)
@@ -5232,6 +6868,85 @@
 			(project "tp2"
 				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 19.05 45.72 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fcbb12f0-9774-4aeb-b799-6fde0d11c83a")
+		(property "Reference" "H1"
+			(at 21.59 43.1799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 21.59 45.7199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm"
+			(at 19.05 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 19.05 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 19.05 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fe8bdcdb-3063-4b3a-9ae9-a20965dae305")
+		)
+		(instances
+			(project "tp2"
+				(path "/c95402b1-5d65-4faa-a715-3078d768faff"
+					(reference "H1")
 					(unit 1)
 				)
 			)
