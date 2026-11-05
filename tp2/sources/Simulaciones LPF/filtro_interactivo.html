@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador y Calculador: Filtro Butterworth 4to Orden Sallen-Key</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --grid: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 1.5rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+    .badge-spec {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: #0284c7;
+      color: #fff;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .presets-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--card-border);
+      align-items: center;
+    }
+    .preset-btn {
+      background: #0369a1;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .preset-btn:hover { background: #0284c7; transform: translateY(-1px); }
+    .preset-btn.highlight {
+      background: #10b981;
+    }
+    .preset-btn.highlight:hover { background: #059669; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stage-badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: #475569;
+      color: #cbd5e1;
+    }
+
+    .control-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .control-item label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 0.375rem;
+      overflow: hidden;
+    }
+    .input-wrapper input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
+    .input-wrapper input:focus { outline: none; }
+    .input-wrapper .unit {
+      padding: 0 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: #1e293b;
+      border-left: 1px solid var(--card-border);
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .quick-caps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.25rem;
+    }
+    .quick-cap-btn {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.35rem;
+      background: #334155;
+      color: #cbd5e1;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .quick-cap-btn:hover { background: #475569; color: #fff; }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .metric-card {
+      background: #0f172a;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--card-border);
+    }
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .metric-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: monospace;
+    }
+    .metric-val.success { color: var(--success); }
+    .metric-val.warning { color: var(--warning); }
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .chart-container {
+      position: relative;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      margin-top: 1rem;
+    }
+    canvas {
+      width: 100%;
+      height: 340px;
+      display: block;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-color { width: 14px; height: 3px; border-radius: 2px; }
+
+    .schematic-box {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.75rem;
+      white-space: pre;
+      overflow-x: auto;
+      color: #93c5fd;
+      line-height: 1.2;
+    }
+    .netlist-box {
+      width: 100%;
+      height: 120px;
+      background: #090d16;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--card-border);
+      border-radius: 0.375rem;
+      resize: vertical;
+      margin-top: 0.5rem;
+    }
+    .copy-btn {
+      background: #334155;
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 0.25rem;
+    }
+    .copy-btn:hover { background: #475569; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        Filtro Pasa Bajos Butterworth 4to Orden Sallen-Key
+      </h1>
+      <div class="subtitle">
+        Diseño optimizado para Teoría de Circuitos II (Referencia: S.A. Pactitis - Active Filters)
+      </div>
+      <div>
+        <span class="badge-spec">Orden: n = 4</span>
+        <span class="badge-spec">Tipo: Butterworth</span>
+        <span class="badge-spec">F_3dB Objetivo: 19.00 kHz</span>
+        <span class="badge-spec">Ganancia Total: 9.00 V/V (+19.08 dB)</span>
+        <span class="badge-spec">Sin etapa extra de op-amp (K1=3, K2=3)</span>
+      </div>
+    </header>
+
+    <!-- Presets -->
+    <div class="presets-bar">
+      <span style="font-size: 0.85rem; font-weight: 700; color: #cbd5e1;">Cargar Configuración:</span>
+      <button class="preset-btn highlight" onclick="loadPreset('commercial_19k')">
+        ⭐ Recomendado E12 (19 kHz, R=10k/15k, C=1n/470p/680p)
+      </button>
+      <button class="preset-btn" onclick="loadPreset('exact_19k')">
+        Teórico Exacto Pactitis (19 kHz, R=10k exacto)
+      </button>
+      <button class="preset-btn" onclick="loadPreset('plantilla_24k')">
+        Plantilla Formal (fp=19kHz @ 0.5dB → Solo 10k y 20k!)
+      </button>
+      <button class="preset-btn" onclick="loadPreset('equal_resistors_19k')">
+        Resistencias Iguales R1=R2 (C1=820p/330p, C1=820p/560p)
+      </button>
+    </div>
+
+    <!-- Global Result Summary -->
+    <div class="card" style="border-left: 4px solid var(--accent);">
+      <div class="card-title">
+        <span>Rendimiento Global del Filtro</span>
+        <span id="status-tag" style="font-size:0.8rem; font-weight:normal; color:var(--success);">Cumple Especificación</span>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Ganancia DC Total</div>
+          <div class="metric-val" id="m-gain-vv">9.00 V/V</div>
+          <div class="metric-sub" id="m-gain-db">+19.08 dB</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Frecuencia de Corte (-3dB)</div>
+          <div class="metric-val" id="m-f3db">18.98 kHz</div>
+          <div class="metric-sub" id="m-f3db-err">Error: -0.1% vs 19 kHz</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Atenuación a 19 kHz</div>
+          <div class="metric-val" id="m-att-19k">3.05 dB</div>
+          <div class="metric-sub">Ideal Butterworth: 3.01 dB</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Atenuación a 38 kHz (1 Octava)</div>
+          <div class="metric-val" id="m-att-oct">-24.1 dB</div>
+          <div class="metric-sub">Pendiente asintótica: -80 dB/déc</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stages configuration -->
+    <div class="grid-2">
+      <!-- ETAPA 1 -->
+      <div class="card">
+        <div class="card-title">
+          <span>Etapa 1 (1er Bicuadrática)</span>
+          <span class="stage-badge">Damping alto (Q=0.54)</span>
+        </div>
+        <div class="control-group">
+          <div class="control-item">
+            <label>R1_1 (Entrada)</label>
+            <div class="input-wrapper">
+              <input type="number" id="r1_1" value="10000" step="100" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>R2_1 (Serie a V+)</label>
+            <div class="input-wrapper">
+              <input type="number" id="r2_1" value="15000" step="100" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>C1_1 (V+ a GND)</label>
+            <div class="input-wrapper">
+              <input type="number" id="c1_1" value="1.0" step="0.1" oninput="updateAll()">
+              <span class="unit">nF</span>
+            </div>
+            <div class="quick-caps">
+              <button class="quick-cap-btn" onclick="setCap('c1_1', 0.82)">820p</button>
+              <button class="quick-cap-btn" onclick="setCap('c1_1', 1.0)">1.0n</button>
+              <button class="quick-cap-btn" onclick="setCap('c1_1', 1.2)">1.2n</button>
+              <button class="quick-cap-btn" onclick="setCap('c1_1', 1.5)">1.5n</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>C2_1 (Feedback)</label>
+            <div class="input-wrapper">
+              <input type="number" id="c2_1" value="0.47" step="0.01" oninput="updateAll()">
+              <span class="unit">nF</span>
+            </div>
+            <div class="quick-caps">
+              <button class="quick-cap-btn" onclick="setCap('c2_1', 0.33)">330p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_1', 0.39)">390p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_1', 0.47)">470p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_1', 0.56)">560p</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group" style="grid-template-columns: 1fr 1fr;">
+          <div class="control-item">
+            <label>Ra_1 (Inversora a GND)</label>
+            <div class="input-wrapper">
+              <input type="number" id="ra_1" value="10000" step="500" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>Rb_1 (Feedback Inversora)</label>
+            <div class="input-wrapper">
+              <input type="number" id="rb_1" value="20000" step="500" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="metric-card">
+            <div class="metric-label">f0 Etapa 1</div>
+            <div class="metric-val" id="st1-f0">18.4 kHz</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Q1 (Obj: 0.541)</div>
+            <div class="metric-val" id="st1-q">0.539</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Ganancia K1</div>
+            <div class="metric-val" id="st1-k">3.00 V/V</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETAPA 2 -->
+      <div class="card">
+        <div class="card-title">
+          <span>Etapa 2 (2da Bicuadrática)</span>
+          <span class="stage-badge">Damping bajo (Q=1.31)</span>
+        </div>
+        <div class="control-group">
+          <div class="control-item">
+            <label>R1_2 (Entrada)</label>
+            <div class="input-wrapper">
+              <input type="number" id="r1_2" value="10000" step="100" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>R2_2 (Serie a V+)</label>
+            <div class="input-wrapper">
+              <input type="number" id="r2_2" value="10000" step="100" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>C1_2 (V+ a GND)</label>
+            <div class="input-wrapper">
+              <input type="number" id="c1_2" value="1.0" step="0.1" oninput="updateAll()">
+              <span class="unit">nF</span>
+            </div>
+            <div class="quick-caps">
+              <button class="quick-cap-btn" onclick="setCap('c1_2', 0.82)">820p</button>
+              <button class="quick-cap-btn" onclick="setCap('c1_2', 1.0)">1.0n</button>
+              <button class="quick-cap-btn" onclick="setCap('c1_2', 1.2)">1.2n</button>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>C2_2 (Feedback)</label>
+            <div class="input-wrapper">
+              <input type="number" id="c2_2" value="0.68" step="0.01" oninput="updateAll()">
+              <span class="unit">nF</span>
+            </div>
+            <div class="quick-caps">
+              <button class="quick-cap-btn" onclick="setCap('c2_2', 0.47)">470p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_2', 0.56)">560p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_2', 0.68)">680p</button>
+              <button class="quick-cap-btn" onclick="setCap('c2_2', 0.82)">820p</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group" style="grid-template-columns: 1fr 1fr;">
+          <div class="control-item">
+            <label>Ra_2 (Inversora a GND)</label>
+            <div class="input-wrapper">
+              <input type="number" id="ra_2" value="10000" step="500" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+          <div class="control-item">
+            <label>Rb_2 (Feedback Inversora)</label>
+            <div class="input-wrapper">
+              <input type="number" id="rb_2" value="20000" step="500" oninput="updateAll()">
+              <span class="unit">Ω</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="metric-card">
+            <div class="metric-label">f0 Etapa 2</div>
+            <div class="metric-val" id="st2-f0">19.3 kHz</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Q2 (Obj: 1.307)</div>
+            <div class="metric-val" id="st2-q">1.319</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Ganancia K2</div>
+            <div class="metric-val" id="st2-k">3.00 V/V</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="card">
+      <div class="card-title">
+        <span>Respuesta en Frecuencia (Diagrama de Bode)</span>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Magnitud en dB (100 Hz - 1 MHz)</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="bodeCanvas"></canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #38bdf8;"></div>
+          <span>Respuesta Real con Componentes Seleccionados</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #f43f5e; border-style: dashed;"></div>
+          <span>Respuesta Teórica Butterworth Ideal (fc = 19 kHz, Av = 9)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #fbbf24;"></div>
+          <span>Punto -3 dB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schematic & Netlist -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Circuito Sallen-Key en Cascada</div>
+        <div class="schematic-box">
+  Vi ────[ R1_1 ]────┬────[ R2_1 ]────┬────────(+)
+                    │                │      TL072 (A)
+                   [C2_1]           [C1_1]     │\
+                    │                │         │ >── Vo1 ───> a Etapa 2
+                    │               GND     ┌──│/
+                    │                       │  (-)
+                    └───────────────────────┼───┤
+                                            │  [Rb_1]
+                                           [Ra_1]
+                                            │
+                                           GND
+        </div>
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
+          Alimentación recomendada: ±12V o ±15V desacoplados con 100nF cerámicos en cada pin de alimentación a masa.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>Netlist SPICE (LTspice / Ngspice)</span>
+          <button class="copy-btn" onclick="copyNetlist()">Copiar Netlist</button>
+        </div>
+        <textarea id="netlistArea" class="netlist-box" readonly></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bodeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = 340 * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); updateAll(); });
+
+    function setCap(id, val) {
+      document.getElementById(id).value = val;
+      updateAll();
+    }
+
+    const presets = {
+      commercial_19k: {
+        r1_1: 10000, r2_1: 15000, c1_1: 1.0, c2_1: 0.47, ra_1: 10000, rb_1: 20000,
+        r1_2: 10000, r2_2: 10000, c1_2: 1.0, c2_2: 0.68, ra_2: 10000, rb_2: 20000
+      },
+      exact_19k: {
+        r1_1: 10000, r2_1: 10000, c1_1: 1.3097, c2_1: 0.5358, ra_1: 10000, rb_1: 20000,
+        r1_2: 10000, r2_2: 10000, c1_2: 1.0131, c2_2: 0.6926, ra_2: 10000, rb_2: 20000
+      },
+      plantilla_24k: {
+        r1_1: 10000, r2_1: 10000, c1_1: 1.0, c2_1: 0.39, ra_1: 10000, rb_1: 20000,
+        r1_2: 20000, r2_2: 20000, c1_2: 0.39, c2_2: 0.27, ra_2: 10000, rb_2: 20000
+      },
+      equal_resistors_19k: {
+        r1_1: 16000, r2_1: 16000, c1_1: 0.82, c2_1: 0.33, ra_1: 10000, rb_1: 20000,
+        r1_2: 12400, r2_2: 12400, c1_2: 0.82, c2_2: 0.56, ra_2: 10000, rb_2: 20000
+      }
+    };
+
+    function loadPreset(key) {
+      const p = presets[key];
+      for (const k in p) {
+        if (document.getElementById(k)) {
+          document.getElementById(k).value = p[k];
+        }
+      }
+      updateAll();
+    }
+
+    function calculateStage(r1, r2, c1_nf, c2_nf, ra, rb) {
+      const c1 = c1_nf * 1e-9;
+      const c2 = c2_nf * 1e-9;
+      const K = 1 + (rb / ra);
+      const w0_sq = 1.0 / (r1 * r2 * c1 * c2);
+      const w0 = Math.sqrt(w0_sq);
+      const f0 = w0 / (2 * Math.PI);
+      const alpha = (1.0 / (r1 * c2)) + (1.0 / (r2 * c2)) + ((1.0 - K) / (r2 * c1));
+      const Q = w0 / alpha;
+      const a = alpha / w0;
+      return { r1, r2, c1, c2, ra, rb, K, w0_sq, w0, f0, alpha, Q, a };
+    }
+
+    function evalBiquad(stage, f) {
+      const w = 2 * Math.PI * f;
+      // H(jw) = K * w0^2 / ( (w0^2 - w^2) + j * w * alpha )
+      const numRe = stage.K * stage.w0_sq;
+      const numIm = 0;
+      const denRe = stage.w0_sq - w * w;
+      const denIm = w * stage.alpha;
+      const denMagSq = denRe * denRe + denIm * denIm;
+      const re = (numRe * denRe + numIm * denIm) / denMagSq;
+      const im = (numIm * denRe - numRe * denIm) / denMagSq;
+      const mag = Math.sqrt(re * re + im * im);
+      const phase = Math.atan2(im, re);
+      return { mag, phase };
+    }
+
+    function updateAll() {
+      const r1_1 = parseFloat(document.getElementById('r1_1').value) || 10000;
+      const r2_1 = parseFloat(document.getElementById('r2_1').value) || 15000;
+      const c1_1 = parseFloat(document.getElementById('c1_1').value) || 1.0;
+      const c2_1 = parseFloat(document.getElementById('c2_1').value) || 0.47;
+      const ra_1 = parseFloat(document.getElementById('ra_1').value) || 10000;
+      const rb_1 = parseFloat(document.getElementById('rb_1').value) || 20000;
+
+      const r1_2 = parseFloat(document.getElementById('r1_2').value) || 10000;
+      const r2_2 = parseFloat(document.getElementById('r2_2').value) || 10000;
+      const c1_2 = parseFloat(document.getElementById('c1_2').value) || 1.0;
+      const c2_2 = parseFloat(document.getElementById('c2_2').value) || 0.68;
+      const ra_2 = parseFloat(document.getElementById('ra_2').value) || 10000;
+      const rb_2 = parseFloat(document.getElementById('rb_2').value) || 20000;
+
+      const st1 = calculateStage(r1_1, r2_1, c1_1, c2_1, ra_1, rb_1);
+      const st2 = calculateStage(r1_2, r2_2, c1_2, c2_2, ra_2, rb_2);
+
+      // Display stage metrics
+      document.getElementById('st1-f0').innerText = (st1.f0 / 1000).toFixed(2) + ' kHz';
+      document.getElementById('st1-q').innerText = st1.Q.toFixed(3);
+      document.getElementById('st1-k').innerText = st1.K.toFixed(2) + ' V/V';
+
+      document.getElementById('st2-f0').innerText = (st2.f0 / 1000).toFixed(2) + ' kHz';
+      document.getElementById('st2-q').innerText = st2.Q.toFixed(3);
+      document.getElementById('st2-k').innerText = st2.K.toFixed(2) + ' V/V';
+
+      const K_tot = st1.K * st2.K;
+      const dcGainDb = 20 * Math.log10(K_tot);
+      document.getElementById('m-gain-vv').innerText = K_tot.toFixed(2) + ' V/V';
+      document.getElementById('m-gain-db').innerText = '+' + dcGainDb.toFixed(2) + ' dB';
+
+      // Evaluate response along frequencies
+      const freqs = [];
+      const mags = [];
+      const magsDb = [];
+      const targetRel = -3.0103;
+      let actualF3db = null;
+      let minDiff = 999999;
+
+      for (let i = 0; i <= 500; i++) {
+        // Log space 100 Hz to 1 MHz
+        const logF = 2.0 + (4.0 * i / 500); // 10^2 to 10^6
+        const f = Math.pow(10, logF);
+        freqs.push(f);
+        const resp1 = evalBiquad(st1, f);
+        const resp2 = evalBiquad(st2, f);
+        const magTot = resp1.mag * resp2.mag;
+        const magDb = 20 * Math.log10(magTot);
+        mags.push(magTot);
+        magsDb.push(magDb);
+
+        const relDb = magDb - dcGainDb;
+        const diff = Math.abs(relDb - targetRel);
+        if (diff < minDiff) {
+          minDiff = diff;
+          actualF3db = f;
+        }
+      }
+
+      // Attenuation at 19 kHz
+      const resp19_1 = evalBiquad(st1, 19000);
+      const resp19_2 = evalBiquad(st2, 19000);
+      const mag19Db = 20 * Math.log10(resp19_1.mag * resp19_2.mag);
+      const att19 = dcGainDb - mag19Db;
+
+      // Attenuation at 38 kHz (1 octave)
+      const resp38_1 = evalBiquad(st1, 38000);
+      const resp38_2 = evalBiquad(st2, 38000);
+      const mag38Db = 20 * Math.log10(resp38_1.mag * resp38_2.mag);
+      const att38 = mag38Db - dcGainDb;
+
+      document.getElementById('m-f3db').innerText = (actualF3db / 1000).toFixed(2) + ' kHz';
+      const fErr = ((actualF3db - 19000) / 19000) * 100;
+      document.getElementById('m-f3db-err').innerText = 'Error: ' + (fErr >= 0 ? '+' : '') + fErr.toFixed(1) + '% vs 19 kHz';
+      document.getElementById('m-att-19k').innerText = att19.toFixed(2) + ' dB';
+      document.getElementById('m-att-oct').innerText = att38.toFixed(1) + ' dB';
+
+      drawBode(freqs, magsDb, dcGainDb, actualF3db);
+      updateNetlist(r1_1, r2_1, c1_1, c2_1, ra_1, rb_1, r1_2, r2_2, c1_2, c2_2, ra_2, rb_2);
+    }
+
+    function drawBode(freqs, magsDb, dcGainDb, f3db) {
+      const w = canvas.getBoundingClientRect().width;
+      const h = 340;
+      ctx.clearRect(0, 0, w, h);
+
+      const padL = 55, padR = 25, padT = 25, padB = 40;
+      const plotW = w - padL - padR;
+      const plotH = h - padT - padB;
+
+      const fMin = 100, fMax = 1000000;
+      const dbMin = -40, dbMax = 25;
+
+      function xPos(f) {
+        return padL + ((Math.log10(f) - Math.log10(fMin)) / (Math.log10(fMax) - Math.log10(fMin))) * plotW;
+      }
+      function yPos(db) {
+        return padT + ((dbMax - db) / (dbMax - dbMin)) * plotH;
+      }
+
+      // Grid & Decades
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'center';
+
+      for (let dec = 2; dec <= 6; dec++) {
+        const fDec = Math.pow(10, dec);
+        const x = xPos(fDec);
+        ctx.beginPath();
+        ctx.moveTo(x, padT);
+        ctx.lineTo(x, padT + plotH);
+        ctx.stroke();
+
+        let label = fDec >= 1000 ? (fDec / 1000) + 'k' : fDec;
+        if (fDec === 1000000) label = '1M';
+        ctx.fillText(label + 'Hz', x, padT + plotH + 18);
+
+        // Minor grid
+        for (let m = 2; m <= 9; m++) {
+          const fm = fDec * m;
+          if (fm > fMax) break;
+          const xm = xPos(fm);
+          ctx.strokeStyle = '#141e30';
+          ctx.beginPath();
+          ctx.moveTo(xm, padT);
+          ctx.lineTo(xm, padT + plotH);
+          ctx.stroke();
+        }
+      }
+
+      // Horizontal dB lines
+      ctx.textAlign = 'right';
+      for (let db = -40; db <= 20; db += 10) {
+        const y = yPos(db);
+        ctx.strokeStyle = db === 0 ? '#475569' : '#1e293b';
+        ctx.lineWidth = db === 0 ? 1.5 : 1;
+        ctx.beginPath();
+        ctx.moveTo(padL, y);
+        ctx.lineTo(padL + plotW, y);
+        ctx.stroke();
+        ctx.fillText(db + ' dB', padL - 8, y + 3);
+      }
+
+      // Draw Ideal Butterworth (n=4, f0=19kHz, K=9)
+      ctx.strokeStyle = '#f43f5e';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (let i = 0; i < freqs.length; i++) {
+        const f = freqs[i];
+        // Butterworth magnitude: K / sqrt(1 + (f/f0)^8)
+        const idealMag = 9.0 / Math.sqrt(1 + Math.pow(f / 19000, 8));
+        const idealDb = 20 * Math.log10(idealMag);
+        const x = xPos(f);
+        const y = yPos(idealDb);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Draw Actual Curve
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (let i = 0; i < freqs.length; i++) {
+        const x = xPos(freqs[i]);
+        const y = yPos(magsDb[i]);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // -3 dB marker
+      const targetDb = dcGainDb - 3.0103;
+      const x3 = xPos(f3db);
+      const y3 = yPos(targetDb);
+
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      ctx.moveTo(x3, padT);
+      ctx.lineTo(x3, padT + plotH);
+      ctx.moveTo(padL, y3);
+      ctx.lineTo(padL + plotW, y3);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(x3, y3, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillText('-3dB @ ' + (f3db/1000).toFixed(2) + ' kHz', x3 + 8, y3 - 8);
+    }
+
+    function updateNetlist(r1_1, r2_1, c1_1, c2_1, ra_1, rb_1, r1_2, r2_2, c1_2, c2_2, ra_2, rb_2) {
+      const netlist = `* Filtro Butterworth 4to Orden Sallen-Key (fc = 19kHz, Av = 9)
+* Etapa 1
+R1_1 in n1 ${r1_1}
+R2_1 n1 n2 ${r2_1}
+C1_1 n2 0 ${c1_1}n
+C2_1 n1 out1 ${c2_1}n
+E1 out1 0 n2 fb1 100k
+Ra_1 fb1 0 ${ra_1}
+Rb_1 out1 fb1 ${rb_1}
+* Etapa 2
+R1_2 out1 n3 ${r1_2}
+R2_2 n3 n4 ${r2_2}
+C1_2 n4 0 ${c1_2}n
+C2_2 n3 out2 ${c2_2}n
+E2 out2 0 n4 fb2 100k
+Ra_2 fb2 0 ${ra_2}
+Rb_2 out2 fb2 ${rb_2}
+Vin in 0 AC 1
+.ac dec 100 100 1Meg
+.end`;
+      document.getElementById('netlistArea').value = netlist;
+    }
+
+    function copyNetlist() {
+      const txt = document.getElementById('netlistArea');
+      txt.select();
+      navigator.clipboard.writeText(txt.value);
+      alert('Netlist copiado al portapapeles. ¡Listo para pegar en LTspice!');
+    }
+
+    // Initial load
+    resizeCanvas();
+    loadPreset('commercial_19k');
+  </script>
+</body>
+</html>

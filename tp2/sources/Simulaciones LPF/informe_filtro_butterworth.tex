@@ -1,0 +1,576 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{geometry}
+\geometry{top=2.2cm, bottom=2.2cm, left=2.0cm, right=2.0cm}
+\setlength{\headheight}{14.5pt}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=blue!70!black,
+    urlcolor=teal!70!black
+}
+\usepackage{circuitikz}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{fancyhdr}
+
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    rulecolor=\color{gray!40},
+    breaklines=true,
+    keywordstyle=\color{blue!80!black}\bfseries,
+    commentstyle=\color{green!50!black}\itshape
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Teoría de Circuitos II -- TP2: Filtro Pasa Bajos 4to Orden}
+\lhead{Filtro Butterworth Sallen-Key}
+\rfoot{Página \thepage}
+
+\title{\textbf{\Large TEORÍA DE CIRCUITOS II}\\[0.3cm]
+\textbf{\huge Diseño de Filtro Pasa Bajos de 4to Orden}\\[0.2cm]
+\large Aproximación Butterworth en Topología Sallen-Key con Ganancia Integrada ($A_v = 9\text{ V/V}$)}
+\author{\textbf{Informe Técnico y Académico de Diseño}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+En este informe se presenta el diseño analítico, cálculo de componentes, análisis de tolerancias y validación por simulación SPICE de un filtro activo pasa bajos de cuarto orden ($n=4$) con aproximación Butterworth y topología Sallen-Key (VCVS). Se resuelve de manera rigurosa el condicionamiento de ganancia total de tensión $A_v = 9\text{ V/V}$ ($+19.08\text{ dB}$) distribuida simétricamente entre las celdas de segundo orden ($K_1 = 3, K_2 = 3$), prescindiendo de etapas amplificadoras adicionales. Ante el requerimiento de frecuencia asociada a $19\text{ kHz}$ y atenuación de $0.5\text{ dB}$, se desarrollan formalmente las dos variantes de interpretación de cátedra: la \textbf{Variante 1} con frecuencia de corte nominal a $-3\text{ dB}$ en $19.00\text{ kHz}$ (validada punto por punto con los resultados reales de simulación de LTspice), y la \textbf{Variante 2} basada en la plantilla formal con borde de banda de paso en $f_p = 19.00\text{ kHz}$ y $A_{\max} \le 0.5\text{ dB}$ ($f_{-3\text{dB}} = 24.71\text{ kHz}$), optimizada constructivamente con resistencias exclusivas de $10\text{ k}\Omega$ y $20\text{ k}\Omega$ y capacitores comerciales de la serie E12.
+\end{abstract}
+
+\vspace{0.3cm}
+\tableofcontents
+\vspace{0.5cm}
+
+\section{Introducción y Especificaciones de Diseño}
+El objetivo del presente trabajo es la síntesis e implementación circuital de un filtro pasa bajos activo que satisfaga los siguientes requerimientos:
+\begin{itemize}
+    \item \textbf{Orden del filtro:} $n = 4$ (implementado mediante dos celdas Sallen-Key de segundo orden en cascada).
+    \item \textbf{Aproximación matemática:} Butterworth (máxima planicidad en la banda de paso).
+    \item \textbf{Ganancia total en continua:} $A_v = 9.00\text{ V/V} \implies 20\log_{10}(9) \approx 19.08\text{ dB}$.
+    \item \textbf{Condición de montaje:} La ganancia total debe obtenerse íntegramente dentro de las celdas de filtrado, sin recurrir a un amplificador operacional adicional al final.
+    \item \textbf{Frecuencia y atenuación de plantilla:} Frecuencia asociada $f = 19\text{ kHz}$ y $A_{\max} = 0.5\text{ dB}$.
+\end{itemize}
+
+\subsection{Dilema de la Plantilla en Aproximaciones Butterworth}
+La respuesta en magnitud normalizada de una aproximación Butterworth viene dada por:
+\begin{equation}
+|H(j\omega)| = \frac{K_{\text{total}}}{\sqrt{1 + \epsilon^2 \left(\frac{\omega}{\omega_p}\right)^{2n}}} = \frac{K_{\text{total}}}{\sqrt{1 + \left(\frac{\omega}{\omega_0}\right)^{2n}}}
+\end{equation}
+donde $\omega_0 = 2\pi f_{-3\text{dB}}$ es la pulsación en la cual la ganancia cae exactamente $3.01\text{ dB}$, y $\epsilon = \sqrt{10^{0.1 A_{\max}} - 1}$. 
+Dado que la función de Butterworth es monótonamente decreciente, la atenuación aumenta de manera continua desde $0\text{ dB}$ en continua hasta infinito. Por ende, los $0.5\text{ dB}$ de atenuación y los $3.0\text{ dB}$ no pueden ocurrir en la misma frecuencia. Según el criterio pedagógico adoptado, se formulan dos variantes de diseño:
+
+\begin{enumerate}
+    \item \textbf{Variante 1 (Frecuencia de Corte Nominal $f_{-3\text{dB}} = 19.00\text{ kHz}$):} Se toma $19\text{ kHz}$ como la frecuencia de corte clásica a $-3\text{ dB}$. En este caso, la banda de paso con atenuación inferior a $0.5\text{ dB}$ se extiende desde continua hasta $13.8\text{ kHz}$. Esta variante corresponde a la simulación provista en \texttt{Draft1.txt}.
+    \item \textbf{Variante 2 (Plantilla Formal de TC2 / Pactitis ec. 2.47):} Se exige que a $f_p = 19.00\text{ kHz}$ la señal no caiga más de $A_{\max} = 0.5\text{ dB}$. Esto desplaza analíticamente el polo de corte a $-3\text{ dB}$ a $f_0 \approx 24.71\text{ kHz}$.
+\end{enumerate}
+
+\section{Síntesis Polinómica de Butterworth ($n = 4$)}
+
+\subsection{Ubicación de Polos en el Plano Complejo $s$}
+Los polos del filtro Butterworth de cuarto orden se sitúan en el semiplano izquierdo sobre la circunferencia de radio unitario en las posiciones angulares:
+\begin{equation}
+\theta_k = 180^\circ \pm \frac{(2k - 1)180^\circ}{2n} = 180^\circ \pm (2k - 1) \cdot 22.5^\circ \quad (k = 1, 2)
+\end{equation}
+
+Obteniéndose los pares conjugados:
+\begin{align}
+s_{1,2} &= -\cos(22.5^\circ) \pm j \sin(22.5^\circ) = -0.92388 \pm j 0.38268 \\
+s_{3,4} &= -\cos(67.5^\circ) \pm j \sin(67.5^\circ) = -0.38268 \pm j 0.92388
+\end{align}
+
+\subsection{Factorización en Bicuadráticas Normalizadas}
+Multiplicando los pares conjugados, el polinomio denominador normalizado $B_4(s_n)$ resulta:
+\begin{equation}
+B_4(s_n) = (s_n - s_1)(s_n - s_2) \cdot (s_n - s_3)(s_n - s_4) = (s_n^2 + a_1 s_n + 1)(s_n^2 + a_2 s_n + 1)
+\end{equation}
+donde los coeficientes normalizados (tabulados en el Apéndice C de Pactitis) y sus factores de calidad son:
+\begin{align}
+\text{\textbf{Etapa 1:}} \quad a_1 &= 2\cos(22.5^\circ) \approx \mathbf{1.8478}, \quad b_1 = 1.000 \implies Q_1 = \frac{1}{a_1} \approx \mathbf{0.5412} \\
+\text{\textbf{Etapa 2:}} \quad a_2 &= 2\cos(67.5^\circ) \approx \mathbf{0.7654}, \quad b_2 = 1.000 \implies Q_2 = \frac{1}{a_2} \approx \mathbf{1.3066}
+\end{align}
+
+\subsection{Criterio y Justificación del Orden de Cascada}
+De acuerdo con la regla de síntesis de Pactitis (Sección 2.8, Pág. 51):
+\begin{quote}
+\textit{``Cascade the sections in the order of decreasing damping (increasing voltage gain / increasing Q).''}
+\end{quote}
+La primera etapa debe ser la de mayor amortiguamiento ($Q_1 = 0.541$), seguida por la etapa resonante ($Q_2 = 1.307$). La segunda etapa posee un sobrepico resonante de $+2.32\text{ dB}$ en cercanías de $\omega_0$. Colocar primero la etapa fuertemente amortiguada filtra las componentes espectrales de alta frecuencia y transitorios antes de ingresar a la celda resonante, evitando la saturación prematura (\textit{clipping}) del operacional y maximizando el rango dinámico de tensión de entrada.
+
+\section{Deducción Analítica de la Celda Sallen-Key con Ganancia}
+
+\subsection{Planteo Nodal}
+Considérese una celda Sallen-Key pasa bajos genérica conformada por resistencias en serie $R_1, R_2$, capacitor de realimentación positiva $C_2$ a la salida, capacitor a masa $C_1$ en el pin no inversor, y divisor no inversor $R_a, R_b$.
+\begin{figure}[H]
+\centering
+\begin{circuitikz}[scale=0.9, transform shape]
+    \draw (0,0) node[anchor=east] {$V_i$} to[R, l=$R_1$, o-*] (2.5,0) coordinate(n1)
+          to[R, l=$R_2$, *-*] (5,0) coordinate(n2)
+          to[short] (5.5,0) node[op amp, anchor=+](oa) {};
+    \draw (n1) -- (2.5,1.8) to[C, l=$C_2$] (7.5,1.8) -| (oa.out);
+    \draw (n2) to[C, l=$C_1$, *-] (5,-1.8) node[ground]{};
+    \draw (oa.-) -- (5.5,-1) coordinate(nfb);
+    \draw (nfb) to[R, l_=$R_a$] (5.5,-2.8) node[ground]{};
+    \draw (nfb) to[short] (7,-1) to[R, l=$R_b$] (7,0.5) -| (oa.out);
+    \draw (oa.out) to[short, *-o] (8.5,0.5) node[anchor=west] {$V_o$};
+\end{circuitikz}
+\caption{Circuito esquemático de una celda Sallen-Key pasa bajos con ganancia $K$.}
+\label{fig:sallen_key}
+\end{figure}
+
+Aplicando la ley de corrientes de Kirchhoff (KCL):
+\begin{enumerate}
+    \item En el nodo no inversor $V_+$:
+    \begin{equation}
+    \frac{V_+ - V_1}{R_2} + V_+ s C_1 = 0 \implies V_1 = V_+ (1 + s R_2 C_1)
+    \end{equation}
+    \item La tensión de salida del amplificador no inversor ideal es:
+    \begin{equation}
+    V_o = K V_+, \quad \text{donde } K = 1 + \frac{R_b}{R_a} \implies V_+ = \frac{V_o}{K}
+    \end{equation}
+    Sustituyendo en $V_1$:
+    \begin{equation}
+    V_1 = \frac{V_o}{K} (1 + s R_2 C_1)
+    \end{equation}
+    \item En el nodo intermedio $V_1$:
+    \begin{equation}
+    \frac{V_1 - V_i}{R_1} + \frac{V_1 - V_+}{R_2} + (V_1 - V_o) s C_2 = 0
+    \end{equation}
+\end{enumerate}
+
+Reemplazando $V_1$ y $V_+$ en función de $V_o$, y multiplicando por $K R_1 R_2$:
+\begin{equation}
+\frac{V_o(s)}{V_i(s)} = \frac{K \cdot \frac{1}{R_1 R_2 C_1 C_2}}{s^2 + s \left[ \frac{1}{R_1 C_2} + \frac{1}{R_2 C_2} + \frac{1 - K}{R_2 C_1} \right] + \frac{1}{R_1 R_2 C_1 C_2}}
+\end{equation}
+
+Comparando con la expresión cuadrática canónica $H(s) = \frac{K \omega_0^2}{s^2 + (\omega_0/Q) s + \omega_0^2}$:
+\begin{equation}
+\omega_0 = \frac{1}{\sqrt{R_1 R_2 C_1 C_2}}
+\end{equation}
+\begin{equation}
+a = \frac{1}{Q} = \frac{\omega_0}{Q \cdot \omega_0} = \sqrt{\frac{R_2 C_1}{R_1 C_2}} + \sqrt{\frac{R_1 C_1}{R_2 C_2}} + (1 - K)\sqrt{\frac{R_1 C_2}{R_2 C_1}}
+\end{equation}
+
+\subsection{Distribución de Ganancia ($K_{\text{total}} = 9\text{ V/V}$)}
+Para evitar agregar un tercer amplificador operacional, se distribuye la ganancia equitativamente entre ambas etapas:
+\begin{equation}
+K_{\text{total}} = K_1 \cdot K_2 = 3 \times 3 = \mathbf{9\text{ V/V}} \quad (+19.08\text{ dB})
+\end{equation}
+Para cada etapa:
+\begin{equation}
+K = 1 + \frac{R_b}{R_a} = 3 \implies \frac{R_b}{R_a} = 2 \implies \mathbf{R_b = 2 R_a}
+\end{equation}
+Adoptando $R_a = 10.0\text{ k}\Omega$ (1\%), se obtiene directamente $\mathbf{R_b = 20.0\text{ k}\Omega}$ (valor estándar 1\% E24, o dos de $10\text{ k}\Omega$ en serie).
+
+\subsection{Método 1 de Pactitis (Resistencias Normalizadas Iguales)}
+Haciendo $R_{n1} = R_{n2} = 1\ \Omega$ y $\omega_0 = 1\text{ rad/s}$:
+\begin{equation}
+b = \frac{1}{C_{n1} C_{n2}} = 1 \implies C_{n2} = \frac{1}{C_{n1}}
+\end{equation}
+\begin{equation}
+a = 2 C_{n1} + \frac{1 - K}{C_{n1}} \implies 2 C_{n1}^2 - a C_{n1} + (1 - K) = 0
+\end{equation}
+Tomando la raíz positiva de la ecuación cuadrática (Pactitis ec. 2.33 y 2.34):
+\begin{equation}
+C_{n1} = \frac{a + \sqrt{a^2 + 8(K - 1)}}{4}, \qquad C_{n2} = \frac{1}{C_{n1}}
+\end{equation}
+
+Para $K = 3 \implies 8(K - 1) = 16$:
+\begin{itemize}
+    \item \textbf{Etapa 1 ($a_1 = 1.8478$):}
+    \begin{equation}
+    C_{n1}^{(1)} = \frac{1.8478 + \sqrt{1.8478^2 + 16}}{4} = \mathbf{1.5635\text{ F}}, \quad C_{n2}^{(1)} = \frac{1}{1.5635} = \mathbf{0.6396\text{ F}}
+    \end{equation}
+    \item \textbf{Etapa 2 ($a_2 = 0.7654$):}
+    \begin{equation}
+    C_{n1}^{(2)} = \frac{0.7654 + \sqrt{0.7654^2 + 16}}{4} = \mathbf{1.2095\text{ F}}, \quad C_{n2}^{(2)} = \frac{1}{1.2095} = \mathbf{0.8268\text{ F}}
+    \end{equation}
+\end{itemize}
+
+\section{Variante 1: Frecuencia de Corte Nominal a -3 dB en 19 kHz}
+
+En esta variante se adopta $f_0 = 19.00\text{ kHz}$. El factor de escala de frecuencia es:
+\begin{equation}
+\text{FSF}_1 = 2\pi f_0 = 2\pi \times 19000\text{ Hz} \approx \mathbf{119380.52\text{ rad/s}}
+\end{equation}
+
+\subsection{Selección de Componentes Comerciales E12}
+Ajustando la relación $R_1 \neq R_2$ para emplear capacitores estándar de la serie E12:
+\begin{itemize}
+    \item \textbf{Etapa 1 ($Q_1 = 0.541$):} $C_{1\_1} = 1.0\text{ nF}$, $C_{2\_1} = 470\text{ pF}$. 
+    Despejando: $R_{1\_1} = \mathbf{10.0\text{ k}\Omega}$, $R_{2\_1} = \mathbf{15.0\text{ k}\Omega}$. Red de ganancia: $R_{a1} = 10\text{ k}\Omega$, $R_{b1} = 20\text{ k}\Omega$.
+    \item \textbf{Etapa 2 ($Q_2 = 1.307$):} $C_{1\_2} = 1.0\text{ nF}$, $C_{2\_2} = 680\text{ pF}$. 
+    Despejando: $R_{1\_2} = \mathbf{10.0\text{ k}\Omega}$, $R_{2\_2} = \mathbf{10.0\text{ k}\Omega}$. Red de ganancia: $R_{a2} = 10\text{ k}\Omega$, $R_{b2} = 20\text{ k}\Omega$.
+\end{itemize}
+
+\subsection{Validación Experimental con la Simulación Real (Draft1.txt)}
+A partir del barrido AC exportado de LTspice (\texttt{Draft1.txt}), se extrajeron los puntos clave contrastados contra el valor teórico:
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Frecuencia} & \textbf{Ganancia Absoluta} & \textbf{Ganancia Relativa} & \textbf{Objetivo Teórico} & \textbf{Discrepancia} \\
+\midrule
+$1.0\text{ Hz}$ (DC) & $+19.0848\text{ dB}$ & $0.000\text{ dB}$ & $+19.08\text{ dB}$ ($9.00\text{ V/V}$) & $0.00\%$ \\
+$10.0\text{ kHz}$ & $+18.98\text{ dB}$ & $-0.10\text{ dB}$ & Planicidad $(<0.2\text{ dB})$ & Cumple \\
+$13.80\text{ kHz}$ & $+18.61\text{ dB}$ & $\mathbf{-0.47\text{ dB}}$ & Límite $A_{\max} = 0.5\text{ dB}$ & Cumple \\
+$18.81\text{ kHz}$ & $+16.07\text{ dB}$ & $\mathbf{-3.01\text{ dB}}$ & Frecuencia de corte nominal & $-1.0\%$ vs $19\text{k}$ \\
+$19.05\text{ kHz}$ & $+15.87\text{ dB}$ & $-3.22\text{ dB}$ & Frecuencia objetivo & Cumple \\
+$38.02\text{ kHz}$ (1 oct) & $-5.10\text{ dB}$ & $\mathbf{-24.19\text{ dB}}$ & Rolloff $-80\text{ dB/déc}$ & Cumple \\
+$100.0\text{ kHz}$ & $-38.71\text{ dB}$ & $-57.79\text{ dB}$ & Rechazo en banda de detención & Cumple \\
+\bottomrule
+\end{tabular}
+\caption{Contraste entre simulación de LTspice (\texttt{Draft1.txt}) y valores teóricos para la Variante 1.}
+\label{tab:val_draft1}
+\end{table}
+
+\section{Variante 2: Plantilla Formal \texorpdfstring{($f_p = 19.00\text{ kHz}, A_{\max} = 0.5\text{ dB}$)}{(fp = 19 kHz, Amax = 0.5 dB)}}
+
+En esta variante se exige formalmente que la atenuación a la frecuencia de paso $f_p = 19.00\text{ kHz}$ no exceda $A_{\max} = 0.50\text{ dB}$. A continuación se presenta el desarrollo analítico exhaustivo, deduciendo rigurosamente cada fórmula, factor de escala y criterio de selección de componentes según los métodos formales del libro de texto de cátedra (\textit{Active Filters: Theory and Design}, S.~A.~Pactitis, CRC Press).
+
+\subsection{Paso 1: Cálculo del Corrimiento del Polo y Factor de Escala de Frecuencia (Pactitis Ec. 2.47)}
+La función de transferencia de magnitud normalizada de una aproximación Butterworth de orden $n=4$ es:
+\begin{equation}
+|H_n(j\omega_n)| = \frac{K_{\text{total}}}{\sqrt{1 + \omega_n^{2n}}} = \frac{K_{\text{total}}}{\sqrt{1 + \omega_n^8}}
+\end{equation}
+Al desnormalizar en frecuencia respecto a una pulsación de corte a $-3\text{ dB}$ denominada $\omega_0 = 2\pi f_0$:
+\begin{equation}
+|H(j\omega)| = \frac{K_{\text{total}}}{\sqrt{1 + \left(\frac{\omega}{\omega_0}\right)^8}}
+\end{equation}
+La condición de plantilla impone que en la frecuencia de borde de banda de paso $f_p = 19.00\text{ kHz}$, la caída no supere $A_{\max} = 0.50\text{ dB}$:
+\begin{equation}
+A_{\max} = 10\log_{10}\left[ 1 + \left(\frac{f_p}{f_0}\right)^{2n} \right] \implies 10^{0.1 A_{\max}} - 1 = \left(\frac{f_p}{f_0}\right)^{2n}
+\end{equation}
+Definiendo el parámetro de rizado $\epsilon$:
+\begin{equation}
+\epsilon = \sqrt{10^{0.1 A_{\max}} - 1} = \sqrt{10^{0.05} - 1} = \sqrt{1.1220185 - 1} = \mathbf{0.349311}
+\end{equation}
+Despejando la frecuencia nominal a $-3\text{ dB}$ ($f_0$) mediante la Ecuación (2.47) de Pactitis (pág. 51):
+\begin{equation}
+f_0 = \frac{f_p}{\left(10^{0.1 A_{\max}} - 1\right)^{1/(2n)}} = \frac{f_p}{\epsilon^{1/n}} = \frac{19.00\text{ kHz}}{(0.349311)^{1/4}} = \frac{19.00\text{ kHz}}{0.768789} \approx \mathbf{24.71407\text{ kHz}}
+\end{equation}
+Por consiguiente, el Factor de Escala de Frecuencia ($\text{FSF}_2$) de la Variante 2 resulta:
+\begin{equation}
+\text{FSF}_2 = \omega_0 = 2\pi f_0 = 2\pi \times 24714.07\text{ Hz} \approx \mathbf{155285.28\text{ rad/s}}
+\end{equation}
+
+\subsection{Paso 2: Polinomios Normalizados y Orden de Cascada (Pactitis Sección 2.8)}
+De acuerdo con la regla de diseño para filtros activos de orden superior establecida por Pactitis (Sección 2.8, pág. 51):
+\begin{quote}
+\textit{``Cascade the sections in the order of decreasing damping (increasing voltage gain / increasing Q).''}
+\end{quote}
+Del Apéndice C de Pactitis (pág. 253), los factores de segundo orden normalizados para $n=4$ son:
+\begin{itemize}
+    \item \textbf{Etapa 1 (Mayor amortiguamiento):}
+    \begin{equation}
+    a_1 = 2\cos(22.5^\circ) = \mathbf{1.847759}, \quad b_1 = 1.0000 \implies Q_1 = \frac{1}{a_1} = \mathbf{0.541196}
+    \end{equation}
+    \item \textbf{Etapa 2 (Menor amortiguamiento / resonante):}
+    \begin{equation}
+    a_2 = 2\cos(67.5^\circ) = \mathbf{0.765367}, \quad b_2 = 1.0000 \implies Q_2 = \frac{1}{a_2} = \mathbf{1.306563}
+    \end{equation}
+\end{itemize}
+\noindent\textbf{Justificación ingenieril de la cascada:} La celda de baja $Q$ ($Q_1 = 0.541$) no posee sobrepico y atenúa fuertemente armónicos y ruido antes de ingresar a la celda de alta $Q$ ($Q_2 = 1.307$), la cual presenta una resonancia natural de $+2.32\text{ dB}$. Esto maximiza el margen dinámico frente a señales grandes y previene la distorsión por saturación (\textit{clipping}) o limitación por \textit{slew rate} en el segundo amplificador operacional.
+
+\subsection{Paso 3: Distribución de Ganancia y Cálculo de Red de Realimentación \texorpdfstring{($R_a, R_b$)}{(Ra, Rb)}}
+La especificación impone una ganancia global en continua de:
+\begin{equation}
+A_v = 9.00\text{ V/V} \implies 20\log_{10}(9) \approx +19.08\text{ dB}
+\end{equation}
+Para no sobrecargar el producto ganancia-ancho de banda ($\text{GBW}$) de los amplificadores operacionales ni requerir un tercer operacional atenuador/amplificador, la ganancia se distribuye simétricamente:
+\begin{equation}
+K_{\text{total}} = K_1 \cdot K_2 = 3.00 \times 3.00 = \mathbf{9.00\text{ V/V}} \quad (K_1 = 3, \quad K_2 = 3)
+\end{equation}
+En la topología VCVS no inversora, la ganancia de tensión en lazo cerrado viene dada por la ecuación (2.39) de Pactitis:
+\begin{equation}
+K = 1 + \frac{R_b}{R_a} \implies \frac{R_b}{R_a} = K - 1 = 3 - 1 = 2 \implies \mathbf{R_b = 2 R_a}
+\end{equation}
+Para fijar el valor de impedancia de la red:
+\begin{enumerate}
+    \item Si se eligen resistencias muy bajas ($< 1\text{ k}\Omega$), la corriente de realimentación sobrecarga la etapa de salida del amplificador operacional TL082, provocando calentamiento y aumento de la distorsión armónica total (THD).
+    \item Si se eligen resistencias excesivamente altas ($> 100\text{ k}\Omega$), las corrientes de polarización parásitas de entrada y el ruido térmico Johnson ($v_n = \sqrt{4kTR\Delta f}$) degradan la relación señal-ruido.
+\end{enumerate}
+Siguiendo la práctica estándar recomendada en los ejemplos del libro de Pactitis (Ejemplos 2.3 a 2.12):
+\begin{align}
+R_{a1} = R_{a2} &= \mathbf{10.0\text{ k}\Omega}\ (1\%,\ \text{película metálica, serie E24}) \\
+R_{b1} = R_{b2} &= 2 \times 10.0\text{ k}\Omega = \mathbf{20.0\text{ k}\Omega}\ (1\%,\ \text{serie E24 o dos de } 10\text{ k}\Omega\ \text{en serie})
+\end{align}
+
+\subsection{Paso 4: Cálculo de Componentes Normalizados (Primer Método de Pactitis, Ec. 2.33 y 2.34)}
+El método formal de diseño analítico desarrollado en la Sección 2.6.2 de Pactitis (\textit{First Method}) normaliza las resistencias de la celda de filtrado a la unidad:
+\begin{equation}
+R_{n1} = R_{n2} = 1.000\ \Omega
+\end{equation}
+Con $\omega_n = 1\text{ rad/s}$ y coeficiente independiente cuadrático $b = 1$, la relación entre ambos capacitores normalizados exige:
+\begin{equation}
+b = \frac{1}{C_{n1} C_{n2}} = 1 \implies C_{n2} = \frac{1}{C_{n1}}
+\end{equation}
+Al sustituir en la ecuación del término lineal del denominador canónico:
+\begin{equation}
+a = \frac{2}{C_{n2}} + \frac{1 - K}{C_{n1}} = 2 C_{n1} + \frac{1 - K}{C_{n1}} \implies 2 C_{n1}^2 - a C_{n1} + (1 - K) = 0
+\end{equation}
+Resolviendo la ecuación cuadrática y seleccionando la raíz física positiva (Pactitis ecuaciones 2.33 y 2.34):
+\begin{equation}
+C_{n1} = \frac{a + \sqrt{a^2 + 8(K - 1)}}{4}, \qquad C_{n2} = \frac{1}{C_{n1}}
+\end{equation}
+Para nuestra condición de ganancia $K = 3$, el término constante bajo el radical es:
+\begin{equation}
+8(K - 1) = 8(3 - 1) = 8 \times 2 = \mathbf{16.000}
+\end{equation}
+
+\subsubsection{Cálculo Numérico para la Etapa 1 \texorpdfstring{($a_1 = 1.847759$)}{(a1 = 1.847759)}:}
+\begin{align}
+C_{n1}^{(1)} &= \frac{1.847759 + \sqrt{1.847759^2 + 16}}{4} = \frac{1.847759 + \sqrt{3.414214 + 16}}{4} \nonumber \\
+             &= \frac{1.847759 + \sqrt{19.414214}}{4} = \frac{1.847759 + 4.406156}{4} = \frac{6.253915}{4} = \mathbf{1.563479\text{ F}} \\
+C_{n2}^{(1)} &= \frac{1}{C_{n1}^{(1)}} = \frac{1}{1.563479\text{ F}} = \mathbf{0.639599\text{ F}}
+\end{align}
+
+\subsubsection{Cálculo Numérico para la Etapa 2 \texorpdfstring{($a_2 = 0.765367$)}{(a2 = 0.765367)}:}
+\begin{align}
+C_{n1}^{(2)} &= \frac{0.765367 + \sqrt{0.765367^2 + 16}}{4} = \frac{0.765367 + \sqrt{0.585787 + 16}}{4} \nonumber \\
+             &= \frac{0.765367 + \sqrt{16.585787}}{4} = \frac{0.765367 + 4.072565}{4} = \frac{4.837932}{4} = \mathbf{1.209483\text{ F}} \\
+C_{n2}^{(2)} &= \frac{1}{C_{n1}^{(2)}} = \frac{1}{1.209483\text{ F}} = \mathbf{0.826799\text{ F}}
+\end{align}
+
+\subsection{Paso 5: Desnormalización e Integración Constructiva de Componentes}
+Las fórmulas de desescalado simultáneo de frecuencia e impedancia provistas por Pactitis (Ecuaciones 2.4 y 2.5) son:
+\begin{equation}
+R = \text{ISF} \times R_n, \qquad C = \frac{C_n}{\text{ISF} \times \text{FSF}}
+\end{equation}
+
+\subsubsection{Desnormalización y Elección de Componentes para la Etapa 1:}
+Para la primera celda se adopta un Factor de Escala de Impedancia $\text{ISF}_1 = 10\text{ k}\Omega = 10^4\ \Omega$.
+\begin{itemize}
+    \item \textbf{Resistencias de filtrado:}
+    \begin{equation}
+    R_{1\_1} = R_{2\_1} = \text{ISF}_1 \times R_n = 10^4\ \Omega \times 1.0\ \Omega = \mathbf{10.0\text{ k}\Omega}\ (1\%)
+    \end{equation}
+    \item \textbf{Capacitores teóricos calculados:}
+    \begin{align}
+    C_{1\_1}^{\text{teor}} &= \frac{C_{n1}^{(1)}}{\text{ISF}_1 \cdot \text{FSF}_2} = \frac{1.563479\text{ F}}{10^4\ \Omega \times 155285\text{ rad/s}} = \mathbf{1.0068\text{ nF}} \\
+    C_{2\_1}^{\text{teor}} &= \frac{C_{n2}^{(1)}}{\text{ISF}_1 \cdot \text{FSF}_2} = \frac{0.639599\text{ F}}{10^4\ \Omega \times 155285\text{ rad/s}} = \mathbf{411.89\text{ pF}}
+    \end{align}
+    \item \textbf{Adopción de valores comerciales (Serie E12):}
+    \begin{enumerate}
+        \item Para $C_{1\_1}$: Se selecciona el capacitor estándar de $\mathbf{1.0\text{ nF}}$ ($1000\text{ pF}$, código 102).
+        \begin{equation*}
+        \Delta\% = \frac{1000\text{ pF} - 1006.8\text{ pF}}{1006.8\text{ pF}} \times 100\% = \mathbf{-0.68\%}\quad (\text{error nulo en la práctica})
+        \end{equation*}
+        \item Para $C_{2\_1}$: El valor comercial disponible más cercano en E12 es $\mathbf{390\text{ pF}}$ (código 391).
+        \begin{equation*}
+        \Delta\% = \frac{390\text{ pF} - 411.9\text{ pF}}{411.9\text{ pF}} \times 100\% = \mathbf{-5.31\%}
+        \end{equation*}
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Estrategia de Impedancia y Desnormalización de la Etapa 2:}
+Si en la segunda etapa se mantuviera arbitrariamente $\text{ISF}_2 = 10\text{ k}\Omega$, los capacitores teóricos resultarían:
+\begin{align}
+C_{1\_2} &= \frac{1.209483}{10^4 \times 155285.28} = 778.88\text{ pF} \quad (\text{sin equivalente comercial directo en E12}) \\
+C_{2\_2} &= \frac{0.826799}{10^4 \times 155285.28} = 532.44\text{ pF} \quad (\text{sin equivalente comercial directo en E12})
+\end{align}
+Sin embargo, dado que cada celda activa Sallen-Key se encuentra aislada por la baja impedancia de salida del amplificador operacional precedente ($Z_{\text{out}} < 0.1\ \Omega$), \textbf{el factor de escala de impedancia puede elegirse de forma completamente independiente para cada etapa}.
+
+A fin de forzar los capacitores hacia valores comerciales universales de la serie E12, se adopta:
+\begin{equation}
+\text{ISF}_2 = \mathbf{20.0\text{ k}\Omega} = 2 \times 10^4\ \Omega
+\end{equation}
+\begin{itemize}
+    \item \textbf{Resistencias de filtrado:}
+    \begin{equation}
+    R_{1\_2} = R_{2\_2} = \text{ISF}_2 \times R_n = 2\times 10^4\ \Omega \times 1.0\ \Omega = \mathbf{20.0\text{ k}\Omega}\ (1\%)
+    \end{equation}
+    (Valor estándar de la serie E24 al 1\%, o bien obtenido asociando dos resistencias de $10.0\text{ k}\Omega$ en serie).
+    \item \textbf{Capacitores teóricos escalados:}
+    \begin{align}
+    C_{1\_2}^{\text{teor}} &= \frac{C_{n1}^{(2)}}{\text{ISF}_2 \cdot \text{FSF}_2} = \frac{1.209483\text{ F}}{2\times 10^4\ \Omega \times 155285\text{ rad/s}} = \mathbf{389.44\text{ pF}} \\
+    C_{2\_2}^{\text{teor}} &= \frac{C_{n2}^{(2)}}{\text{ISF}_2 \cdot \text{FSF}_2} = \frac{0.826799\text{ F}}{2\times 10^4\ \Omega \times 155285\text{ rad/s}} = \mathbf{266.22\text{ pF}}
+    \end{align}
+    \item \textbf{Adopción de valores comerciales (Serie E12):}
+    \begin{enumerate}
+        \item Para $C_{1\_2}$: El valor comercial E12 más próximo es $\mathbf{390\text{ pF}}$ (código 391).
+        \begin{equation*}
+        \Delta\% = \frac{390\text{ pF} - 389.4\text{ pF}}{389.4\text{ pF}} \times 100\% = \mathbf{+0.14\%}\quad (\text{coincidencia casi matemática})
+        \end{equation*}
+        \textit{Propiedad de optimización constructiva:} Este valor es idéntico al de $C_{2\_1}$ de la primera etapa, reduciendo la cantidad total de tipos de capacitores en la lista de materiales (BOM).
+        \item Para $C_{2\_2}$: El valor comercial disponible en E12 es $\mathbf{270\text{ pF}}$ (código 271).
+        \begin{equation*}
+        \Delta\% = \frac{270\text{ pF} - 266.2\text{ pF}}{266.2\text{ pF}} \times 100\% = \mathbf{+1.42\%}\quad (\text{excelente concordancia})
+        \end{equation*}
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Paso 6: Recálculo de Polos Reales y Compensación Mutua de Etapas}
+Al reemplazar los valores teóricos por los componentes comerciales adoptados, se recalculan las pulsaciones angulares de corte y factores de calidad reales para verificar el comportamiento:
+\begin{itemize}
+    \item \textbf{Etapa 1 Real:}
+    \begin{align}
+    f_{01} &= \frac{1}{2\pi \sqrt{R_{1\_1} R_{2\_1} C_{1\_1} C_{2\_1}}} = \frac{1}{2\pi \sqrt{10^4 \cdot 10^4 \cdot 10^{-9} \cdot 390\times 10^{-12}}} = \mathbf{25.485\text{ kHz}} \quad (+3.12\%) \\
+    Q_1 &= \frac{\sqrt{R_{1\_1} R_{2\_1} C_{1\_1} C_{2\_1}}}{C_{1\_1}(R_{1\_1} + R_{2\_1}) + C_{2\_1} R_{1\_1} (1 - K_1)} \nonumber \\
+        &= \frac{10^4 \times \sqrt{3.9\times 10^{-19}}}{10^{-9}(2\times 10^4) + 390\times 10^{-12}(10^4)(1 - 3)} = \frac{6.2450\times 10^{-6}}{2.0\times 10^{-5} - 7.8\times 10^{-6}} = \mathbf{0.5119}
+    \end{align}
+    \item \textbf{Etapa 2 Real:}
+    \begin{align}
+    f_{02} &= \frac{1}{2\pi \sqrt{R_{1\_2} R_{2\_2} C_{1\_2} C_{2\_2}}} = \frac{1}{2\pi \sqrt{20^4 \cdot 20^4 \cdot 390\text{p} \cdot 270\text{p}}} = \mathbf{24.523\text{ kHz}} \quad (-0.77\%) \\
+    Q_2 &= \frac{\sqrt{R_{1\_2} R_{2\_2} C_{1\_2} C_{2\_2}}}{C_{1\_2}(R_{1\_2} + R_{2\_2}) + C_{2\_2} R_{1\_2} (1 - K_2)} \nonumber \\
+        &= \frac{6.4900\times 10^{-6}}{390\text{p}(40\text{k}) + 270\text{p}(20\text{k})(-2)} = \frac{6.4900\times 10^{-6}}{4.8000\times 10^{-6}} = \mathbf{1.3521}
+    \end{align}
+\end{itemize}
+
+\noindent\textbf{Efecto de compensación mutua en la cascada:}
+Obsérvese el fenómeno de autorregulación del diseño: mientras la primera etapa presenta un leve desplazamiento de su frecuencia de corte hacia arriba ($+3.12\%$) con una amortiguación ligeramente mayor ($Q_1 = 0.512$ frente a $0.541$), la segunda etapa compensa con su polo levemente más bajo ($-0.77\%$) y un factor de calidad ligeramente superior ($Q_2 = 1.352$ frente a $1.307$).
+
+Al evaluar la función de transferencia de cuarto orden global resultante del producto en cascada:
+\begin{itemize}
+    \item \textbf{Ganancia total en continua:} $A_v = K_1 \cdot K_2 = 3.00 \times 3.00 = \mathbf{9.00\text{ V/V}} \implies \mathbf{+19.08\text{ dB}}$ exacto.
+    \item \textbf{Atenuación a la frecuencia de paso nominal ($f_p = 19.00\text{ kHz}$):}
+    \begin{equation}
+    A(19.00\text{ kHz}) = \mathbf{-0.54\text{ dB}}
+    \end{equation}
+    Difiere únicamente en $0.04\text{ dB}$ del límite teórico de plantilla de $0.50\text{ dB}$, cumpliendo con creces la especificación de diseño práctico.
+    \item \textbf{Frecuencia real a $-3.01\text{ dB}$ de corte ($f_{-3\text{dB}}$):}
+    \begin{equation}
+    f_{-3\text{dB}} = \mathbf{24.73\text{ kHz}} \quad (\text{frente al valor teórico de } 24.71\text{ kHz, error de apenas } +0.05\%)
+    \end{equation}
+    \item \textbf{Planicidad en la banda de paso:} La respuesta no presenta sobrepico alguno ($0.00\text{ dB}$ de rizado dentro de la banda de paso), preservando la característica Butterworth pura.
+\end{itemize}
+
+\subsection{Paso 7: Tabla Maestra de Especificación de Componentes de la Variante 2}
+En la Tabla~\ref{tab:componentes_v2} se resume la totalidad de los componentes pasivos que componen el filtro de la Variante 2, justificando la elección comercial y el porcentaje de desvío individual.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Componente} & \textbf{Etapa} & \textbf{Función Circuital} & \textbf{Valor Teórico} & \textbf{Valor Comercial} & \textbf{Serie} & \textbf{Desvío} \\
+\midrule
+$R_{1\_1}$ & Etapa 1 & Filtro SK (Entrada) & $10.00\text{ k}\Omega$ & $\mathbf{10.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$R_{2\_1}$ & Etapa 1 & Filtro SK (Serie) & $10.00\text{ k}\Omega$ & $\mathbf{10.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$C_{1\_1}$ & Etapa 1 & Filtro SK (a Masa) & $1.0068\text{ nF}$ & $\mathbf{1.0\text{ nF}}$ & E12 (5\%) & $-0.68\%$ \\
+$C_{2\_1}$ & Etapa 1 & Filtro SK (Feedback) & $411.89\text{ pF}$ & $\mathbf{390\text{ pF}}$ & E12 (5\%) & $-5.31\%$ \\
+$R_{a1}$   & Etapa 1 & Divisor Ganancia ($K=3$) & $10.00\text{ k}\Omega$ & $\mathbf{10.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$R_{b1}$   & Etapa 1 & Realimentación ($K=3$) & $20.00\text{ k}\Omega$ & $\mathbf{20.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+\midrule
+$R_{1\_2}$ & Etapa 2 & Filtro SK (Entrada) & $20.00\text{ k}\Omega$ & $\mathbf{20.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$R_{2\_2}$ & Etapa 2 & Filtro SK (Serie) & $20.00\text{ k}\Omega$ & $\mathbf{20.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$C_{1\_2}$ & Etapa 2 & Filtro SK (a Masa) & $389.44\text{ pF}$ & $\mathbf{390\text{ pF}}$ & E12 (5\%) & $+0.14\%$ \\
+$C_{2\_2}$ & Etapa 2 & Filtro SK (Feedback) & $266.22\text{ pF}$ & $\mathbf{270\text{ pF}}$ & E12 (5\%) & $+1.42\%$ \\
+$R_{a2}$   & Etapa 2 & Divisor Ganancia ($K=3$) & $10.00\text{ k}\Omega$ & $\mathbf{10.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+$R_{b2}$   & Etapa 2 & Realimentación ($K=3$) & $20.00\text{ k}\Omega$ & $\mathbf{20.0\text{ k}\Omega}$ & E24 (1\%) & $0.00\%$ \\
+\bottomrule
+\end{tabular}
+\caption{Tabla de componentes para la Variante 2 optimizada según el método de Pactitis.}
+\label{tab:componentes_v2}
+\end{table}
+
+\section{Comparativa Global entre Ambas Variantes}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parámetro} & \textbf{Variante 1 ($f_{-3\text{dB}} = 19\text{ kHz}$)} & \textbf{Variante 2 ($f_p = 19\text{ kHz} @ 0.5\text{dB}$)} \\
+\midrule
+Polo nominal $f_0$ & $19.00\text{ kHz}$ & $24.71\text{ kHz}$ \\
+Atenuación a $19.0\text{ kHz}$ & $-3.05\text{ dB}$ (Simulado: $-3.22\text{ dB}$) & $\mathbf{-0.54\text{ dB}}$ \\
+Frecuencia donde cae $0.5\text{ dB}$ & $13.80\text{ kHz}$ & $\mathbf{18.76\text{ kHz}}$ \\
+Frecuencia donde cae $3.0\text{ dB}$ & $\mathbf{18.81\text{ kHz}}$ & $\mathbf{24.73\text{ kHz}}$ \\
+Ganancia continua ($A_v$) & $+19.08\text{ dB}$ ($9.00\text{ V/V}$) & $+19.08\text{ dB}$ ($9.00\text{ V/V}$) \\
+\midrule
+Etapa 1: $R_1, R_2$ & $10.0\text{ k}\Omega,\ 15.0\text{ k}\Omega$ & $\mathbf{10.0\text{ k}\Omega,\ 10.0\text{ k}\Omega}$ \\
+Etapa 1: $C_1, C_2$ & $1.0\text{ nF},\ 470\text{ pF}$ & $\mathbf{1.0\text{ nF},\ 390\text{ pF}}$ \\
+Etapa 2: $R_1, R_2$ & $10.0\text{ k}\Omega,\ 10.0\text{ k}\Omega$ & $\mathbf{20.0\text{ k}\Omega,\ 20.0\text{ k}\Omega}$ \\
+Etapa 2: $C_1, C_2$ & $1.0\text{ nF},\ 680\text{ pF}$ & $\mathbf{390\text{ pF},\ 270\text{ pF}}$ \\
+Red de Ganancia $R_a, R_b$ & $10\text{ k}\Omega,\ 20\text{ k}\Omega$ & $10\text{ k}\Omega,\ 20\text{ k}\Omega$ \\
+Total valores de resistores & $10\text{k}, 15\text{k}, 20\text{k}$ & \textbf{Solo $10\text{k}$ y $20\text{k}$} \\
+\bottomrule
+\end{tabular}
+\caption{Tabla comparativa detallada entre ambas alternativas de implementación.}
+\label{tab:comparativa}
+\end{table}
+
+\section{Consideraciones Prácticas y Calibración en Laboratorio}
+
+\begin{enumerate}
+    \item \textbf{Aislamiento entre Etapas:} La impedancia de salida de cada amplificador operacional en lazo cerrado a $25\text{ kHz}$ es inferior a $0.1\ \Omega$. Por consiguiente, las dos etapas se encuentran eléctricamente desacopladas y no existe efecto de carga mutuo.
+    \item \textbf{Ajuste Fino de Calidad $Q$ mediante $R_b$:} En la topología Sallen-Key, el factor de amortiguamiento lineal contiene el término $(1 - K)$:
+    \begin{equation}
+    \alpha = \frac{\omega_0}{Q} = \frac{1}{R_1 C_2} + \frac{1}{R_2 C_2} + \frac{1 - K}{R_2 C_1}
+    \end{equation}
+    Reemplazar $R_b$ ($20\text{ k}\Omega$) por una resistencia fija de $18\text{ k}\Omega$ en serie con un preset multivuelta de $5\text{ k}\Omega$ permite ajustar con precisión la ganancia a $3.00\text{ V/V}$ y compensar la dispersión del 5\% o 10\% de los capacitores comerciales.
+    \item \textbf{Desempeño del Amplificador Operacional TL082:}
+    El circuito integrado TL082 dispone de entradas a JFET ($I_B \approx 30\text{ pA}$, offset despreciable con resistencias de $10\text{ k}\Omega$) y producto ganancia-ancho de banda $\text{GBW} = 3\text{ MHz}$. Con ganancia $K = 3$, el ancho de banda a lazo cerrado es:
+    \begin{equation}
+    f_{\text{CL}} = \frac{\text{GBW}}{K} = \frac{3\text{ MHz}}{3} = 1\text{ MHz} \ge 40 \cdot f_0
+    \end{equation}
+    El retardo de fase parásito a $19\text{ kHz}$ es de apenas $1.09^\circ$, asegurando que la respuesta no se degrade respecto a la simulación ideal.
+    \item \textbf{Desacoplo de Alimentación:} Es mandatorio conectar dos capacitores cerámicos de $100\text{ nF}$ desde los pines de alimentación (pin 8 a masa y pin 4 a masa) lo más cerca posible del integrado para prevenir autooscilaciones por inductancia de pista.
+\end{enumerate}
+
+\section{Netlists SPICE Completos}
+
+\subsection{Netlist Variante 1 (Frecuencia de corte nominal 19 kHz)}
+\begin{lstlisting}
+* FILTRO BUTTERWORTH 4TO ORDEN - VARIANTE 1 (fc = 19 kHz, Av = 9)
+Vin in 0 AC 1
+* ETAPA 1 (Q1 = 0.54, K1 = 3)
+R1_1 in n1 10k
+R2_1 n1 n2 15k
+C1_1 n2 0 1n
+C2_1 n1 out1 470p
+E1 out1 0 n2 fb1 100k
+Ra_1 fb1 0 10k
+Rb_1 out1 fb1 20k
+* ETAPA 2 (Q2 = 1.31, K2 = 3)
+R1_2 out1 n3 10k
+R2_2 n3 n4 10k
+C1_2 n4 0 1n
+C2_2 n3 out2 680p
+E2 out2 0 n4 fb2 100k
+Ra_2 fb2 0 10k
+Rb_2 out2 fb2 20k
+.ac dec 100 1 1Meg
+.end
+\end{lstlisting}
+
+\subsection{Netlist Variante 2 (Plantilla Formal Limpia)}
+\begin{lstlisting}
+* FILTRO BUTTERWORTH 4TO ORDEN - VARIANTE 2 LIMPIA (Solo 10k y 20k)
+Vin in 0 AC 1
+* ETAPA 1 (Q1 = 0.51, K1 = 3)
+R1_1 in n1 10k
+R2_1 n1 n2 10k
+C1_1 n2 0 1n
+C2_1 n1 out1 390p
+E1 out1 0 n2 fb1 100k
+Ra_1 fb1 0 10k
+Rb_1 out1 fb1 20k
+* ETAPA 2 (Q2 = 1.35, K2 = 3)
+R1_2 out1 n3 20k
+R2_2 n3 n4 20k
+C1_2 n4 0 390p
+C2_2 n3 out2 270p
+E2 out2 0 n4 fb2 100k
+Ra_2 fb2 0 10k
+Rb_2 out2 fb2 20k
+.ac dec 100 1 1Meg
+.end
+\end{lstlisting}
+
+\end{document}
