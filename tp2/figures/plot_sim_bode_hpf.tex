@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.95\textwidth,
+    height=7.5cm,
+    xmode=log,
+    xmin=500, xmax=500000,
+    ymin=-40, ymax=25,
+    ytick={-40, -20, 0, 10, 20},
+    grid=both,
+    grid style={line width=.1pt, draw=gray!25},
+    major grid style={line width=.2pt, draw=gray!45},
+    xlabel={Frecuencia [\unit{\hertz}]},
+    ylabel={Ganancia $|A_v|$ [\unit{\decibel}]},
+    legend style={at={(0.03,0.06)}, anchor=south west, font=\footnotesize}
+  ]
+    % Ganancia simulada
+    \addplot[very thick, color=blue!85!black] table [x=freq, y=gain_db] {sources/data/data_bode_hpf.txt};
+    \addlegendentry{Respuesta simulada $|A_v(f)|$}
+
+    % Linea de ganancia asintotica
+    \draw[dashed, color=gray!80!black] (axis cs:500, 16.19) -- (axis cs:500000, 16.19);
+    \node[anchor=south east, font=\scriptsize, text=gray!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:400000, 17.0) {$A_{v,\infty} = \SI{16.19}{\decibel}$};
+
+    % Linea de nivel de rizado / -3 dB
+    \draw[dotted, thick, color=red!80!black] (axis cs:500, 13.19) -- (axis cs:500000, 13.19);
+    \node[anchor=south east, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:400000, 11.2) {Cota rizado $-\SI{3}{\decibel}$ ($\SI{13.19}{\decibel}$)};
+
+    % Frecuencia de corte fp = 11 kHz (dato y punto -3 dB)
+    \draw[dotted, thick, color=red!80!black] (axis cs:11000, -40) -- (axis cs:11000, 13.19)
+      node[pos=0.35, right=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_p = \SI{11.0}{\kilo\hertz}$ (dato, $-\SI{3}{\decibel}$)};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(11000, 13.19)};
+  \end{axis}
+\end{tikzpicture}

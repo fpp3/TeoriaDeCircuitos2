@@ -1,0 +1,54 @@
+\chapter{Conclusiones}
+\label{sec.ej5:conclusiones}
+
+El desarrollo integral del Trabajo Práctico Nº 2 permitió abordar con rigor metodológico el diseño, cálculo analítico,
+modelado circuital por simulación y validación experimental de sistemas analógicos de acondicionamiento de señal y
+filtrado activo de orden superior. A partir de los resultados obtenidos y de las dificultades operativas resueltas en el
+laboratorio, se formulan las siguientes conclusiones técnicas:
+
+En primer término, respecto al módulo de acondicionamiento para lazo de corriente de $4 \unit{\milli\ampere}$ a
+$20 \unit{\milli\ampere}$, se corroboró que la estructura en tres etapas entrega un comportamiento estático lineal
+con errores relativos sistemáticos inferiores al $-0.6\%$. Dicho desvío se atribuyó con exactitud a la corriente de
+base del transistor bipolar NPN BC337 ($\alpha \approx \beta/(\beta+1)$) y a las tolerancias del $1\%$ en los
+resistores de *shunt*.
+
+En este mismo módulo, al iniciar los ensayos de medición del filtro interconectado en el sistema, la discrepancia
+detectada (caída anómala de $500 \unit{\milli\volt}$ a fondo de escala) brindó una valiosa instancia de diagnóstico sobre
+las limitaciones físicas de los circuitos integrados comerciales. Al alimentar con fuente simple de $+24 \unit{\volt}$, la salida del
+seguidor $U_{1A}$ debe aproximarse a $0 \unit{\volt}$ para servir de referencia de masa al restador. Al emplear
+resistencias de $10 \unit{\kilo\ohm}$, el nodo de entrada inversora forzó una corriente de sumidero de
+$250 \unit{\micro\ampere}$ a $309 \unit{\micro\ampere}$, superando ampliamente la capacidad de la fuente de corriente
+interna de polarización del LM324, limitada por el fabricante a $50 \unit{\micro\ampere}$ típicos en la zona de
+cierre a masa. Este fenómeno obligó a la salida a elevarse a $V_{\text{CE,sat}} + V_{\gamma} \approx 500 \unit{\milli\volt}$
+para encender el transistor NPN inferior de la etapa de salida, deformando la resta diferencial. El escalado de
+impedancias a $100 \unit{\kilo\ohm}$ redujo la demanda de corriente a $25 \unit{\micro\ampere}$, permitiendo que la
+tensión de reposo cayera a escasos $2.64 \unit{\milli\volt}$ y restituyendo la ganancia unitaria teórica en todo el
+rango analógico.
+
+En segundo término, el filtro pasa-bajos Sallen-Key de $10 \unit{\hertz}$ demostró un rechazo contundente frente al
+ruido electromagnético de red eléctrica: la señal de interferencia de $50 \unit{\hertz}$ se atenuó en
+$-23.56 \unit{\decibel}$ en el barrido discreto y $-24.50 \unit{\decibel}$ en la medición directa de osciloscopio
+($200 \unit{\milli\volt}_{\text{pp}}$ frente a $3.36 \unit{\volt}_{\text{pp}}$ incidentes), asegurando la inmunidad
+del bucle de corriente frente a acoplamientos parásitos de cables de potencia.
+
+En tercer término, el filtro pasa-bajos de cuarto orden con aproximación Butterworth y topología Sallen-Key cumplió
+con la distribución simétrica de ganancia en dos etapas ($K_1 = 3, K_2 = 3$), alcanzando los $+19.08 \unit{\decibel}$
+($9.00 \unit{\volt\per\volt}$) sin requerir etapas amplificadoras adicionales. Las mediciones en osciloscopio
+arrojaron una atenuación de $0.56 \unit{\decibel}$ en el borde de banda de paso (acorde al límite de
+$A_{\max} = 0.50 \unit{\decibel}$) y una pendiente de transición abrupta superior a $-75 \unit{\decibel\per\decade}$.
+
+En cuarto término, el filtro pasa-altos de cuarto orden en topología MFB con aproximación Chebyshev verificó la
+efectividad de la técnica de polarización unipolar con masa virtual a $+12 \unit{\volt}$. El circuito entregó una
+ganancia estable de $6.13 \unit{\volt\per\volt}$ ($+15.75 \unit{\decibel}$) en la banda de paso profunda
+($25.0 \unit{\kilo\hertz}$) y una atenuación relativa de $-3.30 \unit{\decibel}$ a la frecuencia de corte nominal de
+$10.87 \unit{\kilo\hertz}$, satisfaciendo la plantilla de $A_{\max} = 3 \unit{\decibel}$ y demostrando la robustez
+de la estructura de realimentación múltiple frente a dispersiones capacitivas comerciales.
+
+Finalmente, el diseño analítico y la simulación del filtro pasa-banda de segundo orden en topología Sallen-Key
+permitió validar la técnica de descomposición en cascada de etapas pasa-altos y pasa-bajos, centrando la resonancia en
+$25.12 \unit{\kilo\hertz}$ con una selectividad coherente con el ancho de banda asignado de $2.0 \unit{\kilo\hertz}$.
+
+En definitiva, la experiencia evidenció que el éxito en la implementación de filtros activos analógicos no reside
+únicamente en el rigor algebraico de la síntesis de polinomios, sino de manera preponderante en la consideración de
+los efectos no ideales de los componentes reales: producto ganancia-ancho de banda, impedancia de fuentes de corriente
+internas, capacidades de sumidero a potencial de masa y tolerancias de las series comerciales normalizadas.

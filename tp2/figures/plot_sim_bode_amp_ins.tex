@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.95\textwidth,
+    height=7.5cm,
+    xmode=log,
+    xmin=0.1, xmax=1000,
+    ymin=-90, ymax=0,
+    ytick={-80, -60, -40, -20, 0},
+    grid=both,
+    grid style={line width=.1pt, draw=gray!25},
+    major grid style={line width=.2pt, draw=gray!45},
+    xlabel={Frecuencia [\unit{\hertz}]},
+    ylabel={Ganancia $|A_v|$ [\unit{\decibel}]},
+    legend style={at={(0.03,0.06)}, anchor=south west, font=\footnotesize}
+  ]
+    % Ganancia simulada
+    \addplot[very thick, color=blue!85!black] table [x=freq, y=gain_db] {sources/data/data_bode_amp_ins.txt};
+    \addlegendentry{Respuesta simulada $|A_v(f)|$}
+
+    % Linea de ganancia plana
+    \draw[dashed, color=gray!80!black] (axis cs:0.1, -14.06) -- (axis cs:1000, -14.06);
+    \node[anchor=south west, font=\scriptsize, text=gray!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:0.15, -12.5) {$A_{v,\text{banda}} = \SI{-14.06}{\decibel}$};
+
+    % Linea de -3 dB
+    \draw[dotted, thick, color=red!80!black] (axis cs:0.1, -17.07) -- (axis cs:1000, -17.07);
+    \node[anchor=north west, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:0.15, -18.5) {Nivel $-\SI{3}{\decibel}$ ($\SI{-17.07}{\decibel}$)};
+
+    % Frecuencia de corte 10 Hz
+    \draw[dotted, thick, color=red!80!black] (axis cs:10, -90) -- (axis cs:10, -17.50)
+      node[pos=0.25, right=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_c \approx \SI{10}{\hertz}$};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(10, -17.50)};
+
+    % Frecuencia de red 50 Hz
+    \draw[dotted, thick, color=teal!80!black] (axis cs:50, -90) -- (axis cs:50, -38.89)
+      node[pos=0.35, right=2pt, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_{\text{red}} = \SI{50}{\hertz}$ ($\SI{-38.89}{\decibel}$)};
+    \addplot[only marks, mark=square*, mark size=2.2pt, color=teal!80!black] coordinates {(50, -38.89)};
+  \end{axis}
+\end{tikzpicture}

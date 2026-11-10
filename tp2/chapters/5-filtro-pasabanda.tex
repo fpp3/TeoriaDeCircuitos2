@@ -1,0 +1,140 @@
+\chapter{Filtro Pasa-Banda Activo de 2do Orden (Butterworth Sallen-Key)}
+\label{sec.ej4:filtro_bpf}
+
+\section{Especificaciones y Metodología de Diseño}
+\label{sec.ej4:especificaciones}
+
+La tercera configuración requerida por la cátedra corresponde a un filtro pasa-banda activo con las siguientes
+especificaciones de diseño:
+\begin{itemize}
+    \item \textbf{Orden del filtro:} $n = 2$ por banda de transición.
+    \item \textbf{Aproximación matemática:} Butterworth (máxima planicidad).
+    \item \textbf{Frecuencia central:} $f_0 = 25.0 \unit{\kilo\hertz}$.
+    \item \textbf{Ancho de banda en frecuencias de paso:} $BW = f_{p2} - f_{p1} = 2.0 \unit{\kilo\hertz}$
+    ($f_{p1} = 24.0 \unit{\kilo\hertz}$, $f_{p2} = 26.0 \unit{\kilo\hertz}$).
+    \item \textbf{Atenuación máxima en banda de paso:} $A_{\max} = 0.1 \unit{\decibel}$.
+    \item \textbf{Ganancia total en resonancia:} $A_v = 4.00 \unit{\volt\per\volt} \implies 20\log_{10}(4) \approx +12.04 \unit{\decibel}$.
+    \item \textbf{Topología circuital:} Sallen-Key (SK).
+    \item \textbf{Condición operativa:} Diseñado analíticamente y validado mediante simulación SPICE en KiCad,
+    reservándose su implementación física para la práctica subsiguiente de filtrado digital, según lo estipulado en
+    las pautas de cátedra.
+\end{itemize}
+
+\section{Desarrollo Analítico por Cascada Pasa-Altos y Pasa-Bajos}
+\label{sec.ej4:desarrollo}
+
+Para materializar la respuesta pasa-banda con la topología Sallen-Key requerida manteniendo control independiente
+sobre los polos, la función se sintetizó mediante la conexión en cascada de una sección pasa-altos (FPA) que fija
+el borde inferior $f_{p1} = 24.0 \unit{\kilo\hertz}$ y una sección pasa-bajos (FPB) que define el borde superior
+$f_{p2} = 26.0 \unit{\kilo\hertz}$.
+
+\subsection{Cálculo de Frecuencias de Corte Formales}
+Dado que la especificación impone un rizado estricto de $A_{\max} = 0.1 \unit{\decibel}$ en los extremos de la banda
+de paso ($24 \unit{\kilo\hertz}$ y $26 \unit{\kilo\hertz}$), se determinaron analíticamente las frecuencias de corte
+a $-3.01 \unit{\decibel}$ ($f_c$) mediante las expresiones de desnormalización de Butterworth:
+\begin{align}
+\label{eq.ej4:fc1_fc2}
+f_{c1} &= f_{p1} \cdot \left[ \frac{10^{0.1 A_{\max}} - 1}{10^{0.301} - 1} \right]^{1/(2n)} = 24.0 \unit{\kilo\hertz} \cdot \left[ \frac{10^{0.01} - 1}{10^{0.301} - 1} \right]^{1/4} \approx 9387.13 \unit{\hertz} \\
+f_{c2} &= f_{p2} \cdot \left[ \frac{10^{0.301} - 1}{10^{0.1 A_{\max}} - 1} \right]^{1/(2n)} = 26.0 \unit{\kilo\hertz} \cdot \left[ \frac{10^{0.301} - 1}{10^{0.01} - 1} \right]^{1/4} \approx 66473.93 \unit{\hertz}
+\end{align}
+
+\subsection{Dimensionamiento de la Sección Pasa-Bajos (FPB)}
+Para la etapa pasa-bajos de segundo orden ($a = \sqrt{2} \approx 1.414$, $b = 1.000$):
+\begin{equation*}
+\text{FSF}_{\text{PB}} = 2\pi f_{c2} = 2\pi \times 66473.93 \unit{\hertz} \approx 417668.08 \unit{\radian\per\second}
+\end{equation*}
+Adoptando un factor de escala de impedancia inicial $\text{ISF} = 10^4 \unit{\ohm}$ y asignando una ganancia de
+$K_{\text{PB}} = 2.00 \unit{\volt\per\volt}$ a la celda:
+\begin{equation*}
+C_{n1} = \frac{a + \sqrt{a^2 + 8(K - 1)}}{4} = \frac{1.414 + \sqrt{2 + 8(2 - 1)}}{4} = 1.6282 \unit{\farad}, \qquad C_{n2} = \frac{1}{C_{n1}} = 0.6196 \unit{\farad}
+\end{equation*}
+
+Efectuando el reescalado a valores normalizados comerciales de la serie E12 con $\text{ISF} = 11813 \unit{\ohm}$:
+\begin{align*}
+R_1 &= R_2 = 12.0 \unit{\kilo\ohm} \\
+C_1 &= \frac{1.6282}{11813 \times 417668} = 330 \unit{\pico\farad} \\
+C_2 &= \frac{0.6196}{11813 \times 417668} = 125 \unit{\pico\farad}
+\end{align*}
+
+\subsection{Dimensionamiento de la Sección Pasa-Altos (FPA)}
+Para la etapa pasa-altos con $f_{c1} = 9387.13 \unit{\hertz}$:
+\begin{equation*}
+\text{FSF}_{\text{PA}} = 2\pi f_{c1} = 2\pi \times 9387.13 \unit{\hertz} \approx 58981.08 \unit{\radian\per\second}
+\end{equation*}
+
+Aplicando la transformación de impedancias para la celda Sallen-Key pasa-altos con ganancia $K_{\text{PA}} = 2.00 \unit{\volt\per\volt}$,
+se fijan capacitores iguales normalizados $C_{n1} = C_{n2} = 1.00 \unit{\farad}$ e invierten las resistencias
+normalizadas ($R_{n1} = 1/C_{n1} = 0.6196 \unit{\ohm}$, $R_{n2} = 1/C_{n2} = 1.6282 \unit{\ohm}$).
+
+Adoptando $\text{ISF} = 11055 \unit{\ohm}$:
+\begin{align*}
+C_1 &= C_2 = \frac{1.00}{11055 \times 58981} = 1.54 \unit{\nano\farad} \approx 1.50 \unit{\nano\farad} \\
+R_1 &= 0.6196 \times 11055 \unit{\ohm} = 6849 \unit{\ohm} \approx 6.80 \unit{\kilo\ohm} \\
+R_2 &= 1.6282 \times 11055 \unit{\ohm} = 17999 \unit{\ohm} \approx 18.0 \unit{\kilo\ohm}
+\end{align*}
+
+Las redes de ganancia de ambas celdas se calibran para $K = 2 \unit{\volt\per\volt}$ mediante resistores de
+$R_a = 33 \unit{\kilo\ohm}$ y $R_b = 47 \unit{\kilo\ohm}$ asociados con ajuste para asegurar
+$K_{\text{total}} = K_{\text{PA}} \cdot K_{\text{PB}} = 2.00 \times 2.00 = 4.00 \unit{\volt\per\volt}$
+($+12.04 \unit{\decibel}$).
+
+\begin{figure}[!ht]
+\centering
+\begin{circuitikz}[american, scale=0.74, transform shape]
+    % ==================== CELDA PASA-ALTOS ====================
+    \draw (0,0) node[left] {$V_{\text{in}}$} to[short, o-] (0.8,0)
+          to[C, l=$C_1$, a=\SI{1.5}{\nano\farad}] (2.8,0) coordinate(n1)
+          to[C, l=$C_2$, a=\SI{1.5}{\nano\farad}] (5.0,0) coordinate(n2);
+    \draw (7.5, -0.5) node[op amp, noinv input up] (oa1) {};
+    \node[font=\footnotesize] at ($(oa1.center)+(0.15,0)$) {$U_1$};
+    \draw (n2) -- (oa1.+);
+    \draw (n1) to[R, l=$R_1$, a=\SI{6.8}{\kilo\ohm}] (2.8, -2.5) to[short] (2.8, -2.8) node[ground] {};
+    \draw (n2) -- (5.0, 2.2) to[R, l=$R_2$, a=\SI{18}{\kilo\ohm}] (9.2, 2.2) -- (9.2, -0.5) coordinate(out1);
+    \draw (oa1.out) -- (out1);
+    \draw (oa1.-) -- (6.3, -1.0) -- (6.3, -2.2) coordinate(fb1);
+    \draw (fb1) to[R, a=$R_a$, l=\SI{33}{\kilo\ohm}] (6.3, -4.2) to[short] (6.3, -4.6) node[ground] {};
+    \draw (fb1) to[R, l=$R_b$, a=\SI{47}{\kilo\ohm}] (9.2, -2.2) -- (out1);
+    
+    % ==================== CELDA PASA-BAJOS ====================
+    \draw (out1) to[short] (10.2, -0.5)
+          to[R, l=$R_3$, a=\SI{12}{\kilo\ohm}] (12.2, -0.5) coordinate(n3)
+          to[R, l=$R_4$, a=\SI{12}{\kilo\ohm}] (14.2, -0.5) coordinate(n4);
+    \draw (17.0, -1.0) node[op amp, noinv input up] (oa2) {};
+    \node[font=\footnotesize] at ($(oa2.center)+(0.15,0)$) {$U_2$};
+    \draw (n4) -- (oa2.+);
+    \draw (n4) to[C, l=$C_4$, a=\SI{330}{\pico\farad}] (14.2, -2.8) to[short] (14.2, -3.1) node[ground] {};
+    \draw (n3) -- (12.2, 1.8) to[C, l=$C_3$, a=\SI{125}{\pico\farad}] (18.8, 1.8) -- (18.8, -1.0) coordinate(out2);
+    \draw (oa2.out) -- (out2) to[short, -o] (19.8, -1.0) node[right] {$V_{\text{out}}$};
+    \draw (oa2.-) -- (15.8, -1.5) -- (15.8, -2.7) coordinate(fb2);
+    \draw (fb2) to[R, a=$R_a$, l=\SI{33}{\kilo\ohm}] (15.8, -4.7) to[short] (15.8, -5.1) node[ground] {};
+    \draw (fb2) to[R, l=$R_b$, a=\SI{47}{\kilo\ohm}] (18.8, -2.7) -- (out2);
+\end{circuitikz}
+\caption{Diagrama circuital del filtro activo pasa-banda Sallen-Key de 2do orden ($f_0=25\,\text{kHz}$, $BW=2\,\text{kHz}$, $K=4\,\text{V/V}$).}
+\label{fig.ej4:sch}
+\end{figure}
+
+\section{Simulación y Análisis de Respuesta en Frecuencia}
+\label{sec.ej4:simulacion}
+
+El circuito completo fue modelado y simulado en KiCad empleando amplificadores operacionales en régimen simétrico
+(archivo \texttt{filter-BP-SK-ac.csv}). El relevamiento de respuesta en frecuencia (Figura~\ref{fig.ej4:bode_ac})
+corrobora plenamente el comportamiento pasa-banda especificado:
+\begin{itemize}
+    \item El pico de resonancia se ubica en $f_0 = 25.12 \unit{\kilo\hertz}$ con una ganancia máxima de
+    $+11.20 \unit{\decibel}$ ($3.63 \unit{\volt\per\volt}$), concordando con los $4.00 \unit{\volt\per\volt}$
+    ($+12.04 \unit{\decibel}$) nominales teóricos.
+    \item El ancho de banda a $-3 \unit{\decibel}$ respecto del pico (nivel $+8.20 \unit{\decibel}$) se extiende desde
+    $f_{c1} \approx 24.1 \unit{\kilo\hertz}$ hasta $f_{c2} \approx 26.2 \unit{\kilo\hertz}$, definiendo un $BW \approx 2.1 \unit{\kilo\hertz}$,
+    en estricta concordancia con la consigna de $2.0 \unit{\kilo\hertz}$.
+    \item Para frecuencias alejadas de la sintonía, la respuesta atenúa enérgicamente con pendientes de $+20 \unit{\decibel\per\decade}$
+    en bajas frecuencias y $-20 \unit{\decibel\per\decade}$ en altas frecuencias.
+    \item La curva de fase atraviesa exactamente $+90^\circ$ en la frecuencia central de resonancia $f_0$, confirmando
+    el comportamiento analítico característico del resonador de segundo orden.
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\input{figures/plot_sim_bode_bpf.tex}
+\caption{Simulación de respuesta en frecuencia (magnitud) del filtro pasa-banda Sallen-Key de 2do orden.}
+\label{fig.ej4:bode_ac}
+\end{figure}

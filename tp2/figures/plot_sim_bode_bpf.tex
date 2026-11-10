@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    width=0.95\textwidth,
+    height=7.5cm,
+    xmode=log,
+    xmin=2000, xmax=300000,
+    ymin=-35, ymax=18,
+    ytick={-30, -20, -10, 0, 10},
+    grid=both,
+    grid style={line width=.1pt, draw=gray!25},
+    major grid style={line width=.2pt, draw=gray!45},
+    xlabel={Frecuencia [\unit{\hertz}]},
+    ylabel={Ganancia $|A_v|$ [\unit{\decibel}]},
+    legend style={at={(0.03,0.06)}, anchor=south west, font=\footnotesize}
+  ]
+    % Ganancia simulada
+    \addplot[very thick, color=blue!85!black] table [x=freq, y=gain_db] {sources/data/data_bode_bpf.txt};
+    \addlegendentry{Respuesta simulada $|A_v(f)|$}
+
+    % Linea de ganancia pico
+    \draw[dashed, color=gray!80!black] (axis cs:2000, 11.20) -- (axis cs:300000, 11.20);
+    \node[anchor=south west, font=\scriptsize, text=gray!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:2500, 13.0) {Ganancia máxima: $\SI{11.20}{\decibel}$};
+
+    % Pico central
+    \draw[dashed, color=gray!80!black] (axis cs:25120, -35) -- (axis cs:25120, 11.20);
+    \addplot[only marks, mark=*, mark size=2.2pt, color=black] coordinates {(25120, 11.20)};
+    \node[anchor=south, font=\scriptsize, text=black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:25120, 12.5) {$f_0 = \SI{25.12}{\kilo\hertz}$};
+
+    % Linea de -3 dB
+    \draw[dotted, thick, color=red!80!black] (axis cs:2000, 8.20) -- (axis cs:300000, 8.20);
+    \node[anchor=north west, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:2500, 7.5) {Nivel $-\SI{3}{\decibel}$ ($\SI{8.20}{\decibel}$)};
+
+    % Frecuencias de corte a -3 dB
+    \draw[dotted, thick, color=red!80!black] (axis cs:24100, -35) -- (axis cs:24100, 8.20)
+      node[pos=0.45, left=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_{c1} \approx \SI{24.1}{\kilo\hertz}$};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(24100, 8.20)};
+
+    \draw[dotted, thick, color=red!80!black] (axis cs:26200, -35) -- (axis cs:26200, 8.20)
+      node[pos=0.25, right=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_{c2} \approx \SI{26.2}{\kilo\hertz}$};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(26200, 8.20)};
+
+    % Ancho de banda BW
+    \node[anchor=south, font=\scriptsize\bfseries, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
+      at (axis cs:25120, 0.0) {$BW \approx \SI{2.1}{\kilo\hertz}$ (dato: $\SI{2.0}{\kilo\hertz}$)};
+  \end{axis}
+\end{tikzpicture}

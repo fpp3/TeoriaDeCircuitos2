@@ -1,0 +1,99 @@
+\chapter{Anexos Técnicos}
+\label{sec.ej6:anexos}
+
+\section{Extracto de la Hoja de Datos del Amplificador Operacional LM324}
+\label{sec.ej6:datasheet_lm324}
+
+En la Tabla~\ref{tab.ej6:lm324_specs} se transcriben las especificaciones eléctricas críticas extraídas de la hoja
+de datos oficial del fabricante (Texas Instruments, documento SLOS066Z), relativas a la capacidad de sumidero de
+corriente en la etapa de salida para bajas tensiones de polarización.
+
+\begin{table}[!ht]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Parámetro & Condiciones de Ensayo & Mínimo & Típico & Máximo & Unidad \\
+\midrule
+Tensión de alimentación ($V_{\text{CC}}$) & Fuente unipolar & $3.0$ & --- & $32.0$ & $\unit{\volt}$ \\
+Corriente de polarización ($I_B$) & $V_{\text{IN}+} = V_{\text{IN}-} = 0 \unit{\volt}$ & --- & $20$ & $100$ & $\unit{\nano\ampere}$ \\
+Rango de modo común ($V_{\text{ICR}}$) & $T_A = 25 \unit{\celsius}$ & $0$ & --- & $V_{\text{CC}} - 1.5$ & $\unit{\volt}$ \\
+Corriente de sumidero ($I_{\text{sink}}$) & $V_{\text{IN}-} = 1 \unit{\volt}, V_{\text{IN}+} = 0 \unit{\volt}, V_o = 200 \unit{\milli\volt}$ & $12$ & $50$ & --- & $\unit{\micro\ampere}$ \\
+Corriente de sumidero ($I_{\text{sink}}$) & $V_{\text{IN}-} = 1 \unit{\volt}, V_{\text{IN}+} = 0 \unit{\volt}, V_o \ge 2 \unit{\volt}$ & $10$ & $20$ & --- & $\unit{\milli\ampere}$ \\
+Tensión residual ($V_{\text{OL}}$) & $R_L = 10 \unit{\kilo\ohm}$ a GND & --- & $5$ & $20$ & $\unit{\milli\volt}$ \\
+Ganancia-ancho de banda (GBW) & $f = 100 \unit{\kilo\hertz}$ & $0.7$ & $1.2$ & --- & $\unit{\mega\hertz}$ \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Parámetros eléctricos destacados del amplificador operacional cuádruple LM324.}
+\label{tab.ej6:lm324_specs}
+\end{table}
+
+Obsérvese la discrepancia fundamental entre la capacidad de sumidero a tensiones superiores a $2 \unit{\volt}$
+($I_{\text{sink}} \ge 10 \unit{\milli\ampere}$, donde conduce el transistor NPN de la etapa push-pull) frente a la
+capacidad en cercanías de masa ($V_o \le 200 \unit{\milli\volt}$), donde la corriente está limitada de manera
+estricta a los $50 \unit{\micro\ampere}$ típicos que entrega la fuente de corriente interna.
+
+\section{Netlist SPICE del Filtro Pasa-Bajos de 4to Orden (Butterworth SK)}
+\label{sec.ej6:netlist_lpf}
+
+A continuación se reproduce el archivo de netlist empleado en las simulaciones de verificación en LTspice:
+
+\begin{lstlisting}[style=ltspice, caption={Netlist SPICE del filtro pasa-bajos Sallen-Key con ganancia integrada $A_v = 9 \unit{\volt\per\volt}$.}]
+* FILTRO PASA BAJOS BUTTERWORTH 4TO ORDEN (fc = 19 kHz, Av = 9)
+Vin in 0 AC 1
+
+* ETAPA 1 (Q1 = 0.54, K1 = 3.0)
+R1_1 in n1 10k
+R2_1 n1 n2 15k
+C1_1 n2 0 1n
+C2_1 n1 out1 470p
+E1 out1 0 n2 fb1 100k
+Ra_1 fb1 0 10k
+Rb_1 out1 fb1 20k
+
+* ETAPA 2 (Q2 = 1.31, K2 = 3.0)
+R1_2 out1 n3 10k
+R2_2 n3 n4 10k
+C1_2 n4 0 1n
+C2_2 n3 out2 680p
+E2 out2 0 n4 fb2 100k
+Ra_2 fb2 0 10k
+Rb_2 out2 fb2 20k
+
+.ac dec 100 1 1Meg
+.end
+\end{lstlisting}
+
+\section{Netlist SPICE del Filtro Pasa-Altos de 4to Orden (Chebyshev MFB)}
+\label{sec.ej6:netlist_hpf}
+
+\begin{lstlisting}[style=ltspice, caption={Netlist SPICE del filtro pasa-altos MFB de 4to orden con ganancia $A_v = 6 \unit{\volt\per\volt}$.}]
+* FILTRO PASA ALTOS CHEBYSHEV 4TO ORDEN MFB (fp = 11 kHz, Av = 6)
+Vin in 0 AC 1
+
+* ETAPA 1 (f01 = 14.3 kHz, Q1 = 0.60, K1 = 3.0)
+C1_1 in n1 1n
+R1_1 n1 gnda 8k
+C2_1 n1 out1 330p
+C3_1 n1 inv1 1n
+R2_1 inv1 out1 47k
+E1 out1 0 gnda inv1 100k
+
+* ETAPA 2 (f02 = 10.0 kHz, Q2 = 2.15, K2 = 2.13)
+C1_2 out1 n2 1n
+R1_2 n2 gnda 3k
+C2_2 n2 out2 470p
+C3_2 n2 inv2 1n
+R2_2 inv2 out2 180k
+E2 out2 0 gnda inv2 100k
+
+* MASA VIRTUAL (GNDA = 12 V)
+Vcc vcc 0 DC 24
+Rref1 vcc gnda 10k
+Rref2 gnda 0 10k
+Cdec gnda 0 100n
+
+.ac dec 100 100 1Meg
+.end
+\end{lstlisting}

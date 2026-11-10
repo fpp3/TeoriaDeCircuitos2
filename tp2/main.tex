@@ -1,0 +1,43 @@
+\documentclass[]{informeutn}
+
+\addbibresource{fuentes.bib}
+\usepackage{icomma}
+\DeclareSIUnit\decade{dec}
+\graphicspath{{figures/}{images/}{pictures/}{./}}
+
+\lstdefinestyle{ltspice}{
+  backgroundcolor=\color{gray!10},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\materia{Teoría de Circuitos II}
+\titulo{Trabajo Práctico 2}
+\subtitulo{Diseño e Implementación de Filtros Activos y Acondicionamiento de Señal de Campo}
+\comision{4R2}
+\autores{Gaston Grasso - 401892 \\
+         Franco Palombo - 401910 \\
+         Angelo Prieto - 401012}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-introduccion.tex}
+  \input{chapters/2-acondicionamiento.tex}
+  \input{chapters/3-filtro-pasabajos.tex}
+  \input{chapters/4-filtro-pasaaltos.tex}
+  \input{chapters/5-filtro-pasabanda.tex}
+  \input{chapters/6-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+  \input{chapters/7-anexos.tex}
+\end{document}
