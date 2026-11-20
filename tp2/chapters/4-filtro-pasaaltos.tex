@@ -4,246 +4,280 @@
 \section{Especificaciones y Topología Circuital}
 \label{sec.ej3:especificaciones}
 
-El segundo diseño asignado por la cátedra consiste en un filtro pasa-altos de cuarto orden con aproximación Chebyshev,
-cuyas especificaciones son:
+El segundo filtro asignado por la cátedra consiste en un filtro pasa-altos
+activo de cuarto orden con aproximación Chebyshev y topología de realimentación
+múltiple (MFB, \textit{Multiple Feedback}). Las especificaciones requeridas son:
+
 \begin{itemize}
-    \item \textbf{Orden del filtro:} $n = 4$, conformado por dos etapas de realimentación múltiple (MFB) en cascada.
-    \item \textbf{Aproximación matemática:} Chebyshev de 4to orden con rizado en banda de paso de $A_{\max} = 3 \unit{\decibel}$.
-    \item \textbf{Frecuencia límite de banda de paso:} $f_p = 11.0 \unit{\kilo\hertz}$.
+    \item \textbf{Orden del filtro:} $n = 4$, conformado mediante dos celdas MFB de segundo orden en cascada.
+    \item \textbf{Frecuencia límite de banda de paso:} $f_p = 11.0 \unit{\kilo\hertz}$ (frecuencia en la cual la atenuación alcanza la cota de rizado respecto a la meseta de paso).
     \item \textbf{Ganancia total en banda de paso:} $A_v = 6.00 \unit{\volt\per\volt} \implies 20\log_{10}(6) \approx +15.56 \unit{\decibel}$.
-    \item \textbf{Topología circuital:} Realimentación múltiple (MFB, Multiple Feedback / Rauch), diseñada de acuerdo
-    con los métodos de Pactitis y la documentación de aplicación de Texas Instruments (SLOA088).
-    \item \textbf{Estado de ejecución:} Implementado físicamente y ensayado en laboratorio.
+    \item \textbf{Alimentación del sistema:} Fuente paritda u unipolar. Se optó
+        por una fuente unipolar simple de $+24 \unit{\volt}$.
+    \item \textbf{Estado de ejecución:} Diseñado analíticamente, validado por simulación SPICE, implementado físicamente en circuito impreso y ensayado en laboratorio.
 \end{itemize}
 
-\section{Deducción Analítica de la Celda MFB Pasa-Altos}
-\label{sec.ej3:deduccion_mfb}
-
-La topología MFB pasa-altos es una estructura inversora que emplea tres capacitores ($C_1, C_2, C_3$) y dos
-resistencias ($R_1, R_2$) por celda de segundo orden.
-
-El análisis nodal en pequeña señal sobre la celda se formula de la siguiente manera:
-\begin{enumerate}
-    \item La entrada $V_i$ ingresa a través de $C_1$ a un nodo intermedio $V_1$. Dicho nodo se encuentra conectado a:
-    $C_1$ desde la entrada, $R_1$ hacia la referencia de masa virtual, $C_2$ hacia el terminal de salida $V_o$, y
-    $C_3$ hacia la entrada inversora del amplificador operacional ($V_-$).
-    \begin{equation}
-    \label{eq.ej3:kcl_nodo1}
-    (V_1 - V_i) s C_1 + \frac{V_1}{R_1} + (V_1 - V_o) s C_2 + (V_1 - V_-) s C_3 = 0
-    \end{equation}
-    \item En la entrada inversora del amplificador operacional, el nodo suma las corrientes provenientes de $C_3$ y de
-    la resistencia de realimentación $R_2$ conectada a la salida:
-    \begin{equation*}
-    (V_- - V_1) s C_3 + \frac{V_- - V_o}{R_2} = 0
-    \end{equation*}
-    \item Dado que la entrada no inversora se fija a la tensión de referencia ($V_+ = 0$), el cortocircuito virtual
-    impone $V_- = 0$. Despejando $V_1$ de la ecuación de la entrada inversora:
-    \begin{equation}
-    \label{eq.ej3:v1_despeje}
-    - V_1 s C_3 - \frac{V_o}{R_2} = 0 \implies V_1 = - \frac{V_o}{s R_2 C_3}
-    \end{equation}
-    \item Sustituyendo $V_1$ en la ecuación del nodo intermedio y multiplicando miembro a miembro por $-s R_2 C_3$:
-    \begin{equation*}
-    V_o \left[ s(C_1 + C_2 + C_3) + \frac{1}{R_1} \right] = - s^2 R_2 C_1 C_3 V_i - s^2 R_2 C_2 C_3 V_o
-    \end{equation*}
-\end{enumerate}
-
-Reordenando términos y dividiendo por el coeficiente cuadrático $R_2 C_2 C_3$, se obtiene la función de transferencia
-canónica de segundo orden de la celda MFB pasa-altos:
-\begin{equation}
-\label{eq.ej3:transferencia_mfb}
-H_{\text{MFB}}(s) = \frac{V_o(s)}{V_i(s)} = \frac{- \left(\frac{C_1}{C_2}\right) s^2}{s^2 + s \left[ \frac{C_1 + C_2 + C_3}{R_2 C_2 C_3} \right] + \frac{1}{R_1 R_2 C_2 C_3}}
-\end{equation}
-
-De la Ecuación~(\ref{eq.ej3:transferencia_mfb}) se deducen directamente los parámetros canónicos:
-\begin{itemize}
-    \item \textbf{Ganancia asintótica en alta frecuencia ($s \to \infty$):}
-    \begin{equation}
-    \label{eq.ej3:kinf}
-    K_\infty = - \frac{C_1}{C_2}
-    \end{equation}
-    \item \textbf{Pulsación natural resonante ($\omega_0$):}
-    \begin{equation}
-    \label{eq.ej3:w0_mfb}
-    \omega_0 = \frac{1}{\sqrt{R_1 R_2 C_2 C_3}}
-    \end{equation}
-    \item \textbf{Factor de amortiguamiento y calidad ($Q$):}
-    \begin{equation}
-    \label{eq.ej3:q_mfb}
-    \frac{\omega_0}{Q} = \frac{C_1 + C_2 + C_3}{R_2 C_2 C_3} \implies Q = \frac{\sqrt{R_2 / R_1}}{\frac{C_1 + C_2 + C_3}{\sqrt{C_2 C_3}}}
-    \end{equation}
-\end{itemize}
-
-\section{Síntesis de Chebyshev y Distribución de Etapas}
-\label{sec.ej3:sintesis}
-
-Para una aproximación Chebyshev de 4to orden con rizado de $A_{\max} = 3 \unit{\decibel}$, el polinomio denominador
-en el dominio normalizado pasa-bajos presenta polos con factores de calidad marcadamente dispares: una sección de
-baja $Q$ ($Q \approx 1.08$) y una sección fuertemente resonante ($Q \approx 3.56$).
-
-Mediante la transformación estándar en frecuencia pasa-bajos a pasa-altos ($s_n \to \omega_p / s$), los polos se
-invierten en frecuencia respecto a $\omega_p = 2\pi \times 11.0 \unit{\kilo\hertz} \approx 69115 \unit{\radian\per\second}$.
-Siguiendo las pautas de Texas Instruments y Pactitis, la primera etapa asume la función moderadamente selectiva con
-menor ganancia, y la segunda etapa implementa el polo más resonante.
-
-\subsection{Polarización Unipolar con Masa Virtual (+12 V)}
-Dado que el circuito se alimenta con fuente simple de $+24 \unit{\volt}$, la señal senoidal de entrada requiere una
-referencia de reposo simétrica para admitir excursiones positivas y negativas sin recorte.
-
-Para ello, se implementó una red de masa virtual (GNDA) a partir de un divisor resistivo simétrico de
-$R_3 = 10 \unit{\kilo\ohm}$ y $R_4 = 10 \unit{\kilo\ohm}$ conectado entre $+24 \unit{\volt}$ y GND, desacoplado
-mediante un capacitor de $100 \unit{\nano\farad}$ y asistido por una sección del amplificador operacional LM324
-configurada como seguidor de tensión. Este nodo de $+12 \unit{\volt}$ alimenta las entradas no inversoras de las dos
-celdas de filtrado y el retorno del resistor $R_1$, aislando dinámicamente las etapas de la fuente principal.
-
-\subsection{Selección y Ajuste de Componentes Comerciales}
-Para satisfacer la ganancia global requerida de $A_v = 6.00 \unit{\volt\per\volt}$ ($+15.56 \unit{\decibel}$):
-\begin{enumerate}
-    \item \textbf{Etapa 1:}
-    Se adoptaron capacitores de entrada y acoplo inversor normalizados $C_1 = 1.0 \unit{\nano\farad}$ y
-    $C_3 = 1.0 \unit{\nano\farad}$. A fin de ajustar la ganancia individual a $K_{\infty 1} \approx 3.0 \unit{\volt\per\volt}$,
-    el capacitor de realimentación $C_2$ se conformó conectando en paralelo dos capacitores cerámicos comerciales:
-    $C_2 = 180 \unit{\pico\farad}$ y $C_7 = 150 \unit{\pico\farad}$, logrando una capacidad efectiva de
-    $C_{2,\text{eq}} = 330 \unit{\pico\farad}$.
-    \begin{equation*}
-    K_{\infty 1} = - \frac{C_1}{C_{2,\text{eq}}} = - \frac{1000 \unit{\pico\farad}}{330 \unit{\pico\farad}} = -3.03 \unit{\volt\per\volt}
-    \end{equation*}
-    Con $R_1 = 8.0 \unit{\kilo\ohm}$ y $R_2 = 47.0 \unit{\kilo\ohm}$, los parámetros de la celda resultan:
-    \begin{equation*}
-    f_{01} = \frac{1}{2\pi\sqrt{8\text{k} \cdot 47\text{k} \cdot 330\text{p} \cdot 1\text{n}}} = 14.29 \unit{\kilo\hertz}, \qquad Q_1 \approx 0.60
-    \end{equation*}
-
-    \item \textbf{Etapa 2:}
-    Se adoptaron $C_4 = 1.0 \unit{\nano\farad}$, $C_5 = 470 \unit{\pico\farad}$ y $C_6 = 1.0 \unit{\nano\farad}$.
-    La ganancia de la etapa resulta:
-    \begin{equation*}
-    K_{\infty 2} = - \frac{C_4}{C_5} = - \frac{1000 \unit{\pico\farad}}{470 \unit{\pico\farad}} = -2.13 \unit{\volt\per\volt}
-    \end{equation*}
-    Con $R_5 = 3.0 \unit{\kilo\ohm}$ y $R_6 = 180.0 \unit{\kilo\ohm}$, se obtienen:
-    \begin{equation*}
-    f_{02} = \frac{1}{2\pi\sqrt{3\text{k} \cdot 180\text{k} \cdot 470\text{p} \cdot 1\text{n}}} = 9.99 \unit{\kilo\hertz}, \qquad Q_2 \approx 2.15
-    \end{equation*}
-\end{enumerate}
-
-La ganancia global asintótica en la banda de paso resulta:
-\begin{equation}
-\label{eq.ej3:ganancia_total_calc}
-A_{v,\text{total}} = K_{\infty 1} \cdot K_{\infty 2} = (-3.03) \times (-2.13) = +6.45 \unit{\volt\per\volt} \implies +16.19 \unit{\decibel}
-\end{equation}
-presentando un desvío de apenas $+0.63 \unit{\decibel}$ respecto al valor nominal de $+15.56 \unit{\decibel}$, plenamente
-compensable por las pérdidas parásitas en circuito impreso.
+La topología circuital se presenta en la figura \ref{fig.ej3:sch}.
 
 \begin{figure}[!ht]
 \centering
 \begin{circuitikz}[american, scale=0.74, transform shape]
     % ==================== ETAPA 1 ====================
     \draw (0,0) node[left] {$V_{\text{in}}$} to[short, o-] (0.8,0)
-          to[C, l=$C_1$, a=\SI{1}{\nano\farad}] (2.8,0) coordinate(n1);
-    \draw (2.8,0) to[R, l=$R_1$, a=\SI{8}{\kilo\ohm}] (2.8, -2.5) to[short] (2.8, -2.8) node[ground] {};
-    \draw (n1) to[C, l=$C_3$, a=\SI{1}{\nano\farad}] (5.2, 0) coordinate(nin1);
+          to[C, l=$C_1$] (2.8,0) coordinate(n1);
+    \draw (2.8,0) to[R, l=$R_1$] (2.8, -2.5) to[short, -o] (2.8, -2.8) node[below] {$V_{\text{ref}}$};
+    \draw (n1) to[C, l=$C_3$] (5.2, 0) coordinate(nin1);
     \draw (7.0, -0.5) node[op amp] (oa1) {};
     \node[font=\footnotesize] at ($(oa1.center)+(0.15,0)$) {$U_{1A}$};
     \draw (nin1) -- (oa1.-);
-    \draw (oa1.+) -- (5.8, -1.0) node[ground] {};
+    \draw (oa1.+) -- (5.8, -1.0) to[short, -o] (5.8, -1.3) node[below] {$V_{\text{ref}}$};
     
-    \draw (nin1) -- (5.2, 1.5) to[C, l=$C_2$, a=\SI{180}{\pico\farad}] (8.5, 1.5) -- (8.5, -0.5) coordinate(out1);
-    \draw (n1) -- (2.8, 3.4) to[R, l=$R_2$, a=\SI{47}{\kilo\ohm}] (9.3, 3.4) -- (9.3, -0.5);
+    \draw (nin1) -- (5.2, 1.5) to[C, l=$C_2$] (8.5, 1.5) -- (8.5, -0.5) coordinate(out1);
+    \draw (n1) -- (2.8, 3.4) to[R, l=$R_2$] (9.3, 3.4) -- (9.3, -0.5);
     \draw (oa1.out) -- (9.3, -0.5);
     
     % ==================== ETAPA 2 ====================
     \draw (9.3, -0.5) to[short] (10.5, -0.5)
-          to[C, l=$C_4$, a=\SI{1}{\nano\farad}] (12.5, -0.5) coordinate(n2);
-    \draw (12.5, -0.5) to[R, l=$R_5$, a=\SI{3}{\kilo\ohm}] (12.5, -3.0) to[short] (12.5, -3.3) node[ground] {};
-    \draw (n2) to[C, l=$C_6$, a=\SI{1}{\nano\farad}] (14.9, -0.5) coordinate(nin2);
+          to[C, l=$C_4$] (12.5, -0.5) coordinate(n2);
+    \draw (12.5, -0.5) to[R, l=$R_5$] (12.5, -3.0) to[short, -o] (12.5, -3.3) node[below] {$V_{\text{ref}}$};
+    \draw (n2) to[C, l=$C_6$] (14.9, -0.5) coordinate(nin2);
     \draw (16.7, -1.0) node[op amp] (oa2) {};
     \node[font=\footnotesize] at ($(oa2.center)+(0.15,0)$) {$U_{1B}$};
     \draw (nin2) -- (oa2.-);
-    \draw (oa2.+) -- (15.5, -1.5) node[ground] {};
+    \draw (oa2.+) -- (15.5, -1.5) to[short, -o] (15.5, -1.8) node[below] {$V_{\text{ref}}$};
     
-    \draw (nin2) -- (14.9, 1.0) to[C, l=$C_5$, a=\SI{470}{\pico\farad}] (18.2, 1.0) -- (18.2, -1.0) coordinate(out2);
-    \draw (n2) -- (12.5, 3.0) to[R, l=$R_6$, a=\SI{180}{\kilo\ohm}] (19.0, 3.0) -- (19.0, -1.0);
+    \draw (nin2) -- (14.9, 1.0) to[C, l=$C_5$] (18.2, 1.0) -- (18.2, -1.0) coordinate(out2);
+    \draw (n2) -- (12.5, 3.0) to[R, l=$R_6$] (19.0, 3.0) -- (19.0, -1.0);
     \draw (oa2.out) -- (19.0, -1.0) to[short, -o] (20.0, -1.0) node[right] {$V_{\text{out}}$};
 \end{circuitikz}
-\caption{Diagrama circuital del filtro activo pasa-altos MFB de 4to orden (Chebyshev $3\,\text{dB}$, $K=6\,\text{V/V}$).}
+\caption{Diagrama circuital esquemático del filtro pasa-altos activo MFB de 4to orden.}
 \label{fig.ej3:sch}
 \end{figure}
+
+\section{Deducción Analítica de Componentes}
+\label{sec.ej3:deduccion_mfb}
+
+La topología MFB pasa-altos de segundo orden es una estructura inversora que emplea tres capacitores ($C_1, C_2, C_3$) y dos resistencias ($R_1, R_2$) por celda.
+
+El análisis nodal en pequeña señal sobre la celda se plantea considerando un amplificador operacional ideal operando en zona lineal ($V_+ = V_- = 0$ bajo referencia local):
+\begin{enumerate}
+    \item En el nodo intermedio $V_1$, concurren el capacitor de entrada $C_1$, la resistencia de polarización $R_1$, el capacitor de realimentación $C_2$ desde la salida y el capacitor de acoplo $C_3$ hacia la entrada inversora:
+    \begin{equation}
+    \label{eq.ej3:kcl_nodo1}
+    (V_1 - V_i) s C_1 + \frac{V_1}{R_1} + (V_1 - V_o) s C_2 + (V_1 - V_-) s C_3 = 0
+    \end{equation}
+
+    \item En la entrada inversora del operacional ($V_-$), concurren la corriente proveniente de $C_3$ y la corriente de realimentación resistiva $R_2$ desde la salida:
+    \begin{equation}
+    \label{eq.ej3:kcl_inv}
+    (V_- - V_1) s C_3 + \frac{V_- - V_o}{R_2} = 0
+    \end{equation}
+
+    \item Con $V_- = 0$, despejando $V_1$ de la Ecuación~(\ref{eq.ej3:kcl_inv}):
+    \begin{equation}
+    \label{eq.ej3:v1_despeje}
+    V_1 = - \frac{V_o}{s R_2 C_3}
+    \end{equation}
+
+    \item Reemplazando $V_1$ en la Ecuación~(\ref{eq.ej3:kcl_nodo1}) y multiplicando miembro a miembro por $-s R_2 C_3$:
+    \begin{equation*}
+    V_o \left[ s(C_1 + C_2 + C_3) + \frac{1}{R_1} \right] + s^2 R_2 C_2 C_3 V_o = - s^2 R_2 C_1 C_3 V_i
+    \end{equation*}
+\end{enumerate}
+
+Dividiendo numerador y denominador por $R_2 C_2 C_3$, se obtiene la función de transferencia canónica de segundo orden de la celda pasa-altos:
+\begin{equation}
+\label{eq.ej3:transferencia_mfb}
+H_{\text{MFB}}(s) = \frac{V_o(s)}{V_i(s)} = \frac{- \left(\frac{C_1}{C_2}\right) s^2}{s^2 + s \left[ \frac{C_1 + C_2 + C_3}{R_2 C_2 C_3} \right] + \frac{1}{R_1 R_2 C_2 C_3}}
+\end{equation}
+
+Igualando con la forma normalizada de segundo orden:
+\begin{equation}
+\label{eq.ej3:ti_canonical}
+H(s) = \frac{- s^2 K_\infty}{s^2 + \frac{\omega_0}{Q} s + \omega_0^2} = \frac{- s^2 \left( \frac{C_1}{C_2} \right)}{s^2 + a_1 s + a_0}
+\end{equation}
+se obtienen de forma directa los parámetros característicos de la etapa:
+\begin{itemize}
+    \item \textbf{Ganancia asintótica en alta frecuencia ($s \to \infty$):}
+    \begin{equation}
+    \label{eq.ej3:kinf}
+    K_\infty = \frac{C_1}{C_2}
+    \end{equation}
+    \item \textbf{Pulsación natural de corte ($\omega_0$):}
+    \begin{equation}
+    \label{eq.ej3:w0_mfb}
+    \omega_0 = \sqrt{a_0} = \frac{1}{\sqrt{R_1 R_2 C_2 C_3}}
+    \end{equation}
+    \item \textbf{Factor de calidad ($Q$):}
+    \begin{equation}
+    \label{eq.ej3:q_mfb}
+    Q = \frac{\omega_0}{a_1} = \frac{\sqrt{\frac{R_2}{R_1}}}{\frac{C_1 + C_2 + C_3}{\sqrt{C_2 C_3}}}
+    \end{equation}
+\end{itemize}
+
+\section{Síntesis de Chebyshev y Cálculo de Componentes}
+\label{sec.ej3:sintesis}
+
+\subsection{Polinomio de Aproximación y Factores de Calidad}
+Para una aproximación Chebyshev de orden $n = 4$ con rizado $A_{\max} = 0.1 \unit{\decibel}$, el polinomio denominador normalizado se descompone en el producto de dos factores cuadráticos:
+\begin{equation}
+\label{eq.ej3:polinomio_cheb}
+D(s_n) = (s_n^2 + a_1 s_n + b_1)(s_n^2 + a_2 s_n + b_2) = (s_n^2 + 1.275 s_n + 0.623)(s_n^2 + 0.528 s_n + 1.330)
+\end{equation}
+
+A partir de los coeficientes $a_i$ y $b_i$, se calculan las frecuencias naturales y los factores de calidad de cada sección en el dominio normalizado:
+\begin{enumerate}
+    \item \textbf{Sección 1 (baja selectividad / bajo $Q$):}
+    \begin{align}
+    \label{eq.ej3:seccion1_cheb}
+    a_1 = 1.275, \quad b_1 = 0.623 \implies 
+    \omega_{01,n} &= \sqrt{0.623} = 0.7893 \unit{\radian\per\second}, \nonumber \\
+    Q_1 &= \frac{\sqrt{0.623}}{1.275} = 0.6191
+    \end{align}
+    \item \textbf{Sección 2 (alta selectividad / alto $Q$):}
+    \begin{align}
+    \label{eq.ej3:seccion2_cheb}
+    a_2 = 0.528, \quad b_2 = 1.330 \implies 
+    \omega_{02,n} &= \sqrt{1.330} = 1.1533 \unit{\radian\per\second}, \nonumber \\
+    Q_2 &= \frac{\sqrt{1.330}}{0.528} = 2.1842
+    \end{align}
+\end{enumerate}
+
+\subsection{Distribución de Ganancia y Ordenamiento de Etapas}
+Para optimizar el comportamiento global de la cadena activa:
+\begin{itemize}
+    \item \textbf{Ordenamiento de celdas:} Se sitúa en primer lugar la celda de bajo $Q$ ($Q_1 \approx 0.62$) y en segundo lugar la celda más selectiva ($Q_2 \approx 2.18$). Esta secuencia evita que los picos de sobreimpulso cercanos a la frecuencia de resonancia saturen prematuramente la primera etapa, maximizando el rango dinámico útil del circuito.
+    \item \textbf{Reparto de ganancia:} La ganancia total requerida de $A_v = 6.00 \unit{\volt\per\volt}$ ($+15.56 \unit{\decibel}$) se distribuye asignando $K_1 = 3.00 \unit{\volt\per\volt}$ a la primera celda y $K_2 = 2.00 \unit{\volt\per\volt}$ a la segunda celda:
+    \begin{equation}
+    A_{v,\text{total}} = K_1 \cdot K_2 = 3.00 \times 2.00 = 6.00 \unit{\volt\per\volt} \implies +15.56 \unit{\decibel}
+    \end{equation}
+\end{itemize}
+
+\subsection{Determinación de Componentes del Filtro}
+El dimensionamiento circuital se realiza calculando los valores normalizados a partir del prototipo pasa-bajos, aplicando la transformación pasa-altos y finalmente escalando en frecuencia e impedancia.
+
+\subsubsection{Valores Normalizados}
+Para una celda con ganancia $K_i$ y coeficientes $a_i, b_i$, el prototipo pasa-bajos normalizado se define con:
+\begin{equation}
+C_{1n,\text{LP}} = \frac{2K_i + 1}{a_i K_i}, \qquad C_{2n,\text{LP}} = \frac{a_i}{(2K_i + 1) b_i}
+\end{equation}
+Al aplicar la transformación pasa-bajos a pasa-altos ($s \to 1/s$):
+\begin{equation}
+C_{1n} = C_{3n} = 1.0 \unit{\farad}, \quad C_{2n} = \frac{1}{K_i} \unit{\farad}, \quad R_{1n} = \frac{1}{C_{1n,\text{LP}}}, \quad R_{2n} = \frac{1}{C_{2n,\text{LP}}}
+\end{equation}
+
+Evaluando numéricamente para ambas etapas:
+\begin{itemize}
+    \item \textbf{Etapa 1 ($K_1 = 3$, $a_1 = 1.275$, $b_1 = 0.623$):}
+    \begin{align}
+    C_{1n,\text{LP1}} &= \frac{2(3) + 1}{1.275 \times 3} = 1.8301 \unit{\farad} \implies R_{1n} = \frac{1}{1.8301} = 0.5464 \,\Omega \\
+    C_{2n,\text{LP1}} &= \frac{1.275}{7 \times 0.623} = 0.2924 \unit{\farad} \implies R_{2n} = \frac{1}{0.2924} = 3.4204 \,\Omega \\
+    C_{1n} &= C_{3n} = 1.0 \unit{\farad}, \quad C_{2n} = \frac{1}{3} = 0.3333 \unit{\farad}
+    \end{align}
+
+    \item \textbf{Etapa 2 ($K_2 = 2$, $a_2 = 0.528$, $b_2 = 1.330$):}
+    \begin{align}
+    C_{1n,\text{LP2}} &= \frac{2(2) + 1}{0.528 \times 2} = 4.7348 \unit{\farad} \implies R_{5n} = \frac{1}{4.7348} = 0.2112 \,\Omega \\
+    C_{2n,\text{LP2}} &= \frac{0.528}{5 \times 1.330} = 0.0794 \unit{\farad} \implies R_{6n} = \frac{1}{0.0794} = 12.5947 \,\Omega \\
+    C_{4n} &= C_{6n} = 1.0 \unit{\farad}, \quad C_{5n} = \frac{1}{2} = 0.5000 \unit{\farad}
+    \end{align}
+\end{itemize}
+
+\subsubsection{Desnormalización en Frecuencia e Impedancia}
+Con la frecuencia de corte especificada en $f_p = 11.0 \unit{\kilo\hertz}$, el factor de escala de frecuencia ($FSF$) es:
+\begin{equation}
+\label{eq.ej3:fsf}
+FSF = \omega_p = 2\pi f_p = 2\pi \times 11.0 \unit{\kilo\hertz} = 69115.04 \unit{\radian\per\second}
+\end{equation}
+
+Adoptando capacitores base comerciales normalizados de $C_{\text{base}} = 1.0 \unit{\nano\farad}$ para $C_1, C_3, C_4, C_6$, el factor de escala de impedancia ($ISF$) resulta:
+\begin{equation}
+\label{eq.ej3:isf}
+ISF = \frac{1}{C_{\text{base}} \cdot FSF} = \frac{1}{1.0 \times 10^{-9} \unit{\farad} \times 69115.04 \unit{\radian\per\second}} = 14468.63 \,\Omega
+\end{equation}
+
+Multiplicando los valores normalizados por los factores de escala:
+\begin{enumerate}
+    \item \textbf{Etapa 1:}
+    \begin{align}
+    C_1 &= C_3 = 1.0 \unit{\nano\farad} \\
+    C_2 &= \frac{1.0 \unit{\nano\farad}}{3} = 333.33 \unit{\pico\farad} \implies \mathbf{C_2 = 330 \unit{\pico\farad}} \\
+    R_1 &= R_{1n} \cdot ISF = 0.5464 \times 14468.63 \,\Omega = 7906.1 \,\Omega \implies \mathbf{R_1 = 8.2 \unit{\kilo\ohm}} \\
+    R_2 &= R_{2n} \cdot ISF = 3.4204 \times 14468.63 \,\Omega = 49488.4 \,\Omega \implies \mathbf{R_2 = 47.0 \unit{\kilo\ohm}}
+    \end{align}
+    Con estos componentes, la ganancia real de la etapa es $K_{\infty 1} = 1000\unit{\pico\farad} / 330\unit{\pico\farad} = 3.03 \unit{\volt\per\volt}$, con $f_{01} \approx 14.1 \unit{\kilo\hertz}$ y $Q_1 \approx 0.62$.
+
+    \item \textbf{Etapa 2:}
+    \begin{align}
+    C_4 &= C_6 = 1.0 \unit{\nano\farad} \\
+    C_5 &= \frac{1.0 \unit{\nano\farad}}{2} = 500.00 \unit{\pico\farad} \implies \mathbf{C_5 = 470 \unit{\pico\farad}} \\
+    R_5 &= R_{5n} \cdot ISF = 0.2112 \times 14468.63 \,\Omega = 3055.8 \,\Omega \implies \mathbf{R_5 = 3.3 \unit{\kilo\ohm}} \\
+    R_6 &= R_{6n} \cdot ISF = 12.5947 \times 14468.63 \,\Omega = 182228 \,\Omega \implies \mathbf{R_6 = 180.0 \unit{\kilo\ohm}}
+    \end{align}
+    La ganancia real de la segunda etapa resulta $K_{\infty 2} = 1000\unit{\pico\farad} / 470\unit{\pico\farad} = 2.13 \unit{\volt\per\volt}$, con $f_{02} \approx 9.7 \unit{\kilo\hertz}$ y $Q_2 \approx 2.18$.
+\end{enumerate}
+
+La ganancia global asintótica en alta frecuencia con los componentes comerciales adoptados es:
+\begin{equation}
+\label{eq.ej3:ganancia_total_calc}
+A_{v,\text{total}} = K_{\infty 1} \cdot K_{\infty 2} = (-3.03) \times (-2.13) = +6.45 \unit{\volt\per\volt} \implies +16.19 \unit{\decibel}
+\end{equation}
+presentando un desvío de $+0.63 \unit{\decibel}$ frente a los $+15.56 \unit{\decibel}$ de diseño nominal, debido al ajuste a valores comerciales estándar de la serie E12.
+
+Por último, dado que el circuito se alimenta con fuente simple de $+24 \unit{\volt}$, se
+fija una tensión de polarización de $V_{\text{ref}} = +12 \unit{\volt}$ en las
+entradas no inversoras de los operacionales ($U_{1A}$ y $U_{1B}$) y en los
+retornos de $R_1$ y $R_5$. Esto introduce un offset de continua que permite a la
+señal alterna de entrada oscilar simétricamente sin recortar contra masa. Dicha
+tensión se genera mediante un divisor resistivo ($10 \unit{\kilo\ohm} / 10
+\unit{\kilo\ohm}$).
+
+En la Tabla~\ref{tab.ej3:resumen_componentes} se resume el diseño completo del filtro.
+
+\begin{table}[!ht]
+\centering
+\caption{Resumen de diseño: valores analíticos y componentes comerciales adoptados.}
+\label{tab.ej3:resumen_componentes}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Componente} & \textbf{Valor Analítico} & \textbf{Valor Comercial} & \textbf{Error Relativo} \\
+\midrule
+$C_1, C_3$ & $1.000 \unit{\nano\farad}$ & $1.0 \unit{\nano\farad}$ & $0.0\,\%$ \\
+$C_2$      & $333.3 \unit{\pico\farad}$ & $330 \unit{\pico\farad}$ & $-1.0\,\%$ \\
+$R_1$      & $7.91 \unit{\kilo\ohm}$    & $8.2 \unit{\kilo\ohm}$   & $+3.7\,\%$ \\
+$R_2$      & $49.5 \unit{\kilo\ohm}$    & $47.0 \unit{\kilo\ohm}$  & $-5.0\,\%$ \\
+\midrule
+$C_4, C_6$ & $1.000 \unit{\nano\farad}$ & $1.0 \unit{\nano\farad}$ & $0.0\,\%$ \\
+$C_5$      & $500.0 \unit{\pico\farad}$ & $470 \unit{\pico\farad}$ & $-6.0\,\%$ \\
+$R_5$      & $3.06 \unit{\kilo\ohm}$    & $3.3 \unit{\kilo\ohm}$   & $+8.0\,\%$ \\
+$R_6$      & $182.2 \unit{\kilo\ohm}$   & $180.0 \unit{\kilo\ohm}$ & $-1.2\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Simulación y Ensayos de Laboratorio}
 \label{sec.ej3:resultados}
 
-Se simuló en SPICE la respuesta en frecuencia del filtro pasa-altos MFB
-(\texttt{filter-HP-MFB-ac.csv}). La curva Bode resultante (Figura~\ref{fig.ej3:bode_ac}) refleja los parámetros
-de la aproximación Chebyshev:
+\subsection{Respuesta en Frecuencia por Simulación SPICE}
+La respuesta en frecuencia del filtro se simuló en SPICE (\texttt{filter-HP-MFB-ac.csv}) utilizando el modelo del amplificador operacional LM324 y los componentes comerciales seleccionados.
+
+La curva de magnitud resultante se presenta en la Figura~\ref{fig.ej3:bode_ac}:
 \begin{itemize}
-    \item Ganancia en la banda de paso superior de $+15.56 \unit{\decibel}$ ($6.00 \unit{\volt\per\volt}$), verificando la meseta de alta frecuencia.
-    \item Frecuencia de corte nominal en $f_p = 11.0 \unit{\kilo\hertz}$, donde la magnitud alcanza la cota inferior de rizado ($+15.56 \unit{\decibel}$).
-    \item Sobreelevación característica de Chebyshev en la zona de borde ($11\text{--}15 \unit{\kilo\hertz}$) contenida dentro del rizado $A_{\max} = 3 \unit{\decibel}$.
-    \item Pendiente asintótica en la banda atenuada de $+80 \unit{\decibel\per\decade}$ por debajo de $8 \unit{\kilo\hertz}$, proporcionando un rechazo profundo frente a componentes de baja frecuencia.
+    \item \textbf{Ganancia en banda de paso:} Se comprueba una meseta estable de $+15.66 \unit{\decibel}$ ($6.07 \unit{\volt\per\volt}$) en frecuencias superiores a $15 \unit{\kilo\hertz}$, en concordancia con el objetivo teórico de $6.00 \unit{\volt\per\volt}$ ($+15.56 \unit{\decibel}$).
+    \item \textbf{Borde de banda de paso ($f_p = 11.0 \unit{\kilo\hertz}$):} La ganancia se sitúa en $+15.20 \unit{\decibel}$, verificando el inicio de la zona de transición con el rizado acotado de Chebyshev.
+    \item \textbf{Frecuencia a $-3 \unit{\decibel}$:} El punto de caída a $-3 \unit{\decibel}$ respecto a la meseta ($\SI{12.66}{\decibel}$) se ubica en $f_{-3\text{dB}} \approx 9.2 \unit{\kilo\hertz}$, concordando con el comportamiento analítico para Chebyshev $0.1 \unit{\decibel}$ de 4to orden.
+    \item \textbf{Pendiente en banda de atenuación:} Por debajo de los $8 \unit{\kilo\hertz}$, la pendiente de caída asintótica es de $+80 \unit{\decibel\per\decade}$, evidenciando la acción combinada de los cuatro polos.
 \end{itemize}
 
 \begin{figure}[!ht]
 \centering
 \input{figures/plot_sim_bode_hpf.tex}
-\caption{Simulación de respuesta en frecuencia (magnitud) del filtro pasa-altos MFB de 4to orden.}
+\caption{Simulación de respuesta en frecuencia (magnitud) del filtro pasa-altos MFB de 4to orden (Chebyshev $0.1\,\text{dB}$).}
 \label{fig.ej3:bode_ac}
 \end{figure}
 
 \subsection{Mediciones Temporales y Espectrales en Osciloscopio}
-El filtro pasa-altos fue montado en su respectiva placa de circuito impreso (Figura~\ref{fig.ej3:placa}) y ensayado
-con instrumental del laboratorio:
-
-\begin{figure}[!ht]
-\centering
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{hpf_osc_11khz.png}
-    \caption{Respuesta temporal en el borde de banda ($f = 10.87\,\mathrm{kHz}$): entrada $V_{\text{pp}} = 124\,\mathrm{mV}$ (amarillo), salida $V_{\text{pp}} = 520\,\mathrm{mV}$ (cian), ganancia $A_v = 4.19\,\mathrm{V/V}$ (caída de $3.3\,\mathrm{dB}$ respecto a la ganancia de banda de paso).}
-    \label{fig.ej3:osc_11k}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{hpf_osc_25khz.png}
-    \caption{Respuesta temporal en banda de paso ($f = 25.0\,\mathrm{kHz}$): entrada $V_{\text{pp}} = 49.6\,\mathrm{mV}$ (cian), salida $V_{\text{pp}} = 304\,\mathrm{mV}$ (amarillo), verificando una ganancia de $A_v = 6.13\,\mathrm{V/V}$ ($+15.75\,\mathrm{dB}$).}
-    \label{fig.ej3:osc_25k}
-\end{subfigure}
-\caption{Relevamiento temporal del filtro pasa-altos MFB de 4to orden en osciloscopio digital.}
-\label{fig.ej3:tiempo}
-\end{figure}
-
-Las capturas temporales demuestran inequívocamente el funcionamiento del filtro:
-\begin{itemize}
-    \item A $25.0 \unit{\kilo\hertz}$ (Figura~\ref{fig.ej3:osc_25k}), dentro de la banda de paso plena, la relación
-    entre amplitudes es $304 \unit{\milli\volt} / 49.6 \unit{\milli\volt} = 6.13 \unit{\volt\per\volt}$, verificando
-    las 6 veces de ganancia de diseño ($+15.75 \unit{\decibel}$).
-    \item A $10.87 \unit{\kilo\hertz}$ (Figura~\ref{fig.ej3:osc_11k}), en la frecuencia nominal de
-    $11 \unit{\kilo\hertz}$, la ganancia disminuye a $520 \unit{\milli\volt} / 124 \unit{\milli\volt} = 4.19 \unit{\volt\per\volt}$,
-    lo que significa una atenuación relativa de $-3.30 \unit{\decibel}$ ($20\log_{10}(4.19/6.13)$),
-    en concordancia con la cota $A_{\max} = 3 \unit{\decibel}$ de Chebyshev.
-\end{itemize}
-
-\begin{figure}[!ht]
-\centering
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{hpf_fft_mag.png}
-    \caption{Espectro FFT del pasa-altos: cursores de amplitud fijados en $\Delta Y = 3.00\,\mathrm{dB}$ ($CurA = -16.6\,\mathrm{dB}$, $CurB = -19.6\,\mathrm{dB}$).}
-    \label{fig.ej3:fft_mag}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{hpf_fft_freq.png}
-    \caption{Espectro FFT del pasa-altos: demarcación de banda y frecuencia de corte con cursores de frecuencia ($CurA = 8.30\,\mathrm{kHz}$, $CurB = 29.10\,\mathrm{kHz}$).}
-    \label{fig.ej3:fft_fc}
-\end{subfigure}
-\caption{Análisis espectral por FFT del filtro pasa-altos MFB en osciloscopio digital.}
-\label{fig.ej3:fft}
-\end{figure}
-
-El perfil FFT en frecuencia (Figuras~\ref{fig.ej3:fft_mag} y~\ref{fig.ej3:fft_fc}) confirma el comportamiento
-pasa-altos de cuarto orden, exhibiendo un rechazo total para bajas frecuencias y una pendiente abrupta en torno a
-los $10 \unit{\kilo\hertz}$, validando la exactitud del modelo implementado.
+El circuito fue implementado en placa de circuito impreso (Figura~\ref{fig.ej3:placa}) y ensayado en laboratorio mediante generador de funciones y osciloscopio digital.
 
 \begin{figure}[!ht]
 \centering
@@ -251,3 +285,66 @@ los $10 \unit{\kilo\hertz}$, validando la exactitud del modelo implementado.
 \caption{Placa de circuito impreso implementada para el filtro activo pasa-altos MFB de 4to orden.}
 \label{fig.ej3:placa}
 \end{figure}
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{hpf_osc_11khz.png}
+    \caption{Respuesta temporal en el borde de banda ($f =
+    10.87\,\mathrm{kHz}$): entrada $V_{\text{pp}} = 124\,\mathrm{mV}$
+    (amarillo), salida $V_{\text{pp}} = 520\,\mathrm{mV}$ (cian).}
+    \label{fig.ej3:osc_11k}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{hpf_osc_25khz.png}
+    \caption{Respuesta temporal en banda de paso ($f = 25.0\,\mathrm{kHz}$):
+    entrada $V_{\text{pp}} = 49.6\,\mathrm{mV}$ (cian), salida $V_{\text{pp}} =
+    304\,\mathrm{mV}$ (amarillo).}
+    \label{fig.ej3:osc_25k}
+\end{subfigure}
+\caption{Relevamiento temporal del filtro pasa-altos MFB de 4to orden en osciloscopio digital.}
+\label{fig.ej3:tiempo}
+\end{figure}
+
+Los resultados temporales validan el diseño:
+\begin{itemize}
+    \item \textbf{En banda de paso ($f = 25.0 \unit{\kilo\hertz}$, Figura~\ref{fig.ej3:osc_25k}):} Con una entrada $V_{\text{in}} = 49.6 \unit{\milli\volt}_{\text{pp}}$, la salida alcanza $V_{\text{out}} = 304 \unit{\milli\volt}_{\text{pp}}$, arrojando una ganancia de:
+    \begin{equation}
+    A_{v,\text{exp}}(25\text{k}) = \frac{304 \unit{\milli\volt}}{49.6 \unit{\milli\volt}} = 6.13 \unit{\volt\per\volt} \implies +15.75 \unit{\decibel}
+    \end{equation}
+    verificando las 6 veces de amplificación requeridas.
+    
+    \item \textbf{En la zona de corte ($f = 10.87 \unit{\kilo\hertz}$, Figura~\ref{fig.ej3:osc_11k}):} Con $V_{\text{in}} = 124 \unit{\milli\volt}_{\text{pp}}$ y $V_{\text{out}} = 520 \unit{\milli\volt}_{\text{pp}}$, la ganancia disminuye a $A_v = 4.19 \unit{\volt\per\volt}$. La atenuación relativa frente a la meseta es de:
+    \begin{equation}
+    \Delta A_v = 20\log_{10}\left(\frac{4.19}{6.13}\right) = -3.30 \unit{\decibel}
+    \end{equation}
+    evidenciando la rápida transición hacia la banda atenuada.
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{hpf_fft_mag.png}
+    \caption{Espectro FFT del pasa-altos: cursores de amplitud fijados en
+    $\Delta Y = 3.00\,\mathrm{dB}$.}
+    \label{fig.ej3:fft_mag}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{hpf_fft_freq.png}
+    \caption{Espectro FFT del pasa-altos: frecuencia de corte ($CurA =
+    8.30\,\mathrm{kHz}$).}
+    \label{fig.ej3:fft_fc}
+\end{subfigure}
+\caption{Análisis espectral por FFT del filtro pasa-altos MFB en osciloscopio digital.}
+\label{fig.ej3:fft}
+\end{figure}
+
+El perfil FFT en frecuencia (Figura~\ref{fig.ej3:fft}) corrobora el comportamiento pasa-altos de cuarto orden, mostrando una pendiente pronunciada en la zona de corte (entre $8.30 \unit{\kilo\hertz}$ y $11 \unit{\kilo\hertz}$) y un rechazo total en bajas frecuencias.
+
+

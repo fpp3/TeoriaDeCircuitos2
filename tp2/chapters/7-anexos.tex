@@ -72,17 +72,17 @@ Rb_2 out2 fb2 20k
 * FILTRO PASA ALTOS CHEBYSHEV 4TO ORDEN MFB (fp = 11 kHz, Av = 6)
 Vin in 0 AC 1
 
-* ETAPA 1 (f01 = 14.3 kHz, Q1 = 0.60, K1 = 3.0)
+* ETAPA 1 (f01 = 14.1 kHz, Q1 = 0.62, K1 = 3.03)
 C1_1 in n1 1n
-R1_1 n1 gnda 8k
+R1_1 n1 gnda 8.2k
 C2_1 n1 out1 330p
 C3_1 n1 inv1 1n
 R2_1 inv1 out1 47k
 E1 out1 0 gnda inv1 100k
 
-* ETAPA 2 (f02 = 10.0 kHz, Q2 = 2.15, K2 = 2.13)
+* ETAPA 2 (f02 = 9.7 kHz, Q2 = 2.18, K2 = 2.13)
 C1_2 out1 n2 1n
-R1_2 n2 gnda 3k
+R1_2 n2 gnda 3.3k
 C2_2 n2 out2 470p
 C3_2 n2 inv2 1n
 R2_2 inv2 out2 180k

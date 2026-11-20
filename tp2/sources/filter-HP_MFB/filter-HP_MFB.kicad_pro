@@ -531,8 +531,8 @@
     "meta": {
       "version": 5
     },
-    "net_colors": null,
-    "netclass_assignments": null,
+    "net_colors": {},
+    "netclass_assignments": {},
     "netclass_patterns": []
   },
   "pcbnew": {
@@ -684,7 +684,7 @@
         "uuid": "5063369c-420b-4050-9c01-9461ffcba955"
       }
     ],
-    "used_designators": "J1-5,#PWR8-22,#GND2-6,C2-8,R3-9,U1-2,V1-2",
+    "used_designators": "#GND2-6,#PWR8-22,C2-8,J1-5,R3-9,U1-2,V1-2",
     "variants": []
   },
   "sheets": [
