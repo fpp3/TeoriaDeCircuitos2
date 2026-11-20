@@ -12,21 +12,121 @@ trabajo práctico establece un sistema alimentado con fuente simple industrial d
 tres etapas en cascada:
 \begin{enumerate}
     \item \textbf{Etapa 1 (Receptor diferencial e instrumentación $I \to V$):} Toma el bucle de corriente flotante
-    mediante una resistencia de derivación (*shunt*) de $R_{\text{shunt,in}} = 250 \unit{\ohm}$ ($1\%$), convirtiendo
+    mediante una resistencia de derivación (\textit{shunt}) de $R_{\text{shunt,in}} = 250 \unit{\ohm}$ ($1\%$), convirtiendo
     los $4\text{--}20 \unit{\milli\ampere}$ en una tensión diferencial de $1 \unit{\volt}$ a $5 \unit{\volt}$. Posee
     una resistencia de referencia de modo común $R_{\text{CM}} = 1 \unit{\mega\ohm}$ conectada entre el borne negativo
-    del lazo y GND para fijar el potencial continuo. Cada borne del *shunt* se aísla mediante un seguidor de tensión
+    del lazo y GND para fijar el potencial continuo. Cada borne del \textit{shunt} se aísla mediante un seguidor de tensión
     ($U_{1A}$ y $U_{1B}$) para no cargar la entrada, ingresando luego a un amplificador de resta ($U_{1C}$) de ganancia
     unitaria ($G=1$) con cuatro resistencias de $10 \unit{\kilo\ohm}$ ($R_3 = R_4 = R_5 = R_f$), entregando
-    $V_{E1} = 1 \unit{\volt} \text{ a } 5 \unit{\volt}$ referenciados a la masa local.
+    $V_{E1} = 1 \unit{\volt} \text{ a } 5 \unit{\volt}$ referenciados a la masa local (Figura~\ref{fig.ej1:sch_etapa1}).
+
+    \begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american, scale=0.80, transform shape]
+        % Lineas de entrada del lazo de corriente
+        \draw (0, 3.5) node[left] {Lazo $(-)$} to[short, o-] (1.2, 3.5) coordinate(m_in);
+        \draw (0, 0.5) node[left] {Lazo $(+)$} to[short, o-, f=$I_{\text{in}}$] (1.2, 0.5) coordinate(p_in);
+        
+        % Resistencia shunt de entrada y resistencia de modo comun
+        \draw (m_in) to[R, l_={$R_{\text{shunt,in}} = 250\,\Omega$}, *-*] (p_in);
+        \draw (m_in) to[short] (2.2, 3.5) coordinate(rcm_top);
+        \draw (rcm_top) to[R, l_={$R_{\text{CM}} = 1\,\mathrm{M}\Omega$}, *-] (2.2, 1.8) node[ground] {};
+        
+        % Buffer U1A (asociado a Lazo -)
+        \draw (rcm_top) to[short] (3.0, 3.5) -- (3.0, 3.0) coordinate(u1a_in);
+        \draw (4.5, 3.5) node[op amp] (u1a) {};
+        \node[font=\footnotesize] at ($(u1a.center)+(0.1,0)$) {$U_{1A}$};
+        \draw (u1a_in) -- (u1a.+);
+        \draw (u1a.-) -- ++(-0.2, 0) -- ++(0, 0.7) -| ($(u1a.out)+(0.1, 0)$);
+        
+        % Buffer U1B (asociado a Lazo +)
+        \draw (p_in) to[short] (3.0, 0.5) -- (3.0, 1.0) coordinate(u1b_in);
+        \draw (4.5, 0.5) node[op amp, noinv input up] (u1b) {};
+        \node[font=\footnotesize] at ($(u1b.center)+(0.1,0)$) {$U_{1B}$};
+        \draw (u1b_in) -- (u1b.+);
+        \draw (u1b.-) -- ++(-0.2, 0) -- ++(0, -0.7) -| ($(u1b.out)+(0.1, 0)$);
+        
+        % Restador U1C
+        \draw (9.6, 2.0) node[op amp] (u1c) {};
+        \node[font=\footnotesize] at ($(u1c.center)+(0.1,0)$) {$U_{1C}$};
+        
+        % Conexion U1A -> R3 -> U1C(-)
+        \draw ($(u1a.out)+(0.1, 0)$) -- (6.0, 3.5) -- (6.0, 2.5) to[R, l={$R_3 = 10\,\mathrm{k}\Omega$}] (8.1, 2.5) coordinate(n_minus) -- (u1c.-);
+        \draw (n_minus) to[short, *-] (8.1, 3.6) to[R, l={$R_f = 10\,\mathrm{k}\Omega$}] (11.0, 3.6) -- (11.0, 2.0) -- (u1c.out);
+        
+        % Conexion U1B -> R4 -> U1C(+)
+        \draw ($(u1b.out)+(0.1, 0)$) -- (6.0, 0.5) -- (6.0, 1.5) to[R, l_={$R_4 = 10\,\mathrm{k}\Omega$}] (8.1, 1.5) coordinate(n_plus) -- (u1c.+);
+        \draw (n_plus) to[R, l={$R_5 = 10\,\mathrm{k}\Omega$}, *-] (8.1, -0.2) node[ground] {};
+        
+        % Salida VE1
+        \draw (11.0, 2.0) to[short, *-o] (12.2, 2.0) node[right] {$V_{E1}\,(1\text{--}5\,\mathrm{V})$};
+    \end{circuitikz}
+    \caption{Diagrama circuital de la Etapa 1: receptor diferencial e instrumentación ($I \to V$).}
+    \label{fig.ej1:sch_etapa1}
+    \end{figure}
+
     \item \textbf{Etapa 2 (Filtro activo pasa-bajos):} Bloque objeto de cálculo y diseño del grupo, intercalado entre
-    la salida de la Etapa 1 y la entrada de la Etapa 3.
-    \item \textbf{Etapa 3 (Convertidor tensión a corriente $V \to I$):} Fuente de corriente sumidero (*sink*) formada
+    la salida de la Etapa 1 y la entrada de la Etapa 3. Corresponde a una topología Sallen-Key de 2do orden Butterworth con frecuencia de corte nominal $f_c = 10 \unit{\hertz}$ y ganancia unitaria ($K=1$) para atenuar la interferencia de red de $50 \unit{\hertz}$ manteniendo intacto el rango dinámico de $1 \unit{\volt}$ a $5 \unit{\volt}$ (Figura~\ref{fig.ej1:sch_etapa2}).
+
+    \begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american, scale=0.80, transform shape]
+        \draw (0,0) node[left] {$V_{E1}\,(1\text{--}5\,\mathrm{V})$} to[short, o-] (1.0,0)
+              to[R, l={$R_7 = 33\,\mathrm{k}\Omega$}] (3.4,0) coordinate(n1)
+              to[R, l={$R_8 = 33\,\mathrm{k}\Omega$}] (5.8,0) coordinate(n2);
+        
+        \draw (8.2, -0.5) node[op amp, noinv input up] (oa) {};
+        \node[font=\footnotesize] at ($(oa.center)+(0.15,0)$) {$U_{1D}$};
+        \draw (n2) -- (oa.+);
+        
+        \draw (n2) to[C, l_={$C_2 = 330\,\mathrm{nF}$}, *-] (5.8, -2.2) node[ground] {};
+        
+        \draw (n1) to[short, *-] (3.4, 1.8) to[C, l={$C_1 = 470\,\mathrm{nF}$}] (9.8, 1.8) -- (9.8, -0.5) coordinate(out);
+        \draw (oa.out) -- (out) to[short, *-o] (11.0, -0.5) node[right] {$V_{\text{filtro}}\,(1\text{--}5\,\mathrm{V})$};
+        
+        \draw (oa.-) -- (7.0, -1.0) -- (7.0, -1.8) -- (9.2, -1.8) -- (9.2, -0.5);
+    \end{circuitikz}
+    \caption{Diagrama circuital de la Etapa 2: filtro activo pasa-bajos Sallen-Key de 2do orden.}
+    \label{fig.ej1:sch_etapa2}
+    \end{figure}
+
+    \item \textbf{Etapa 3 (Convertidor tensión a corriente $V \to I$):} Fuente de corriente sumidero (\textit{sink}) formada
     por el operacional $U_{2A}$ y un transistor NPN BC337. La tensión filtrada se aplica a la entrada no inversora,
     mientras que la realimentación negativa se toma sobre una resistencia de emisor $R_{\text{shunt,out}} = 250 \unit{\ohm}$.
     La corriente de salida resultante sobre la carga del PLC ($R_{\text{carga}} = 250 \unit{\ohm}$) es
     $I_{\text{out}} \approx V_{\text{filtro}} / 250 \unit{\ohm}$, reinyectando de $4 \unit{\milli\ampere}$ a
-    $20 \unit{\milli\ampere}$ al sistema de control.
+    $20 \unit{\milli\ampere}$ al sistema de control (Figura~\ref{fig.ej1:sch_etapa3}).
+
+    \begin{figure}[H]
+    \centering
+    \begin{circuitikz}[american, scale=0.80, transform shape]
+        % Amplificador operacional U2A
+        \draw (3.0, -0.5) node[op amp, noinv input up] (u2a) {};
+        \node[font=\footnotesize] at ($(u2a.center)+(0.1,0)$) {$U_{2A}$};
+        
+        % Entrada de tension filtrada
+        \draw (0, 0) node[left] {$V_{\text{filtro}}\,(1\text{--}5\,\mathrm{V})$} to[short, o-] (u2a.+);
+        
+        % Resistencia de base RB y transistor NPN Q1
+        \draw (u2a.out) to[R, l={$R_B = 1\,\mathrm{k}\Omega$}] (5.5, -0.5) coordinate(q_base);
+        \draw (6.5, -0.5) node[npn] (q1) {};
+        \node[right, font=\footnotesize] at ($(q1.center)+(0.3,0.3)$) {$Q_1$ (BC337)};
+        \draw (q_base) -- (q1.B);
+        
+        % Circuito de emisor y lazo de realimentacion a entrada inversora
+        \draw (q1.E) to[short, -*] ++(0, -0.6) coordinate(emit_node);
+        \draw (emit_node) -| (1.8, -1.0) -- (u2a.-);
+        \draw (emit_node) to[R, l_={$R_{\text{shunt,out}} = 250\,\Omega$}] ++(0, -1.6) node[ground] {};
+        
+        % Circuito de colector con carga Rcarga (PLC) hacia +24V
+        \draw (q1.C) to[short, f<=$I_{\text{out}}$] ++(0, 0.8)
+              node[right, font=\footnotesize] {$4\text{--}20\,\mathrm{mA}$}
+              to[R, l_={$R_{\text{carga}}\,\text{(PLC)} = 250\,\Omega$}] ++(0, 1.8)
+              to[short, -o] ++(0, 0.4) node[above] {$+24\,\mathrm{V}$};
+    \end{circuitikz}
+    \caption{Diagrama circuital de la Etapa 3: convertidor tensión a corriente ($V \to I$).}
+    \label{fig.ej1:sch_etapa3}
+    \end{figure}
 \end{enumerate}
 
 Todo el módulo utiliza dos circuitos integrados cuádruples LM324, cuya etapa de entrada y salida admite tensiones
@@ -63,32 +163,7 @@ Despejando el valor resistivo teórico para $f_c = 10 \unit{\hertz}$:
 R = \frac{1}{2\pi f_c \sqrt{C_1 C_2}} = \frac{1}{2\pi \times 10 \unit{\hertz} \times \sqrt{470\times 10^{-9} \cdot 330\times 10^{-9}}} = 40.42 \unit{\kilo\ohm}
 \end{equation}
 
-En la práctica se adoptaron resistores de película metálica de $33.0 \unit{\kilo\ohm}$ al $1\%$ en serie con
-potenciómetros de ajuste fino (preset multivuelta), permitiendo calibrar la constante de tiempo frente a la
-dispersión de los capacitores. El esquema eléctrico implementado para esta etapa se presenta en la
-Figura~\ref{fig.ej1:sch_filtro}.
-
-\begin{figure}[!ht]
-\centering
-\begin{circuitikz}[american, scale=0.85, transform shape]
-    \draw (0,0) node[left] {$V_{\text{in}}$} to[short, o-] (0.8,0)
-          to[R, l=$R_7$, a=\SI{33}{\kilo\ohm}] (3.2,0) coordinate(n1)
-          to[R, l=$R_8$, a=\SI{33}{\kilo\ohm}] (5.8,0) coordinate(n2);
-    
-    \draw (8.2, -0.5) node[op amp, noinv input up] (oa) {};
-    \node[font=\footnotesize] at ($(oa.center)+(0.15,0)$) {LM324};
-    \draw (n2) -- (oa.+);
-    
-    \draw (n2) to[C, l=$C_2$, a=\SI{330}{\nano\farad}] (5.8, -2.5) to[short] (5.8, -2.8) node[ground] {};
-    
-    \draw (n1) -- (3.2, 1.8) to[C, l=$C_1$, a=\SI{470}{\nano\farad}] (9.8, 1.8) -- (9.8, -0.5) coordinate(out);
-    \draw (oa.out) -- (out) to[short, -o] (10.8, -0.5) node[right] {$V_{\text{out}}$};
-    
-    \draw (oa.-) -- (7.0, -1.0) -- (7.0, -1.8) -- (9.2, -1.8) -- (9.2, -0.5);
-\end{circuitikz}
-\caption{Diagrama circuital del filtro activo pasa-bajos Sallen-Key de 2do orden (Etapa 2).}
-\label{fig.ej1:sch_filtro}
-\end{figure}
+En la implementación se adoptaron resistores de película metálica de $33.0 \unit{\kilo\ohm}$ al $1\%$ ya que era el valor más cercano que disponíamos y en simulación no se presentaron grandes desviaciones en los parámetros del filtro. El esquema eléctrico implementado para esta etapa corresponde al presentado previamente en la Figura~\ref{fig.ej1:sch_etapa2}.
 
 \subsection{Simulación en Frecuencia (Análisis AC)}
 \label{sec.ej1:sim_ac}
