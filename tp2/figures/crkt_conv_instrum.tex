@@ -1,0 +1,25 @@
+\begin{circuitikz}[american, scale=0.80, transform shape]
+    % Amplificador operacional U2A
+    \draw (3.0, -0.5) node[op amp, noinv input up] (u2a) {};
+    \node[font=\footnotesize] at ($(u2a.center)+(0.1,0)$) {$U_{2A}$};
+    
+    % Entrada de tension filtrada
+    \draw (0, 0) node[left] {$V_{\text{filtro}}\,(1\text{--}5\,\mathrm{V})$} to[short, o-] (u2a.+);
+    
+    % Resistencia de base RB y transistor NPN Q1
+    \draw (u2a.out) to[R, l={$R_B = 1\,\mathrm{k}\Omega$}] (5.5, -0.5) coordinate(q_base);
+    \draw (6.5, -0.5) node[npn] (q1) {};
+    \node[right, font=\footnotesize] at ($(q1.center)+(0.3,0.3)$) {$Q_1$ (BC337)};
+    \draw (q_base) -- (q1.B);
+    
+    % Circuito de emisor y lazo de realimentacion a entrada inversora
+    \draw (q1.E) to[short, -*] ++(0, -0.6) coordinate(emit_node);
+    \draw (emit_node) -| (1.8, -1.0) -- (u2a.-);
+    \draw (emit_node) to[R, l_={$R_{\text{shunt,out}} = 250\,\Omega$}] ++(0, -1.6) node[ground] {};
+    
+    % Circuito de colector con carga Rcarga (PLC) hacia +24V
+    \draw (q1.C) to[short, f<=$I_{\text{out}}$] ++(0, 0.8)
+          node[right, font=\footnotesize] {$4\text{--}20\,\mathrm{mA}$}
+          to[R, l_={$R_L = 250\,\Omega$}] ++(0, 1.8)
+          to[short, -o] ++(0, 0.4) node[above] {$+24\,\mathrm{V}$};
+\end{circuitikz}

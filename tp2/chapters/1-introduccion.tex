@@ -1,31 +1,15 @@
 \chapter{Introducción}
 
-El presente informe expone el diseño analítico, la verificación mediante simulación y la comprobación experimental de
-los circuitos correspondientes al Trabajo Práctico Nº 2 de la cátedra de Teoría de Circuitos II.  La temática abordada
-comprende dos grandes ejes prácticos: el acondicionamiento de señales analógicas de campo dentro de un lazo industrial
-de corriente, y la síntesis e implementación de filtros activos de orden superior empleando diversas aproximaciones
-matemáticas y topologías circuitales.
-
-En los entornos industriales modernos, la transmisión de variables de proceso mediante lazos de corriente de $4
-\unit{\milli\ampere}$ a $20 \unit{\milli\ampere}$ constituye un estándar predominante debido a su inmunidad frente a
-caídas de tensión en conductores extensos y su capacidad de detección de circuito abierto. No obstante, el tendido de
-cables a lo largo de distancias apreciables suele discurrir de manera paralela a líneas de potencia, generando un
-acoplamiento inductivo y capacitivo que introduce interferencias severas de $50 \unit{\hertz}$ y armónicos de
-conmutación de convertidores estáticos. En este marco, se desarrolla un módulo intermedio de filtrado y adaptación
-alimentado con una fuente simple industrial de $+24 \unit{\volt}$, estructurado en tres bloques en cascada: un receptor
-diferencial con amplificador de instrumentación, un filtro activo pasa-bajos de segundo orden, y una etapa convertidora
-de tensión a corriente para su posterior ingreso a un PLC.
-
-En paralelo, se abordan las técnicas formales de síntesis de redes activas para satisfacer tres plantillas de frecuencia
-asignadas por la cátedra. Dichos diseños involucran polinomios de aproximación Butterworth y Chebyshev, implementados
-mediante celdas Sallen-Key y estructuras de realimentación múltiple (MFB), contemplando la distribución de ganancia
-dentro de las propias etapas de filtrado.
+El presente informe expone el diseño analítico, la verificación mediante simulación y la comprobación experimental de un
+circuito de acondicionamiento de señales analógicas de campo dentro de un lazo industrial de corriente y dos circuitos de
+filtros activos de orden superior empleando diversas aproximaciones matemáticas y topologías circuitales, con un tercer
+circuito de filtro que no fue implementado.
 
 \section{Objetivos Generales}
 
 \begin{itemize}
     \item Diseñar y caracterizar estática y dinámicamente un circuito de acondicionamiento de señal para un bucle de $4
-        \unit{\milli\ampere}$ a $20 \unit{\milli\ampere}$ alimentado con fuente unipolar de $+24 \unit{\volt}$.
+        \unit{\milli\ampere}$ a $20 \unit{\milli\ampere}$ alimentado con fuente de $+24 \unit{\volt}$.
     \item Sintetizar tres filtros activos con parámetros asignados: un pasa-bajos de 4to orden (Butterworth, Sallen-Key,
         $f_p = 19 \unit{\kilo\hertz}$, $A_v = 9 \unit{\volt\per\volt}$), un pasa-altos de 4to orden (Chebyshev, MFB,
         $f_p = 11 \unit{\kilo\hertz}$, $A_v = 6 \unit{\volt\per\volt}$) y un pasa-banda de 2do orden (Butterworth,

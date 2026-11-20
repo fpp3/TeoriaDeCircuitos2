@@ -1,0 +1,16 @@
+\begin{circuitikz}[american, scale=0.80, transform shape]
+    \draw (0,0) node[left] {$V_{E1}\,(1\text{--}5\,\mathrm{V})$} to[short, o-] (1.0,0)
+          to[R, l={$R_7$}] (3.4,0) coordinate(n1)
+          to[R, l={$R_8$}] (5.8,0) coordinate(n2);
+    
+    \draw (8.2, -0.5) node[op amp, noinv input up] (oa) {};
+    \node[font=\footnotesize] at ($(oa.center)+(0.15,0)$) {$U_{1D}$};
+    \draw (n2) -- (oa.+);
+    
+    \draw (n2) to[C, l_={$C_2$}, *-] (5.8, -2.2) node[ground] {};
+    
+    \draw (n1) to[short, *-] (3.4, 1.8) to[C, l={$C_1$}] (9.8, 1.8) -- (9.8, -0.5) coordinate(out);
+    \draw (oa.out) -- (out) to[short, *-o] (11.0, -0.5) node[right] {$V_{\text{filtro}}\,(1\text{--}5\,\mathrm{V})$};
+    
+    \draw (oa.-) -- (7.0, -1.0) -- (7.0, -1.8) -- (9.2, -1.8) -- (9.2, -0.5);
+\end{circuitikz}
