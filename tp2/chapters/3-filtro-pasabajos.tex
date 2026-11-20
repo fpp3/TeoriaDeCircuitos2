@@ -198,8 +198,31 @@ de la aproximación Butterworth:
 \label{fig.ej2:bode_ac}
 \end{figure}
 
-\subsection{Comprobación en Osciloscopio Digital (FFT)}
-El circuito fue montado en placa de prueba y ensayado con generador de funciones y osciloscopio Rigol:
+\subsection{Mediciones Temporales y Espectrales en Osciloscopio}
+El circuito fue implementado en placa de circuito impreso (Figura~\ref{fig.ej2:placa}) y ensayado en laboratorio mediante generador de funciones y osciloscopio digital Rigol.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.70\textwidth]{pcb_lpf_sk.jpg}
+\caption{Placa de circuito impreso implementada para el filtro pasa-bajos Sallen-Key de 4to orden.}
+\label{fig.ej2:placa}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.52\textwidth]{lpf_mag.png}
+\caption{Respuesta temporal en banda de paso ($f = 10.0\,\mathrm{kHz}$, base temporal $50.0\,\mu\mathrm{s}/\text{div}$): entrada $V_{\text{pp}} = 1.10\,\mathrm{V}$ (amarillo), salida $V_{\text{pp}} = 9.04\,\mathrm{V}$ (cian).}
+\label{fig.ej2:osc_mag}
+\end{figure}
+
+Los resultados temporales validan el comportamiento amplificador en la banda pasante:
+\begin{itemize}
+    \item \textbf{En banda de paso ($f = 10.0 \unit{\kilo\hertz}$, Figura~\ref{fig.ej2:osc_mag}):} Con una entrada $V_{\text{in}} = 1.10 \unit{\volt}_{\text{pp}}$, la salida alcanza $V_{\text{out}} = 9.04 \unit{\volt}_{\text{pp}}$, arrojando una ganancia de:
+    \begin{equation}
+    A_{v,\text{exp}}(10\text{k}) = \frac{9.04 \unit{\volt}}{1.10 \unit{\volt}} = 8.22 \unit{\volt\per\volt} \implies +18.30 \unit{\decibel}
+    \end{equation}
+    verificando la amplificación requerida de $9.00 \unit{\volt\per\volt}$ ($+19.08 \unit{\decibel}$), con un desvío de $-0.78 \unit{\decibel}$ atribuible a la tolerancia de los componentes comerciales empleados.
+\end{itemize}
 
 \begin{figure}[!ht]
 \centering
@@ -225,10 +248,3 @@ $0.56 \unit{\decibel}$, coincidiendo rigurosamente con la cota impuesta por plan
 Asimismo, en la Figura~\ref{fig.ej2:fft_freq} el cursor $CurA$ fijado en $20.40 \unit{\kilo\hertz}$ demarca el codo
 de caída hacia la banda de parada, con una pendiente de roll-off sumamente pronunciada que sobrepasa los
 $75 \unit{\decibel\per\decade}$, coherente con el orden $n=4$ implementado.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.70\textwidth]{pcb_lpf_sk.jpg}
-\caption{Placa de circuito impreso implementada para el filtro pasa-bajos Sallen-Key de 4to orden.}
-\label{fig.ej2:placa}
-\end{figure}

@@ -13,6 +13,7 @@ hpf_osc_25khz.png: entrada vs salida (25khz, 6 veces de ganancia)
 # LPF (Butterworth Sallen-Key 4to orden)
 lpf_fft_mag.png: FFT amplitud (0.5db)
 lpf_fft_freq.png: FFT frecuencia (fc)
+lpf_mag.png: entrada vs salida (10kHz, ganancia en banda de paso)
 
 # Pictures
 pcb_lazo_4-20ma.jpg: Placa completa acondicionador lazo 4-20mA
