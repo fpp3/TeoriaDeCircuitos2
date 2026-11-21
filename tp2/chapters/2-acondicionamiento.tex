@@ -1,21 +1,19 @@
 \chapter{Acondicionamiento de Señal de Campo}
 
-\section{Estructura del Sistema Según Consigna}
+\section{Estructura del Sistema}
 En un entorno industrial, la transmisión de variables mediante un lazo de corriente de $4 \unit{\milli\ampere}$ a
 $20 \unit{\milli\ampere}$ sobre líneas de gran longitud ($10 \unit{\meter}$) expone a los conductores a
 interferencias electromagnéticas provenientes de la red de potencia ($50 \unit{\hertz}$) y ruido de conmutación.
 Para acondicionar la señal previo a su ingreso a la entrada analógica de un PLC, se establecen las siguientes tres
 etapas de acondicionamiento:
 \begin{enumerate}
-    \item \textbf{$I \to V$ + Amplificador de instrumentación:} Toma el lazo de corriente mediante una
-        resistencia de derivación (\textit{shunt}) de $R_{\text{shunt,in}} = 250 \unit{\ohm}$ ($1\%$), convirtiendo los
-        $4\text{--}20 \unit{\milli\ampere}$ en una tensión diferencial de $1 \unit{\volt}$ a $5 \unit{\volt}$. Posee una
-        resistencia de referencia de modo común $R_{\text{CM}} = 1 \unit{\mega\ohm}$ conectada entre el borne negativo
-        del lazo y GND para fijar el potencial continuo. Cada borne del \textit{shunt} se aísla mediante un seguidor de
-        tensión ($U_{1A}$ y $U_{1B}$) para no cargar la entrada, ingresando luego a un amplificador diferenciador
-        ($U_{1C}$) de ganancia unitaria ($G=1$), entregando $V_{E1} = 1 \unit{\volt} \text{ a } 5 \unit{\volt}$
-        referenciados a la masa local (Figura~\ref{fig.ej1:sch_etapa1}).
-        \begin{figure}[!ht]
+    \item \textbf{$I \to V$ + Amplificador de instrumentación:} Toma el lazo de corriente mediante una resistencia de
+        shunt de $R_{\text{shunt}} = 250 \unit{\ohm}$ ($1\%$), convirtiendo los $4\text{--}20 \unit{\milli\ampere}$ en
+        una tensión de $1 \unit{\volt}$ a $5 \unit{\volt}$. Posee una resistencia de referencia de modo común conectada
+        entre el borne negativo del lazo y GND para fijar el potencial continuo. Cada borne del shunt se aísla mediante
+        un seguidor de tensión ($U_{1A}$ y $U_{1B}$) para no cargar la entrada, ingresando luego a un amplificador
+        diferenciador ($U_{1C}$) de ganancia unitaria, entregando $V_{E1} = 1 \unit{\volt} \text{ a } 5 \unit{\volt}$
+        referenciados a la masa local (Figura~\ref{fig.ej1:sch_etapa1}).  \begin{figure}[!ht]
             \centering
             \input{figures/crkt_ampl_instrum.tex}
             \caption{Esquematico de la conversion $I \to V$ y el amplificador de instrumentación.}
@@ -47,8 +45,7 @@ etapas de acondicionamiento:
         \end{figure}
 \end{enumerate}
 
-Todo el módulo utiliza dos circuitos integrados cuádruples LM324, cuya etapa de entrada y salida admite tensiones
-próximas a $0 \unit{\volt}$, indispensable bajo régimen de alimentación unipolar de $+24 \unit{\volt}$.
+Todo el módulo utiliza dos circuitos integrados LM324.
 
 \section{Diseño y Cálculo del Filtro Activo Pasa-Bajos}
 El filtro pasa-bajos activo a diseñar debe satisfacer los siguientes requerimientos:
@@ -95,7 +92,7 @@ Se simuló la respuesta en frecuencia en pequeña señal del bloque acondicionad
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_sim_bode_amp_ins.tex}
-    \caption{Simulación de respuesta en frecuencia (magnitud) del filtro del acondicionador de campo.}
+    \caption{Simulación de respuesta en frecuencia del filtro.}
     \label{fig.ej1:bode_ac}
 \end{figure}
 
@@ -104,7 +101,7 @@ Para la medicion y verificacion de los parametros de diseño, se implemeotó la 
 Figura~\ref{fig.ej1:placa}.
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.70\textwidth]{pcb_lazo_4-20ma.jpg}
+    \includegraphics[width=0.60\textwidth]{pcb_lazo_4-20ma.jpg}
     \caption{Placa de circuito impreso implementada.}
     \label{fig.ej1:placa}
 \end{figure}
@@ -142,7 +139,7 @@ registrando simultáneamente las tensiones y la corriente de salida hacia el PLC
 \end{table}
 
 \subsection{Caracterización Dinámica}
-Se inyectó una señal senoidal de $V_i = 4.521 \unit{\volt}_{\text{pp}}$ con offset de continua y se barrieron
+Se inyectó una señal senoidal de $V_i = 4.5 \unit{\volt}_{\text{pp}}$ con offset de continua y se barrieron
 frecuencias desde $1 \unit{\hertz}$ hasta $70 \unit{\hertz}$ (Tabla~\ref{tab.ej1:dinamica}).
 
 \begin{table}[!ht]
