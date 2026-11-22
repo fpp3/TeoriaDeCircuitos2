@@ -1,8 +1,6 @@
 \chapter{Filtro Pasa-Bajos Activo}
-\label{sec.ej2:filtro_lpf}
 
 \section{Especificaciones y Topología Circuital}
-\label{sec.ej2:especificaciones}
 El primer filtro asignado consiste en un filtro pasa-bajos activo de cuarto orden con aproximación Butterworth y
 topología Sallen-Key. Las especificaciones requeridas son:
 
@@ -17,12 +15,11 @@ El esquemático del filtro se presenta en la Figura~\ref{fig.ej2:sch}.
 \begin{figure}[!ht]
     \centering
     \input{figures/crkt_lpf.tex}
-    \caption{Diagrama circuital esquemático del filtro pasa-bajos activo Sallen-Key de 4to orden.}
+    \caption{Esquemático del filtro pasa-bajos activo.}
     \label{fig.ej2:sch}
 \end{figure}
 
 \section{Deducción Analítica de Componentes}
-\label{sec.ej2:deduccion_sk}
 La topología Sallen-Key pasa-bajos de segundo orden emplea dos resistores en serie ($R_1, R_2$), un capacitor a masa
 ($C_1$), un capacitor de realimentación positiva ($C_2$) y un divisor resistivo no inversor ($R_3, R_4$) que fija la
 ganancia $K = 1 + R_4/R_3$.
@@ -33,7 +30,6 @@ de la siguiente manera:
     \item En la entrada no inversora ($V_+$), concurren la resistencia $R_2$ desde el nodo intermedio $V_1$ y el
         capacitor a masa $C_1$:
         \begin{equation}
-            \label{eq.ej2:kcl_noinv}
             \frac{V_+ - V_1}{R_2} + V_+ s C_1 = 0 \implies V_1 = V_+ (1 + s R_2 C_1)
         \end{equation}
 
@@ -49,7 +45,6 @@ de la siguiente manera:
 Reemplazando $V_1$ y $V_+$ en la Ecuación~(\ref{eq.ej2:kcl_nodo1}) y multiplicando miembro a miembro por $K R_1 R_2$, se
 obtiene la función de transferencia canónica de segundo orden de la celda pasa-bajos:
 \begin{equation}
-    \label{eq.ej2:transferencia_sk}
     H_{\text{SK}}(s) = \frac{V_o(s)}{V_i(s)} = \frac{\frac{K}{R_1 R_2 C_1 C_2}}{s^2 + s \left[ \frac{1}{R_1 C_2} + \frac{1}{R_2 C_2} + \frac{1 - K}{R_2 C_1} \right] + \frac{1}{R_1 R_2 C_1 C_2}}
 \end{equation}
 
@@ -61,30 +56,25 @@ se obtienen directamente los parámetros característicos de la etapa:
 \begin{itemize}
     \item \textbf{Ganancia en continua ($s \to 0$):}
         \begin{equation}
-            \label{eq.ej2:ganancia_sk}
             K = 1 + \frac{R_4}{R_3}
         \end{equation}
     \item \textbf{Pulsación natural de corte ($\omega_0$):}
         \begin{equation}
-            \label{eq.ej2:w0_sk}
             \omega_0 = \sqrt{a_0} = \frac{1}{\sqrt{R_1 R_2 C_1 C_2}}
         \end{equation}
     \item \textbf{Factor de calidad ($Q$):}
         \begin{equation}
-            \label{eq.ej2:q_sk}
             Q = \frac{\omega_0}{a_1} = \frac{\sqrt{R_1 R_2 C_1 C_2}}{(R_1 + R_2) C_1 + R_1 (1 - K) C_2}
         \end{equation}
 \end{itemize}
 
 \section{Síntesis de Butterworth y Cálculo de Componentes}
-\label{sec.ej2:sintesis}
 
 \subsection{Polinomio de Aproximación y Factores de Calidad}
 Para una aproximación Butterworth de orden $n = 4$, los polos se ubican sobre la circunferencia unitaria en $\theta_k =
 180^\circ \pm (2k - 1) \cdot 22.5^\circ$ ($k = 1, 2$), descomponiéndose el polinomio denominador normalizado en el
 producto de dos factores cuadráticos \cite{pactitis2001}:
 \begin{equation}
-    \label{eq.ej2:polos_butter}
     B_4(s_n) = (s_n^2 + a_1 s_n + b_1)(s_n^2 + a_2 s_n + b_2) = (s_n^2 + 1.8478 s_n + 1)(s_n^2 + 0.7654 s_n + 1)
 \end{equation}
 
@@ -111,15 +101,13 @@ Para optimizar el comportamiento global de la cadena activa:
     \item \textbf{Reparto de ganancia:} La ganancia total requerida de $A_v = 9.00 \unit{\volt\per\volt}$ ($+19.08
         \unit{\decibel}$) se distribuye simétricamente asignando $K_1 = 3.00 \unit{\volt\per\volt}$ y $K_2 = 3.00
         \unit{\volt\per\volt}$:
-        \begin{equation}
-            \label{eq.ej2:ganancia_distribuida}
+        \begin{equation*}
             A_{v,\text{total}} = K_1 \cdot K_2 = 3.00 \times 3.00 = 9.00 \unit{\volt\per\volt} \implies +19.08 \unit{\decibel}
-        \end{equation}
+        \end{equation*}
         Adoptando $R_3 = R_7 = 10.0 \unit{\kilo\ohm}$ y $R_4 = R_8 = 20.0 \unit{\kilo\ohm}$, se verifica $K = 1 + 20\text{k}/10\text{k} = 3.00$ en ambas etapas.
 \end{itemize}
 
 \subsection{Determinación de Componentes del Filtro}
-\label{sec.ej2:componentes}
 El dimensionamiento circuital se realiza calculando los capacitores normalizados mediante el método de resistencias
 unitarias ($R_{n1} = R_{n2} = 1.0 \unit{\ohm}$) y luego escalando en frecuencia e impedancia \cite{pactitis2001}.
 
@@ -127,7 +115,6 @@ unitarias ($R_{n1} = R_{n2} = 1.0 \unit{\ohm}$) y luego escalando en frecuencia 
 Con $\omega_n = 1.0 \unit{\radian\per\second}$ y $b_i = 1.0$, la relación cuadrática para los capacitores normalizados de
 cada celda con ganancia $K_i$ resulta:
 \begin{equation}
-    \label{eq.ej2:cn1_cn2}
     C_{n1} = \frac{a_i + \sqrt{a_i^2 + 8(K_i - 1)}}{4}, \qquad C_{n2} = \frac{1}{C_{n1}}
 \end{equation}
 
@@ -196,7 +183,6 @@ En la Tabla~\ref{tab.ej2:resumen_componentes} se resume el diseño completo del 
 \end{table}
 
 \section{Simulación y Ensayos de Laboratorio}
-\label{sec.ej2:validacion}
 
 \subsection{Simulación de la Respuesta en Frecuencia}
 La respuesta en frecuencia del filtro se simuló utilizando el modelo del amplificador operacional LM324 y los
@@ -218,7 +204,7 @@ La curva de magnitud resultante se presenta en la Figura~\ref{fig.ej2:bode_ac}:
 \begin{figure}[!ht]
     \centering
     \input{figures/plot_sim_bode_lpf.tex}
-    \caption{Simulación de respuesta en frecuencia del filtro pasa-bajos Sallen-Key de 4to orden.}
+    \caption{Simulación de respuesta en frecuencia del filtro pasa bajos.}
     \label{fig.ej2:bode_ac}
 \end{figure}
 
@@ -229,14 +215,14 @@ mediante generador de funciones y osciloscopio digital.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.62\textwidth]{pcb_lpf_sk.jpg}
-    \caption{Placa de circuito impreso implementada para el filtro activo pasa-bajos Sallen-Key de 4to orden.}
+    \caption{Placa de circuito impreso implementada para el filtro activo pasa bajos.}
     \label{fig.ej2:placa}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.48\textwidth]{lpf_mag.png}
-    \caption{Respuesta temporal en banda de paso ($f = 10.0\,\mathrm{kHz}$): entrada $V_{\text{in}} = 1.10\,\mathrm{V}_{\text{pp}}$ (amarillo) y salida $V_{\text{out}} = 9.04\,\mathrm{V}_{\text{pp}}$ (cian).}
+    \caption{Respuesta temporal en banda de paso: entrada (amarillo) y salida (cian).}
     \label{fig.ej2:osc_mag}
 \end{figure}
 
@@ -257,17 +243,17 @@ Los resultados temporales validan el comportamiento amplificador en la banda pas
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{lpf_fft_mag.png}
-        \caption{Espectro FFT del pasa-bajos: cursores de amplitud en $\Delta Y = 0.56\,\mathrm{dB}$ ($CurA = 8.00\,\mathrm{dB}$, $CurB = 7.44\,\mathrm{dB}$).}
+        \caption{Espectro FFT del pasa bajos: cursores de amplitud en $\Delta Y = 0.56\,\mathrm{dB}$.}
         \label{fig.ej2:fft_amp}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{lpf_fft_freq.png}
-        \caption{Espectro FFT del pasa-bajos: cursores de frecuencia ($CurA = 20.40\,\mathrm{kHz}$, $CurB = 58.60\,\mathrm{kHz}$).}
+        \caption{Espectro FFT del pasa bajos: cursores de frecuencia ($f_c = 20.40\,\mathrm{kHz}$).}
         \label{fig.ej2:fft_freq}
     \end{subfigure}
-    \caption{Análisis espectral por FFT del filtro pasa-bajos Sallen-Key en osciloscopio digital.}
+    \caption{Análisis por FFT del filtro pasa-bajos en el osciloscopio.}
     \label{fig.ej2:fft_lpf}
 \end{figure}
 

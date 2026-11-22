@@ -20,17 +20,17 @@
     % Linea de ganancia en banda de paso
     \draw[dashed, color=gray!80!black] (axis cs:500, 15.66) -- (axis cs:500000, 15.66);
     \node[anchor=south east, font=\scriptsize, text=gray!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
-      at (axis cs:400000, 16.5) {$A_{v,\text{banda}} = \SI{15.66}{\decibel}$ ($6.07\,\mathrm{V/V}$, nominal $\SI{15.56}{\decibel}$)};
+      at (axis cs:400000, 16.5) {$A_{v,\text{banda}} = \SI{15.66}{\decibel}$};
 
     % Frecuencia límite de banda de paso (fp = 11 kHz, cota de rizado 0.1 dB)
     \draw[dotted, thick, color=teal!80!black] (axis cs:11000, -40) -- (axis cs:11000, 15.20)
-      node[pos=0.45, right=2pt, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_p = \SI{11.0}{\kilo\hertz}$ (borde banda paso, rizado $\le \SI{0.1}{\decibel}$)};
+      node[pos=0.45, right=2pt, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_p = \SI{11.0}{\kilo\hertz}$};
     \addplot[only marks, mark=square*, mark size=2.2pt, color=teal!80!black] coordinates {(11000, 15.20)};
 
     % Nivel de -3 dB
     \draw[dotted, thick, color=red!80!black] (axis cs:500, 12.66) -- (axis cs:500000, 12.66);
     \node[anchor=north east, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
-      at (axis cs:400000, 12.2) {Nivel $-\SI{3}{\decibel}$ respecto a banda ($\SI{12.66}{\decibel}$)};
+      at (axis cs:400000, 12.2) {Nivel $-\SI{3}{\decibel}$};
 
     % Frecuencia de corte a -3 dB (fc ~ 9.2 kHz)
     \draw[dotted, thick, color=red!80!black] (axis cs:9200, -40) -- (axis cs:9200, 12.66)
