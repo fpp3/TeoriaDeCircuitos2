@@ -24,22 +24,23 @@
 
     % Linea de cota de banda pasante -0.5 dB
     \draw[dotted, thick, color=teal!80!black] (axis cs:100, 18.58) -- (axis cs:500000, 18.58);
-    \node[anchor=north west, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
-      at (axis cs:1000, 18.2) {Cota $-\SI{0.5}{\decibel}$ ($\SI{18.58}{\decibel}$)};
 
-    % Frecuencia de banda pasante (dato fp = 19 kHz)
-    \draw[dotted, thick, color=teal!80!black] (axis cs:19000, -40) -- (axis cs:19000, 18.58)
-      node[pos=0.45, left=2pt, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_p = \SI{19.0}{\kilo\hertz}$ (dato)};
-    \addplot[only marks, mark=square*, mark size=2.2pt, color=teal!80!black] coordinates {(19000, 18.58)};
+    % Frecuencia de banda pasante (dato fp = 19 kHz, ganancia simulada 18.29 dB)
+    \draw[dotted, thick, color=teal!80!black] (axis cs:19000, -40) -- (axis cs:19000, 18.29)
+      node[pos=0.45, left=2pt, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_p = \SI{19.0}{\kilo\hertz}$ ($\SI{18.29}{\decibel}$)};
+    \addplot[only marks, mark=square*, mark size=2.2pt, color=teal!80!black] coordinates {(19000, 18.29)};
 
     % Linea de -3 dB
-    \draw[dotted, thick, color=red!80!black] (axis cs:100, 16.08) -- (axis cs:500000, 16.08);
+    \draw[dotted, thick, color=red!80!black] (axis cs:100, 16.07) -- (axis cs:500000, 16.07);
     \node[anchor=north west, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] 
-      at (axis cs:150, 14.8) {Nivel $-\SI{3}{\decibel}$ ($\SI{16.08}{\decibel}$)};
+      at (axis cs:150, 14.8) {Nivel $-\SI{3}{\decibel}$ ($\SI{16.07}{\decibel}$)};
 
-    % Frecuencia de corte calculada a -3 dB (fc = 22.5 kHz)
-    \draw[dotted, thick, color=red!80!black] (axis cs:22500, -40) -- (axis cs:22500, 16.08)
-      node[pos=0.25, right=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_c \approx \SI{22.5}{\kilo\hertz}$ ($-\SI{3}{\decibel}$)};
-    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(22500, 16.08)};
+    \node[anchor=north west, font=\scriptsize, text=teal!80!black, fill=white, fill opacity=0.9, text opacity=1, inner sep=1pt] 
+      at (axis cs:1500, 18.4) {Cota $-\SI{0.5}{\decibel}$ ($\SI{18.58}{\decibel}$)};
+
+    % Frecuencia de corte simulada a -3 dB (fc = 24.2 kHz)
+    \draw[dotted, thick, color=red!80!black] (axis cs:24200, -40) -- (axis cs:24200, 16.07)
+      node[pos=0.25, right=2pt, font=\scriptsize, text=red!80!black, fill=white, fill opacity=0.85, text opacity=1, inner sep=1.5pt] {$f_c \approx \SI{24.2}{\kilo\hertz}$ ($-\SI{3}{\decibel}$)};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=red!80!black] coordinates {(24200, 16.07)};
   \end{axis}
 \end{tikzpicture}

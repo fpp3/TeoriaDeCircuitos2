@@ -1,0 +1,31 @@
+\begin{circuitikz}[american, scale=0.74, transform shape]
+    % ==================== ETAPA 1 ====================
+    \draw (0,0) node[left] {$V_{\text{in}}$} to[short, o-] (0.8,0)
+          to[R, l=$R_1$] (2.8,0) coordinate(n1)
+          to[R, l=$R_2$] (5.0,0) coordinate(n2);
+    \draw (7.5, -0.5) node[op amp, noinv input up] (oa1) {};
+    \node[font=\footnotesize] at ($(oa1.center)+(0.15,0)$) {$U_{1A}$};
+    \draw (n2) -- (oa1.+);
+    \draw (n2) to[C, l=$C_1$] (5.0, -2.5) to[short] (5.0, -2.8) node[ground] {};
+    \draw (n1) -- (2.8, 1.8) to[C, l=$C_2$] (9.2, 1.8) -- (9.2, -0.5) coordinate(out1);
+    \draw (oa1.out) -- (out1);
+
+    \draw (oa1.-) -- (6.3, -1.0) -- (6.3, -2.2) coordinate(fb1);
+    \draw (fb1) to[R, a=$R_3$] (6.3, -4.2) to[short] (6.3, -4.6) node[ground] {};
+    \draw (fb1) to[R, l=$R_4$] (9.2, -2.2) -- (out1);
+
+    % ==================== ETAPA 2 ====================
+    \draw (out1) to[short] (10.2, -0.5)
+          to[R, l=$R_5$] (12.2, -0.5) coordinate(n3)
+          to[R, l=$R_6$] (14.2, -0.5) coordinate(n4);
+    \draw (17.0, -1.0) node[op amp, noinv input up] (oa2) {};
+    \node[font=\footnotesize] at ($(oa2.center)+(0.15,0)$) {$U_{1B}$};
+    \draw (n4) -- (oa2.+);
+    \draw (n4) to[C, l=$C_3$] (14.2, -2.8) to[short] (14.2, -3.1) node[ground] {};
+    \draw (n3) -- (12.2, 1.8) to[C, l=$C_4$] (18.8, 1.8) -- (18.8, -1.0) coordinate(out2);
+    \draw (oa2.out) -- (out2) to[short, -o] (19.8, -1.0) node[right] {$V_{\text{out}}$};
+
+    \draw (oa2.-) -- (15.8, -1.5) -- (15.8, -2.7) coordinate(fb2);
+    \draw (fb2) to[R, a=$R_7$] (15.8, -4.7) to[short] (15.8, -5.1) node[ground] {};
+    \draw (fb2) to[R, l=$R_8$] (18.8, -2.7) -- (out2);
+\end{circuitikz}
